@@ -1,0 +1,189 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report59
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 4423)
+(mongoose.c : 4855)
+
+---- Part 1: Dataflow Result ---- 
+[ 3553 3554 3555 3556 3557 3558 3559 3561 3562 3563 3564 3565 3566 3568 3570 3571 3579 3619 fp 3622 3623 3624 3625 3390 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3561:	getelementptr	conn XXX XXX 
+%3562:	load	%3561 
+%3563:	getelementptr	%3562 XXX XXX 
+%3564:	getelementptr	%3563 XXX XXX 
+%3565:	load	%3564 
+%3566:	call	%3565 XXX fopen 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+%3579:	call	%3568 flockfile 
+%3619:	call	%3568 XXX %3584 %3593 %3594 %3603 %3612 %3614 %3616 %3618 fprintf 
+Function args: fp
+%3622:	call	XXX %3568 fputc 
+%3623:	call	%3568 fflush 
+%3624:	call	%3568 funlockfile 
+%3625:	call	%3568 fclose 
+%3390:	call	conn log_access 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 3579 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+%3579:	call	%3568 flockfile 
+Function: log_access(...) Location: (mongoose.c:4440)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 3579 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+%3579:	call	%3568 flockfile 
+Function: log_access(...) Location: (mongoose.c:4439)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 3579 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+%3579:	call	%3568 flockfile 
+Function: log_access(...) Location: (mongoose.c:4438)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 3579 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+%3579:	call	%3568 flockfile 
+Function: log_access(...) Location: (mongoose.c:4437)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 3579 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+%3579:	call	%3568 flockfile 
+Function: log_access(...) Location: (mongoose.c:4435)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+Function: log_access(...) Location: (mongoose.c:4432)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+Function: log_access(...) Location: (mongoose.c:4430)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3568 3570 3571 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3568:	phi	XXX %3566 
+%3570:	icmp	%3568 XXX 
+%3571:	br	%3570 if.end if.then 
+Function: log_access(...) Location: (mongoose.c:4429)
+
+---- Part 3: Path Intersection ----
+[ 3553 3554 3555 3556 3557 3558 3559 3561 ]
+%3553:	getelementptr	conn XXX XXX 
+%3554:	load	%3553 
+%3555:	getelementptr	%3554 XXX XXX 
+%3556:	getelementptr	%3555 XXX XXX 
+%3557:	load	%3556 
+%3558:	icmp	%3557 XXX 
+%3559:	br	%3558 cond.false cond.true 
+%3561:	getelementptr	conn XXX XXX 
+Function: log_access(...) Location: (mongoose.c:4424)
+
+   # of detected potential vulnerabilities: 9
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,71 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report52
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 4626)
+
+---- Part 1: Dataflow Result ---- 
+[ 7765 7766 7767 7768 ]
+%7765:	getelementptr	ctx XXX XXX 
+%7766:	load	%7765 
+%7767:	icmp	%7766 XXX 
+%7768:	br	%7767 if.end if.then 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 7765 7766 7767 7768 ]
+%7765:	getelementptr	ctx XXX XXX 
+%7766:	load	%7765 
+%7767:	icmp	%7766 XXX 
+%7768:	br	%7767 if.end if.then 
+Function: uninitialize_ssl(...) Location: (mongoose.c:4629)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 3: Path Intersection ----
+[ 7765 7766 7767 7768 ]
+%7765:	getelementptr	ctx XXX XXX 
+%7766:	load	%7765 
+%7767:	icmp	%7766 XXX 
+%7768:	br	%7767 if.end if.then 
+Function: uninitialize_ssl(...) Location: (mongoose.c:4632)
+
+---- Part 3: Path Intersection ----
+[ 7765 7766 7767 7768 ]
+%7765:	getelementptr	ctx XXX XXX 
+%7766:	load	%7765 
+%7767:	icmp	%7766 XXX 
+%7768:	br	%7767 if.end if.then 
+Function: uninitialize_ssl(...) Location: (mongoose.c:4631)
+
+---- Part 3: Path Intersection ----
+[ 7765 7766 7767 7768 ]
+%7765:	getelementptr	ctx XXX XXX 
+%7766:	load	%7765 
+%7767:	icmp	%7766 XXX 
+%7768:	br	%7767 if.end if.then 
+Function: uninitialize_ssl(...) Location: (mongoose.c:4627)
+
+   # of detected potential vulnerabilities: 3
+*********************************************************
+

@@ -1,0 +1,53 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report506
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sockets.c : 149)
+-------------------------
+  %pool = getelementptr inbounds %struct.apr_socket_t* %thesocket, i32 0, i32 0, !dbg !45693
+-------------------------
+(sockets.c : 373)
+(worker.c : 238)
+(worker.c : 539)
+(worker.c : 294)
+(worker.c : 894)
+(worker.c : 1275)
+(thread.c : 142)
+(worker.c : 1341)
+
+---- Part 1: Dataflow Result ---- 
+[ 129339 129340 p 129342 129343 110960 ]
+%129339:	getelementptr	thesocket XXX XXX  Location: (sockets.c:149)
+%129340:	load	%129339  Location: (sockets.c:149)
+Function args: p
+%129342:	call	%129340 %129341 socket_cleanup871 apr_pool_cleanup_run  Location: (sockets.c:149)
+%129343:	ret	%129342  Location: (sockets.c:149)
+%110960:	call	%110959 apr_socket_close  Location: (worker.c:238)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

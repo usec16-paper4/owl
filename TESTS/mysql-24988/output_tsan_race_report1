@@ -1,0 +1,158 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport tsan_race_report1
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(os0file.c : 3787)
+-------------------------
+  %6 = load i64* @os_aio_recommend_sleep_for_read_threads, align 8, !dbg !172648
+-------------------------
+(fil0fil.c : 4131)
+(srv0start.c : 446)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 597195 597196 597197 558838 558841 558843 558844 558845 558846 427512 ]
+%597195:	load	os_aio_recommend_sleep_for_read_threads  Location: (os0file.c:3787)
+%597196:	icmp	%597195 XXX  Location: (os0file.c:3786)
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+%558838:	call	segment %558813 %558814 %558815 os_aio_simulated_handle  Location: (fil0fil.c:4131)
+%558841:	phi	XXX %558838 
+%558843:	icmp	%558841 XXX  Location: (fil0fil.c:4135)
+%558844:	xor	%558843 XXX  Location: (fil0fil.c:4135)
+%558845:	zext	%558844  Location: (fil0fil.c:4135)
+%558846:	sext	%558845  Location: (fil0fil.c:4135)
+%427512:	call	%427507 fil_aio_wait  Location: (srv0start.c:446)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (os0sync.c:317)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (os0sync.c:319)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (os0sync.c:322)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (os0sync.c:323)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (os0sync.c:325)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (os0sync.c:336)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:181)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:190)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:198)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:202)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:203)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:204)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:211)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 597197 ]
+%597197:	br	%597196 if.end if.then  Location: (os0file.c:3786)
+Dangerous Operation Location: (thr_mutex.c:222)
+
+   # of detected potential vulnerabilities: 21
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

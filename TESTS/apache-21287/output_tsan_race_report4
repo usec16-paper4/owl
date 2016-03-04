@@ -1,0 +1,214 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-21287
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-21287/apache-21287.bc --ptrderef --danfunc --raceReport tsan_race_report4
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mod_mem_cache.c : 354)
+(apr_pools.c : 1994)
+(apr_pools.c : 763)
+(http_core.c : 302)
+(connection.c : 85)
+(connection.c : 211)
+(worker.c : 632)
+(worker.c : 946)
+(thread.c : 127)
+
+---- Part 1: Dataflow Result ---- 
+[ 41369 41370 41371 41372 103625 ]
+%41369:	getelementptr	%41310 XXX XXX  Location: (mod_mem_cache.c:354)
+%41370:	load	%41369  Location: (mod_mem_cache.c:354)
+%41371:	icmp	%41370 XXX  Location: (mod_mem_cache.c:354)
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+%103625:	call	%103624 %103622  Location: (apr_pools.c:1994)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:262)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:271)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:272)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:274)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:275)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:278)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:280)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:281)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:291)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:292)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:294)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:298)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:302)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:303)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:306)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:307)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:309)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:311)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:312)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:313)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:314)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:316)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:317)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:318)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:319)
+
+   # of detected potential vulnerabilities: 31
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:287)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 41372 ]
+%41372:	br	%41371 if.end22 if.then21  Location: (mod_mem_cache.c:354)
+Dangerous Operation Location: (mod_mem_cache.c:321)
+
+   # of detected potential vulnerabilities: 2
+*********************************************************
+

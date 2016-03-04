@@ -1,0 +1,3 @@
+conn_new (memcached.c:432)
+thread_libevent_process (thread.c:400)
+event_persist_closure (event.c:1291)

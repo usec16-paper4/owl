@@ -1,0 +1,66 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report560
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sockets.c : 35)
+-------------------------
+  %socketdes = getelementptr inbounds %struct.apr_socket_t* %0, i32 0, i32 1, !dbg !45696
+-------------------------
+(apr_pools.c : 2297)
+(sockets.c : 149)
+(worker.c : 238)
+(worker.c : 294)
+(worker.c : 1275)
+(worker.c : 1341)
+(worker.c : 1543)
+(worker.c : 1646)
+(worker.c : 1748)
+(main.c : 740)
+
+---- Part 1: Dataflow Result ---- 
+[ 140744 140745 140746 140747 140748 140749 140750 ]
+%140744:	getelementptr	%140742 XXX XXX  Location: (sockets.c:35)
+%140745:	load	%140744  Location: (sockets.c:35)
+%140746:	call	%140745 close  Location: (sockets.c:35)
+%140747:	icmp	%140746 XXX  Location: (sockets.c:35)
+%140748:	br	%140747 if.else if.then  Location: (sockets.c:35)
+%140749:	getelementptr	%140742 XXX XXX  Location: (sockets.c:36)
+%140750:	store	XXX %140749  Location: (sockets.c:36)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 140744 140745 140746 140747 140748 140749 ]
+%140744:	getelementptr	%140742 XXX XXX  Location: (sockets.c:35)
+%140745:	load	%140744  Location: (sockets.c:35)
+%140746:	call	%140745 close  Location: (sockets.c:35)
+%140747:	icmp	%140746 XXX  Location: (sockets.c:35)
+%140748:	br	%140747 if.else if.then  Location: (sockets.c:35)
+%140749:	getelementptr	%140742 XXX XXX  Location: (sockets.c:36)
+Function: socket_cleanup871(...) Location: (sockets.c:36)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

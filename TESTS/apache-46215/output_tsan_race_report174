@@ -1,0 +1,93 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report174
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mod_log_config.c : 584)
+-------------------------
+  %arrayidx = getelementptr inbounds [4 x %struct.cached_request_time]* @request_time_cache, i32 0, i64 %idxprom, !dbg !45721
+-------------------------
+-------------------------
+  %5 = bitcast %struct.cached_request_time* %3 to i8*, !dbg !45721
+-------------------------
+(mod_log_config.c : 912)
+(mod_log_config.c : 975)
+(mod_log_config.c : 1006)
+(protocol.c : 1671)
+(http_request.c : 284)
+(http_core.c : 190)
+(connection.c : 43)
+(connection.c : 178)
+(worker.c : 544)
+(worker.c : 894)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 74353 74355 73072 73074 73075 73078 73080 73081 72958 72961 72960 72822 ]
+%74353:	getelementptr	request_time_cache XXX %74352  Location: (mod_log_config.c:584)
+%74355:	bitcast	%74353  Location: (mod_log_config.c:584)
+%73072:	call	%73069 %73071 %73062  Location: (mod_log_config.c:912)
+%73074:	icmp	%73072 XXX  Location: (mod_log_config.c:913)
+%73075:	br	%73074 cond.false21 cond.true20  Location: (mod_log_config.c:913)
+%73078:	phi	%73072 XXX  Location: (mod_log_config.c:913)
+%73080:	phi	XXX %73078 
+%73081:	ret	%73080  Location: (mod_log_config.c:914)
+%72958:	call	%72940 %72930 %72957 process_item  Location: (mod_log_config.c:975)
+%72961:	store	%72958 %72960  Location: (mod_log_config.c:975)
+%72960:	getelementptr	%72913 %72959  Location: (mod_log_config.c:975)
+%72822:	call	r %72818 %72821 config_log_transaction  Location: (mod_log_config.c:1006)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 74354 73072 73074 73075 73078 73080 73081 72958 72961 72960 72822 ]
+%74354:	bitcast	%74342  Location: (mod_log_config.c:584)
+%73072:	call	%73069 %73071 %73062  Location: (mod_log_config.c:912)
+%73074:	icmp	%73072 XXX  Location: (mod_log_config.c:913)
+%73075:	br	%73074 cond.false21 cond.true20  Location: (mod_log_config.c:913)
+%73078:	phi	%73072 XXX  Location: (mod_log_config.c:913)
+%73080:	phi	XXX %73078 
+%73081:	ret	%73080  Location: (mod_log_config.c:914)
+%72958:	call	%72940 %72930 %72957 process_item  Location: (mod_log_config.c:975)
+%72961:	store	%72958 %72960  Location: (mod_log_config.c:975)
+%72960:	getelementptr	%72913 %72959  Location: (mod_log_config.c:975)
+%72822:	call	r %72818 %72821 config_log_transaction  Location: (mod_log_config.c:1006)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

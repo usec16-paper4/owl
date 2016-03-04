@@ -1,0 +1,230 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_race_report65
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mi_locking.c : 82)
+(ha_myisam.cc : 1878)
+(handler.cc : 4554)
+(lock.cc : 786)
+(lock.cc : 391)
+(sql_base.cc : 1336)
+(sql_acl.cc : 3821)
+(sql_parse.cc : 6763)
+(sql_parse.cc : 3945)
+(sql_parse.cc : 5929)
+(sql_parse.cc : 1216)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:133)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:131)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:128)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:126)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:124)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:121)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:119)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:116)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:115)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:112)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:109)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:108)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:107)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:106)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:103)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:102)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:101)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:100)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:99)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:98)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:95)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:94)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:93)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:92)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:91)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:90)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:88)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:87)
+
+---- Part 3: Path Intersection ----
+[ 579081 579082 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+%579082:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:84)
+
+---- Part 3: Path Intersection ----
+[ 579081 ]
+%579081:	br	do.body76  Location: (mi_locking.c:82)
+Function: mi_lock_database(...) Location: (mi_locking.c:82)
+
+   # of detected potential vulnerabilities: 30
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

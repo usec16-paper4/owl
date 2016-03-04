@@ -1,0 +1,2 @@
+handle_connections_sockets (mysqld.cc:3978)
+main (mysqld.cc:3525)

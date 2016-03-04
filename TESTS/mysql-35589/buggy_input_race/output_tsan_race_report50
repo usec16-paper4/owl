@@ -1,0 +1,676 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_race_report50
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(my_bitmap.h : 141)
+(field.cc : 7821)
+(field.h : 121)
+(table.cc : 2614)
+(sql_acl.cc : 513)
+(sql_acl.cc : 719)
+(sql_parse.cc : 6762)
+(sql_parse.cc : 3945)
+(sql_parse.cc : 5929)
+(sql_parse.cc : 1216)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 24686 24687 24691 24692 24693 24696 24697 139859 139860 139861 25275 25276 252228 ]
+%24686:	udiv	bit XXX  Location: (my_bitmap.h:141)
+%24687:	zext	%24686  Location: (my_bitmap.h:141)
+%24691:	getelementptr	%24690 %24687  Location: (my_bitmap.h:141)
+%24692:	load	%24691  Location: (my_bitmap.h:141)
+%24693:	zext	%24692  Location: (my_bitmap.h:141)
+%24696:	and	%24693 %24695  Location: (my_bitmap.h:141)
+%24697:	ret	%24696  Location: (my_bitmap.h:141)
+%139859:	call	%139854 %139858 _Z13bitmap_is_setPK9st_bitmapj1932  Location: (field.cc:7821)
+%139860:	icmp	%139859 XXX  Location: (field.cc:7821)
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+%25275:	call	this str str %25274  Location: (field.h:121)
+%25276:	ret	%25275  Location: (field.h:121)
+%252228:	call	field %252221 _ZN5Field7val_strEP6String  Location: (table.cc:2614)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:348)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:349)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:969)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:970)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:971)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:972)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:973)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:999)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1002)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1003)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1044)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1046)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1048)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1049)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1067)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1070)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1071)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1075)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1076)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1077)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1156)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1405)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1557)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1558)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1658)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1659)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1660)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1661)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1662)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1690)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1694)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1696)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1752)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1753)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1756)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1761)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1762)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1763)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1780)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1782)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1786)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1787)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1792)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1793)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1794)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1795)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1796)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1797)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1798)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1799)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:1985)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:2058)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:2259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:2260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:2261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (dbug.c:2263)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (field.cc:7627)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (field.cc:7636)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (field.cc:7640)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (field.cc:7649)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (field.h:1709)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (my_thr_init.c:381)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (my_thr_init.c:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (my_thr_init.c:399)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (my_thr_init.c:400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (my_thr_init.c:402)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:141)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:193)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:194)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (sql_string.h:195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (strmake.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (strmake.c:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:63)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:114)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:167)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (thr_mutex.c:205)
+
+   # of detected potential vulnerabilities: 122
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 139861 ]
+%139861:	br	%139860 cond.false cond.true  Location: (field.cc:7821)
+Dangerous Operation Location: (my_malloc.c:59)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+
++ echo 'ConAnalysis Done!'

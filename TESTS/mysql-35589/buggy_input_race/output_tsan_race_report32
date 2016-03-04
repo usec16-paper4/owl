@@ -1,0 +1,83 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_race_report32
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mi_info.c : 52)
+(ha_myisam.cc : 1779)
+(ha_myisam.cc : 717)
+(handler.cc : 2047)
+(table.cc : 1873)
+(sql_base.cc : 3903)
+(sql_base.cc : 2906)
+(sql_base.cc : 4570)
+(sql_base.cc : 4976)
+(mysql_priv.h : 1550)
+(sql_acl.cc : 5048)
+(sql_parse.cc : 3796)
+(sql_parse.cc : 5929)
+(sql_parse.cc : 1216)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 569745 569746 569747 569748 569750 569749 569751 569752 569753 569754 569756 569755 569757 569758 569759 569760 569762 569761 569763 569764 569765 569766 569768 569767 569769 569770 569771 569772 569774 569773 561213 ]
+%569745:	getelementptr	info XXX XXX  Location: (mi_info.c:52)
+%569746:	load	%569745  Location: (mi_info.c:52)
+%569747:	getelementptr	%569746 XXX XXX  Location: (mi_info.c:52)
+%569748:	load	%569747  Location: (mi_info.c:52)
+%569750:	store	%569748 %569749  Location: (mi_info.c:52)
+%569749:	getelementptr	x XXX XXX  Location: (mi_info.c:52)
+%569751:	getelementptr	info XXX XXX  Location: (mi_info.c:53)
+%569752:	load	%569751  Location: (mi_info.c:53)
+%569753:	getelementptr	%569752 XXX XXX  Location: (mi_info.c:53)
+%569754:	load	%569753  Location: (mi_info.c:53)
+%569756:	store	%569754 %569755  Location: (mi_info.c:53)
+%569755:	getelementptr	x XXX XXX  Location: (mi_info.c:53)
+%569757:	getelementptr	info XXX XXX  Location: (mi_info.c:54)
+%569758:	load	%569757  Location: (mi_info.c:54)
+%569759:	getelementptr	%569758 XXX XXX  Location: (mi_info.c:54)
+%569760:	load	%569759  Location: (mi_info.c:54)
+%569762:	store	%569760 %569761  Location: (mi_info.c:54)
+%569761:	getelementptr	x XXX XXX  Location: (mi_info.c:54)
+%569763:	getelementptr	info XXX XXX  Location: (mi_info.c:55)
+%569764:	load	%569763  Location: (mi_info.c:55)
+%569765:	getelementptr	%569764 XXX XXX  Location: (mi_info.c:55)
+%569766:	load	%569765  Location: (mi_info.c:55)
+%569768:	store	%569766 %569767  Location: (mi_info.c:55)
+%569767:	getelementptr	x XXX XXX  Location: (mi_info.c:55)
+%569769:	getelementptr	info XXX XXX  Location: (mi_info.c:56)
+%569770:	load	%569769  Location: (mi_info.c:56)
+%569771:	getelementptr	%569770 XXX XXX  Location: (mi_info.c:56)
+%569772:	load	%569771  Location: (mi_info.c:56)
+%569774:	store	%569772 %569773  Location: (mi_info.c:56)
+%569773:	getelementptr	x XXX XXX  Location: (mi_info.c:56)
+%561213:	call	%561212 %561205 flag mi_status  Location: (ha_myisam.cc:1779)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

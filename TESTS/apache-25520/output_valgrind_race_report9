@@ -1,0 +1,52 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-25520
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-25520/apache-25520.bc --ptrderef --danfunc --raceReport valgrind_race_report9
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mod_log_config.c : 1362)
+(mod_log_config.c : 930)
+(mod_log_config.c : 950)
+(protocol.c : 1563)
+(http_request.c : 312)
+(http_core.c : 293)
+(connection.c : 85)
+(connection.c : 211)
+(worker.c : 632)
+(worker.c : 946)
+(thread.c : 127)
+
+---- Part 1: Dataflow Result ---- 
+[ 51164 51165 51166 51167 49795 ]
+%51164:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1362)
+%51165:	load	%51164  Location: (mod_log_config.c:1362)
+%51166:	add	%51165 len  Location: (mod_log_config.c:1362)
+%51167:	store	%51166 %51164  Location: (mod_log_config.c:1362)
+%49795:	call	%49736 %49792 %49709 %49718 %49794 %49765 %49790  Location: (mod_log_config.c:930)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

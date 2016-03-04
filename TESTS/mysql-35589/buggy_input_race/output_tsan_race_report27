@@ -1,0 +1,489 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_race_report27
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mi_statrec.c : 196)
+(mi_rkey.c : 173)
+(ha_myisam.cc : 1661)
+(sql_parse.cc : 3894)
+(sql_parse.cc : 5929)
+(sql_parse.cc : 1216)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 580933 580934 580935 580936 580937 580938 570297 570298 570299 560912 560914 560915 560920 560919 560921 184985 184988 185042 186990 187018 187025 187026 180173 ]
+%580933:	getelementptr	info XXX XXX  Location: (mi_statrec.c:196)
+%580934:	load	%580933  Location: (mi_statrec.c:196)
+%580935:	getelementptr	%580934 XXX XXX  Location: (mi_statrec.c:196)
+%580936:	load	%580935  Location: (mi_statrec.c:196)
+%580937:	icmp	%580936 XXX  Location: (mi_statrec.c:196)
+%580938:	br	%580937 if.then26 if.end28  Location: (mi_statrec.c:196)
+%570297:	call	info %570296 buf %570294  Location: (mi_rkey.c:173)
+%570298:	icmp	%570297 XXX  Location: (mi_rkey.c:173)
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+%560912:	call	%560908 buf %560911 key keypart_map find_flag mi_rkey  Location: (ha_myisam.cc:1661)
+%560914:	icmp	%560912 XXX  Location: (ha_myisam.cc:1662)
+%560915:	select	%560914 XXX XXX  Location: (ha_myisam.cc:1662)
+%560920:	store	%560915 %560919  Location: (ha_myisam.cc:1662)
+%560919:	getelementptr	%560918 XXX XXX  Location: (ha_myisam.cc:1662)
+%560921:	ret	%560912  Location: (ha_myisam.cc:1663)
+%184985:	call	thd %184976 %184977 %184978 %184981 %184984 XXX  Location: (sql_parse.cc:3894)
+%184988:	phi	%184962 %184985 
+%185042:	phi	%184988 %185015 
+%186990:	phi	XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX %186880 %186869 XXX %186853 %186819 XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX %186387 %186379 %186371 %186356 XXX XXX XXX XXX %186217 %186097 XXX %185814 %185727 %185505 XXX %185395 %185320 XXX XXX XXX XXX %185208 %185178 %185165 %185149 XXX XXX XXX %185042 XXX %184754 XXX %184738 XXX %184722 XXX %184706 XXX %184689 %184679 %184650 %184608 XXX %184531 XXX XXX %184508 XXX XXX XXX XXX %184435 XXX XXX XXX XXX %184334 XXX XXX XXX XXX %184258 XXX %184141 XXX %184071 %184043 XXX %183955 %183944 %183940 %183936 %183932 XXX XXX %183898 %183754 %183781 %183854 XXX %183679 %183717 XXX XXX %183665 %183498 %183612 XXX %183441 %183471 XXX %183310 %183357 %183335 %183397 %183335 %183335 XXX %183288 %183205 %183149 %183116 %183068 %183045 %183027 %183004 XXX %182914 XXX XXX %182699 %182637 XXX XXX %182273 %182263 %182253 %182243 %182236 %182214 %182205 %182180 %182144 %182110 %182086 %182079 %182064 %182057 %182053 %182049 %181997 %181988 XXX %181980 XXX XXX XXX %181936 %181960 %181936 %181898 %181879 
+%187018:	phi	%186990 XXX 
+%187025:	icmp	%187018 XXX  Location: (sql_parse.cc:4958)
+%187026:	br	%187025 lor.rhs3401 lor.end3403  Location: (sql_parse.cc:4958)
+%180173:	call	thd _Z21mysql_execute_commandP3THD  Location: (sql_parse.cc:5929)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:348)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:349)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1044)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1046)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1048)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1049)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1067)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1070)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1071)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1075)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1076)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1077)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1405)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1557)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1558)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1690)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1694)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1696)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1752)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1753)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1756)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1761)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1762)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1763)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1780)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1782)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1786)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1787)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1792)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1793)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1794)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1795)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1796)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1797)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1798)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1799)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:1985)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:2058)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:2259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:2260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:2261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (dbug.c:2263)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (my_thr_init.c:381)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (my_thr_init.c:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (my_thr_init.c:399)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (my_thr_init.c:400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (my_thr_init.c:402)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (strmake.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (strmake.c:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:63)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:114)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:167)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 570299 ]
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Dangerous Operation Location: (thr_mutex.c:205)
+
+---- Part 3: Path Intersection ----
+[ 570297 570298 570299 ]
+%570297:	call	info %570296 buf %570294  Location: (mi_rkey.c:173)
+%570298:	icmp	%570297 XXX  Location: (mi_rkey.c:173)
+%570299:	br	%570298 if.then179 if.end184  Location: (mi_rkey.c:173)
+Function: mi_rkey(...) Location: (mi_rkey.c:175)
+
+   # of detected potential vulnerabilities: 84
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

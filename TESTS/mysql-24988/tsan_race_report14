@@ -1,0 +1,2 @@
+end_thread (mysqld.cc:1676)
+handle_one_connection (sql_parse.cc:1205)

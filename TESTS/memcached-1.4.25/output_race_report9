@@ -1,0 +1,538 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report9
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 3994)
+(memcached.c : 4329)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 3901 3902 3905 3906 3907 3908 3909 3912 3913 3914 3915 3916 3917 3918 3919 3920 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 3959 3960 3961 3962 3963 3964 3965 3966 3967 3968 3970 3971 3972 3973 3974 3975 3976 3978 3979 3980 3981 3982 3983 3984 3985 3987 3988 3989 3990 3991 3992 3993 3994 3995 3996 3997 3998 3999 4000 4001 4002 4003 4006 4007 3736 3737 2298 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3907:	getelementptr	c XXX XXX  Location: (memcached.c:3995)
+%3908:	load	%3907  Location: (memcached.c:3995)
+%3909:	sext	%3908  Location: (memcached.c:3995)
+%3912:	getelementptr	%3911 %3909  Location: (memcached.c:3995)
+%3913:	getelementptr	%3912 XXX XXX  Location: (memcached.c:3995)
+%3914:	load	%3913  Location: (memcached.c:3995)
+%3915:	icmp	%3914 XXX  Location: (memcached.c:3995)
+%3916:	br	%3915 if.end if.then  Location: (memcached.c:3994)
+%3917:	getelementptr	c XXX XXX  Location: (memcached.c:3997)
+%3918:	load	%3917  Location: (memcached.c:3997)
+%3919:	add	%3918 XXX  Location: (memcached.c:3997)
+%3920:	store	%3919 %3917  Location: (memcached.c:3997)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+%3959:	phi	%3937 %3976 
+%3960:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4011)
+%3961:	load	%3960  Location: (memcached.c:4011)
+%3962:	icmp	%3961 XXX  Location: (memcached.c:4011)
+%3963:	br	%3962 land.end land.rhs  Location: (memcached.c:4011)
+%3964:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4011)
+%3965:	load	%3964  Location: (memcached.c:4011)
+%3966:	getelementptr	%3965 XXX XXX  Location: (memcached.c:4011)
+%3967:	load	%3966  Location: (memcached.c:4011)
+%3968:	icmp	%3959 %3967  Location: (memcached.c:4011)
+%3970:	phi	XXX %3968 
+%3971:	br	%3970 while.end while.body  Location: (memcached.c:4011)
+%3972:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4012)
+%3973:	load	%3972  Location: (memcached.c:4012)
+%3974:	getelementptr	%3973 XXX XXX  Location: (memcached.c:4012)
+%3975:	load	%3974  Location: (memcached.c:4012)
+%3976:	sub	%3959 %3975  Location: (memcached.c:4012)
+%3978:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4013)
+%3979:	load	%3978  Location: (memcached.c:4013)
+%3980:	add	%3979 XXX  Location: (memcached.c:4013)
+%3981:	store	%3980 %3978  Location: (memcached.c:4013)
+%3982:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4014)
+%3983:	load	%3982  Location: (memcached.c:4014)
+%3984:	getelementptr	%3983 XXX  Location: (memcached.c:4014)
+%3985:	store	%3984 %3982  Location: (memcached.c:4014)
+%3987:	icmp	%3959 XXX  Location: (memcached.c:4019)
+%3988:	br	%3987 if.end36 if.then29  Location: (memcached.c:4019)
+%3989:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4020)
+%3990:	load	%3989  Location: (memcached.c:4020)
+%3991:	getelementptr	%3990 XXX XXX  Location: (memcached.c:4020)
+%3992:	load	%3991  Location: (memcached.c:4020)
+%3993:	getelementptr	%3992 %3959  Location: (memcached.c:4020)
+%3994:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4020)
+%3995:	load	%3994  Location: (memcached.c:4020)
+%3996:	getelementptr	%3995 XXX XXX  Location: (memcached.c:4020)
+%3997:	store	%3993 %3996  Location: (memcached.c:4020)
+%3998:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4021)
+%3999:	load	%3998  Location: (memcached.c:4021)
+%4000:	getelementptr	%3999 XXX XXX  Location: (memcached.c:4021)
+%4001:	load	%4000  Location: (memcached.c:4021)
+%4002:	sub	%4001 %3959  Location: (memcached.c:4021)
+%4003:	store	%4002 %4000  Location: (memcached.c:4021)
+%4006:	icmp	%3937 XXX  Location: (memcached.c:4025)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+%3736:	call	c transmit  Location: (memcached.c:4329)
+%3737:	switch	%3736 sw.epilog387 XXX sw.bb355 XXX sw.bb385 XXX sw.bb385 XXX sw.bb386  Location: (memcached.c:4329)
+%2298:	call	%2282 drive_machine  Location: (memcached.c:4400)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:667)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:682)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:689)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:3928)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:3929)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:3931)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:3932)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:3933)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:3934)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3927 3940 4007 ]
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Dangerous Operation Location: (memcached.c:3935)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 4006 4007 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%4006:	icmp	%3937 XXX  Location: (memcached.c:4025)
+%4007:	br	%4006 if.end52 land.lhs.true39  Location: (memcached.c:4025)
+Function: transmit(...) Location: (memcached.c:4039)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 3959 3960 3961 3962 3963 3970 3971 3987 3988 3989 3990 3991 3992 3993 3994 3995 3996 3997 3998 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+%3959:	phi	%3937 %3976 
+%3960:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4011)
+%3961:	load	%3960  Location: (memcached.c:4011)
+%3962:	icmp	%3961 XXX  Location: (memcached.c:4011)
+%3963:	br	%3962 land.end land.rhs  Location: (memcached.c:4011)
+%3970:	phi	XXX %3968 
+%3971:	br	%3970 while.end while.body  Location: (memcached.c:4011)
+%3987:	icmp	%3959 XXX  Location: (memcached.c:4019)
+%3988:	br	%3987 if.end36 if.then29  Location: (memcached.c:4019)
+%3989:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4020)
+%3990:	load	%3989  Location: (memcached.c:4020)
+%3991:	getelementptr	%3990 XXX XXX  Location: (memcached.c:4020)
+%3992:	load	%3991  Location: (memcached.c:4020)
+%3993:	getelementptr	%3992 %3959  Location: (memcached.c:4020)
+%3994:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4020)
+%3995:	load	%3994  Location: (memcached.c:4020)
+%3996:	getelementptr	%3995 XXX XXX  Location: (memcached.c:4020)
+%3997:	store	%3993 %3996  Location: (memcached.c:4020)
+%3998:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4021)
+Function: transmit(...) Location: (memcached.c:4021)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 3959 3960 3961 3962 3963 3970 3971 3987 3988 3989 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+%3959:	phi	%3937 %3976 
+%3960:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4011)
+%3961:	load	%3960  Location: (memcached.c:4011)
+%3962:	icmp	%3961 XXX  Location: (memcached.c:4011)
+%3963:	br	%3962 land.end land.rhs  Location: (memcached.c:4011)
+%3970:	phi	XXX %3968 
+%3971:	br	%3970 while.end while.body  Location: (memcached.c:4011)
+%3987:	icmp	%3959 XXX  Location: (memcached.c:4019)
+%3988:	br	%3987 if.end36 if.then29  Location: (memcached.c:4019)
+%3989:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4020)
+Function: transmit(...) Location: (memcached.c:4020)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 3959 3960 3961 3962 3963 3970 3971 3972 3973 3974 3975 3976 3978 3979 3980 3981 3982 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+%3959:	phi	%3937 %3976 
+%3960:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4011)
+%3961:	load	%3960  Location: (memcached.c:4011)
+%3962:	icmp	%3961 XXX  Location: (memcached.c:4011)
+%3963:	br	%3962 land.end land.rhs  Location: (memcached.c:4011)
+%3970:	phi	XXX %3968 
+%3971:	br	%3970 while.end while.body  Location: (memcached.c:4011)
+%3972:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4012)
+%3973:	load	%3972  Location: (memcached.c:4012)
+%3974:	getelementptr	%3973 XXX XXX  Location: (memcached.c:4012)
+%3975:	load	%3974  Location: (memcached.c:4012)
+%3976:	sub	%3959 %3975  Location: (memcached.c:4012)
+%3978:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4013)
+%3979:	load	%3978  Location: (memcached.c:4013)
+%3980:	add	%3979 XXX  Location: (memcached.c:4013)
+%3981:	store	%3980 %3978  Location: (memcached.c:4013)
+%3982:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4014)
+Function: transmit(...) Location: (memcached.c:4014)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 3959 3960 3961 3962 3963 3970 3971 3972 3973 3974 3975 3976 3978 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+%3959:	phi	%3937 %3976 
+%3960:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4011)
+%3961:	load	%3960  Location: (memcached.c:4011)
+%3962:	icmp	%3961 XXX  Location: (memcached.c:4011)
+%3963:	br	%3962 land.end land.rhs  Location: (memcached.c:4011)
+%3970:	phi	XXX %3968 
+%3971:	br	%3970 while.end while.body  Location: (memcached.c:4011)
+%3972:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4012)
+%3973:	load	%3972  Location: (memcached.c:4012)
+%3974:	getelementptr	%3973 XXX XXX  Location: (memcached.c:4012)
+%3975:	load	%3974  Location: (memcached.c:4012)
+%3976:	sub	%3959 %3975  Location: (memcached.c:4012)
+%3978:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4013)
+Function: transmit(...) Location: (memcached.c:4013)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 3959 3960 3961 3962 3963 3970 3971 3972 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+%3959:	phi	%3937 %3976 
+%3960:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4011)
+%3961:	load	%3960  Location: (memcached.c:4011)
+%3962:	icmp	%3961 XXX  Location: (memcached.c:4011)
+%3963:	br	%3962 land.end land.rhs  Location: (memcached.c:4011)
+%3970:	phi	XXX %3968 
+%3971:	br	%3970 while.end while.body  Location: (memcached.c:4011)
+%3972:	getelementptr	%3933 XXX XXX  Location: (memcached.c:4012)
+Function: transmit(...) Location: (memcached.c:4012)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+Function: transmit(...) Location: (memcached.c:4011)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 3951 3952 3949 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+%3951:	add	%3950 %3937  Location: (memcached.c:4006)
+%3952:	store	%3951 %3949  Location: (memcached.c:4006)
+%3949:	getelementptr	%3948 XXX XXX  Location: (memcached.c:4006)
+Function: transmit(...) Location: (memcached.c:4007)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+Function: transmit(...) Location: (memcached.c:4006)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 3937 3939 3940 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+%3937:	call	%3936 %3933 XXX sendmsg  Location: (memcached.c:4003)
+%3939:	icmp	%3937 XXX  Location: (memcached.c:4004)
+%3940:	br	%3939 if.end37 if.then13  Location: (memcached.c:4004)
+Function: transmit(...) Location: (memcached.c:4005)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 3929 3930 3933 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+%3929:	load	%3928  Location: (memcached.c:4001)
+%3930:	sext	%3929  Location: (memcached.c:4001)
+%3933:	getelementptr	%3932 %3930  Location: (memcached.c:4001)
+Function: transmit(...) Location: (memcached.c:4003)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 3923 3926 3927 3928 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+%3923:	load	%3922  Location: (memcached.c:3999)
+%3926:	icmp	%3923 %3925  Location: (memcached.c:3999)
+%3927:	br	%3926 if.else59 if.then7  Location: (memcached.c:3999)
+%3928:	getelementptr	c XXX XXX  Location: (memcached.c:4001)
+Function: transmit(...) Location: (memcached.c:4001)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3922 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3922:	getelementptr	c XXX XXX  Location: (memcached.c:3999)
+Function: transmit(...) Location: (memcached.c:3999)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3907 3908 3909 3912 3913 3914 3915 3916 3917 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3907:	getelementptr	c XXX XXX  Location: (memcached.c:3995)
+%3908:	load	%3907  Location: (memcached.c:3995)
+%3909:	sext	%3908  Location: (memcached.c:3995)
+%3912:	getelementptr	%3911 %3909  Location: (memcached.c:3995)
+%3913:	getelementptr	%3912 XXX XXX  Location: (memcached.c:3995)
+%3914:	load	%3913  Location: (memcached.c:3995)
+%3915:	icmp	%3914 XXX  Location: (memcached.c:3995)
+%3916:	br	%3915 if.end if.then  Location: (memcached.c:3994)
+%3917:	getelementptr	c XXX XXX  Location: (memcached.c:3997)
+Function: transmit(...) Location: (memcached.c:3997)
+
+---- Part 3: Path Intersection ----
+[ 3901 3902 3905 3906 3907 ]
+%3901:	getelementptr	c XXX XXX  Location: (memcached.c:3994)
+%3902:	load	%3901  Location: (memcached.c:3994)
+%3905:	icmp	%3902 %3904  Location: (memcached.c:3994)
+%3906:	br	%3905 if.end land.lhs.true  Location: (memcached.c:3994)
+%3907:	getelementptr	c XXX XXX  Location: (memcached.c:3995)
+Function: transmit(...) Location: (memcached.c:3995)
+
+   # of detected potential vulnerabilities: 26
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,140 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report47
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 893)
+(mongoose.c : 1798)
+(mongoose.c : 4852)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 4713 4714 4715 4716 4717 4718 4033 4035 4036 4043 4044 3381 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4033:	call	%4029 %4032 %4007 match_prefix 
+%4035:	icmp	%4033 XXX 
+%4036:	br	%4035 if.end if.then 
+%4043:	sext	%4033 
+%4044:	getelementptr	%4007 %4043 
+%3381:	call	conn handle_request 
+
+**************************************************
+                Busy Loop Detected!               
+%4717 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:910)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:907)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:901)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:899)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:897)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:895)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:894)
+
+---- Part 3: Path Intersection ----
+[ 4033 4035 4036 4043 ]
+%4033:	call	%4029 %4032 %4007 match_prefix 
+%4035:	icmp	%4033 XXX 
+%4036:	br	%4035 if.end if.then 
+%4043:	sext	%4033 
+Function: convert_uri_to_file_name(...) Location: (mongoose.c:1800)
+
+---- Part 3: Path Intersection ----
+[ 4033 4035 4036 ]
+%4033:	call	%4029 %4032 %4007 match_prefix 
+%4035:	icmp	%4033 XXX 
+%4036:	br	%4035 if.end if.then 
+Function: convert_uri_to_file_name(...) Location: (mongoose.c:1799)
+
+   # of detected potential vulnerabilities: 9
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

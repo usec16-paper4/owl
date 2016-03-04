@@ -1,0 +1,72 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report72
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_brigade.c : 44)
+-------------------------
+  %link = getelementptr inbounds %struct.apr_bucket* %4, i32 0, i32 0, !dbg !45709
+-------------------------
+(apr_brigade.c : 53)
+(core_filters.c : 876)
+(util_filter.c : 526)
+(http_request.c : 231)
+(http_request.c : 282)
+(http_core.c : 190)
+(connection.c : 43)
+(connection.c : 178)
+(worker.c : 544)
+(worker.c : 894)
+(thread.c : 142)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 143294 143295 143296 143297 143298 143299 143300 143301 143302 143303 143304 143305 143306 143307 143308 143309 143310 143311 143335 143336 15119 ]
+%143294:	getelementptr	%143290 XXX XXX  Location: (apr_brigade.c:44)
+%143295:	getelementptr	%143294 XXX XXX  Location: (apr_brigade.c:44)
+%143296:	load	%143295  Location: (apr_brigade.c:44)
+%143297:	getelementptr	%143290 XXX XXX  Location: (apr_brigade.c:44)
+%143298:	getelementptr	%143297 XXX XXX  Location: (apr_brigade.c:44)
+%143299:	load	%143298  Location: (apr_brigade.c:44)
+%143300:	getelementptr	%143299 XXX XXX  Location: (apr_brigade.c:44)
+%143301:	getelementptr	%143300 XXX XXX  Location: (apr_brigade.c:44)
+%143302:	store	%143296 %143301  Location: (apr_brigade.c:44)
+%143303:	getelementptr	%143290 XXX XXX  Location: (apr_brigade.c:44)
+%143304:	getelementptr	%143303 XXX XXX  Location: (apr_brigade.c:44)
+%143305:	load	%143304  Location: (apr_brigade.c:44)
+%143306:	getelementptr	%143290 XXX XXX  Location: (apr_brigade.c:44)
+%143307:	getelementptr	%143306 XXX XXX  Location: (apr_brigade.c:44)
+%143308:	load	%143307  Location: (apr_brigade.c:44)
+%143309:	getelementptr	%143308 XXX XXX  Location: (apr_brigade.c:44)
+%143310:	getelementptr	%143309 XXX XXX  Location: (apr_brigade.c:44)
+%143311:	store	%143305 %143310  Location: (apr_brigade.c:44)
+%143335:	call	%143334 apr_brigade_cleanup  Location: (apr_brigade.c:53)
+%143336:	ret	%143335  Location: (apr_brigade.c:53)
+%15119:	call	%15118 apr_brigade_destroy  Location: (core_filters.c:876)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

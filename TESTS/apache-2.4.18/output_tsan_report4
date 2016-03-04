@@ -1,0 +1,44 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-2.4.18
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-2.4.18/apache-2.4.18.bc --ptrderef --danfunc --raceReport tsan_report4
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mod_log_config.c : 739)
+ERROR: <mod_log_config.c 739> sourcetoIRmap_ look up failed.
+(mod_log_config.c : 1094)
+ERROR: <mod_log_config.c 1094> sourcetoIRmap_ look up failed.
+(mod_log_config.c : 1166)
+ERROR: <mod_log_config.c 1166> sourcetoIRmap_ look up failed.
+(mod_log_config.c : 1206)
+ERROR: <mod_log_config.c 1206> sourcetoIRmap_ look up failed.
+(protocol.c : 2013)
+(eor_bucket.c : 35)
+(apr_pools.c : 2352)
+(apr_pools.c : 804)
+(eor_bucket.c : 90)
+(core_filters.c : 721)
+(core_filters.c : 711)
+(core_filters.c : 734)
+(core_filters.c : 542)
+(util_filter.c : 590)
+(http_request.c : 451)
+(http_core.c : 210)
+(http_core.c : 251)
+(connection.c : 41)
+(connection.c : 213)
+(worker.c : 631)
+(worker.c : 990)
+(thread.c : 142)
+

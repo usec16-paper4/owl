@@ -1,0 +1,9 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/linux-4.4.1
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/linux-4.4.1
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/linux-4.4.1
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/linux-4.4.1/linux-4.4.1.bc --ptrderef --danfunc --raceReport race/check_preempt_curr.0
+error: Invalid type for value

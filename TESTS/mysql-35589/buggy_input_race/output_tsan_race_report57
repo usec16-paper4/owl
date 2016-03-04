@@ -1,0 +1,175 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_race_report57
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mi_statrec.c : 258)
+(mi_scan.c : 44)
+(ha_myisam.cc : 1750)
+(records.cc : 381)
+(sql_acl.cc : 331)
+(sql_acl.cc : 719)
+(sql_parse.cc : 6762)
+(sql_parse.cc : 3945)
+(sql_parse.cc : 5929)
+(sql_parse.cc : 1216)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 581114 581115 581116 581117 581118 581119 581201 581202 581203 581204 581205 581206 581207 581208 581209 581210 581211 581212 581219 581220 581221 581222 581223 581224 581225 581226 581227 581228 581229 581230 581234 581235 581240 581241 581242 581243 581244 581245 581246 581247 581248 581249 581250 581252 581253 581254 581255 581256 581257 581258 581259 581260 581261 581262 581266 581267 581264 581274 581275 581276 581277 581278 581279 581280 581281 581282 581283 581284 580327 ]
+%581114:	getelementptr	info XXX XXX  Location: (mi_statrec.c:258)
+%581115:	load	%581114  Location: (mi_statrec.c:258)
+%581116:	getelementptr	%581115 XXX XXX  Location: (mi_statrec.c:258)
+%581117:	load	%581116  Location: (mi_statrec.c:258)
+%581118:	icmp	%581117 XXX  Location: (mi_statrec.c:258)
+%581119:	br	%581118 if.then80 if.end82  Location: (mi_statrec.c:258)
+%581201:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581202:	load	%581201  Location: (mi_statrec.c:278)
+%581203:	getelementptr	%581202 XXX XXX  Location: (mi_statrec.c:278)
+%581204:	getelementptr	%581203 XXX XXX  Location: (mi_statrec.c:278)
+%581205:	load	%581204  Location: (mi_statrec.c:278)
+%581206:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581207:	load	%581206  Location: (mi_statrec.c:278)
+%581208:	getelementptr	%581207 XXX XXX  Location: (mi_statrec.c:278)
+%581209:	getelementptr	%581208 XXX XXX  Location: (mi_statrec.c:278)
+%581210:	load	%581209  Location: (mi_statrec.c:278)
+%581211:	icmp	%581205 %581210  Location: (mi_statrec.c:278)
+%581212:	br	%581211 if.end189 land.lhs.true138  Location: (mi_statrec.c:278)
+%581219:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581220:	load	%581219  Location: (mi_statrec.c:281)
+%581221:	getelementptr	%581220 XXX XXX  Location: (mi_statrec.c:281)
+%581222:	getelementptr	%581221 XXX XXX  Location: (mi_statrec.c:281)
+%581223:	load	%581222  Location: (mi_statrec.c:281)
+%581224:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581225:	load	%581224  Location: (mi_statrec.c:281)
+%581226:	getelementptr	%581225 XXX XXX  Location: (mi_statrec.c:281)
+%581227:	getelementptr	%581226 XXX XXX  Location: (mi_statrec.c:281)
+%581228:	load	%581227  Location: (mi_statrec.c:281)
+%581229:	sub	%581223 %581228  Location: (mi_statrec.c:281)
+%581230:	getelementptr	%581218 %581229  Location: (mi_statrec.c:281)
+%581234:	icmp	%581230 %581233  Location: (mi_statrec.c:281)
+%581235:	br	%581234 cond.false174 cond.true154  Location: (mi_statrec.c:281)
+%581240:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581241:	load	%581240  Location: (mi_statrec.c:281)
+%581242:	getelementptr	%581241 XXX XXX  Location: (mi_statrec.c:281)
+%581243:	getelementptr	%581242 XXX XXX  Location: (mi_statrec.c:281)
+%581244:	load	%581243  Location: (mi_statrec.c:281)
+%581245:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581246:	load	%581245  Location: (mi_statrec.c:281)
+%581247:	getelementptr	%581246 XXX XXX  Location: (mi_statrec.c:281)
+%581248:	getelementptr	%581247 XXX XXX  Location: (mi_statrec.c:281)
+%581249:	load	%581248  Location: (mi_statrec.c:281)
+%581250:	sub	%581244 %581249  Location: (mi_statrec.c:281)
+%581252:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581253:	load	%581252  Location: (mi_statrec.c:281)
+%581254:	getelementptr	%581253 XXX XXX  Location: (mi_statrec.c:281)
+%581255:	getelementptr	%581254 XXX XXX  Location: (mi_statrec.c:281)
+%581256:	load	%581255  Location: (mi_statrec.c:281)
+%581257:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581258:	load	%581257  Location: (mi_statrec.c:281)
+%581259:	getelementptr	%581258 XXX XXX  Location: (mi_statrec.c:281)
+%581260:	getelementptr	%581259 XXX XXX  Location: (mi_statrec.c:281)
+%581261:	load	%581260  Location: (mi_statrec.c:281)
+%581262:	sub	%581256 %581261  Location: (mi_statrec.c:281)
+%581266:	getelementptr	%581265 %581262  Location: (mi_statrec.c:281)
+%581267:	store	%581266 %581264  Location: (mi_statrec.c:281)
+%581264:	getelementptr	%581263 XXX XXX  Location: (mi_statrec.c:281)
+%581274:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581275:	load	%581274  Location: (mi_statrec.c:281)
+%581276:	getelementptr	%581275 XXX XXX  Location: (mi_statrec.c:281)
+%581277:	getelementptr	%581276 XXX XXX  Location: (mi_statrec.c:281)
+%581278:	load	%581277  Location: (mi_statrec.c:281)
+%581279:	getelementptr	info XXX XXX  Location: (mi_statrec.c:281)
+%581280:	load	%581279  Location: (mi_statrec.c:281)
+%581281:	getelementptr	%581280 XXX XXX  Location: (mi_statrec.c:281)
+%581282:	getelementptr	%581281 XXX XXX  Location: (mi_statrec.c:281)
+%581283:	load	%581282  Location: (mi_statrec.c:281)
+%581284:	sub	%581278 %581283  Location: (mi_statrec.c:281)
+%580327:	call	XXX %580311 %580312 %580313 _db_return_  Location: (mi_scan.c:44)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 3: Path Intersection ----
+[ 581201 581202 581203 581204 581205 581206 581207 581208 581209 581210 581211 581212 ]
+%581201:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581202:	load	%581201  Location: (mi_statrec.c:278)
+%581203:	getelementptr	%581202 XXX XXX  Location: (mi_statrec.c:278)
+%581204:	getelementptr	%581203 XXX XXX  Location: (mi_statrec.c:278)
+%581205:	load	%581204  Location: (mi_statrec.c:278)
+%581206:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581207:	load	%581206  Location: (mi_statrec.c:278)
+%581208:	getelementptr	%581207 XXX XXX  Location: (mi_statrec.c:278)
+%581209:	getelementptr	%581208 XXX XXX  Location: (mi_statrec.c:278)
+%581210:	load	%581209  Location: (mi_statrec.c:278)
+%581211:	icmp	%581205 %581210  Location: (mi_statrec.c:278)
+%581212:	br	%581211 if.end189 land.lhs.true138  Location: (mi_statrec.c:278)
+Function: _mi_read_rnd_static_record(...) Location: (mi_statrec.c:290)
+
+---- Part 3: Path Intersection ----
+[ 581201 581202 581203 581204 581205 581206 581207 581208 581209 581210 581211 581212 ]
+%581201:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581202:	load	%581201  Location: (mi_statrec.c:278)
+%581203:	getelementptr	%581202 XXX XXX  Location: (mi_statrec.c:278)
+%581204:	getelementptr	%581203 XXX XXX  Location: (mi_statrec.c:278)
+%581205:	load	%581204  Location: (mi_statrec.c:278)
+%581206:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581207:	load	%581206  Location: (mi_statrec.c:278)
+%581208:	getelementptr	%581207 XXX XXX  Location: (mi_statrec.c:278)
+%581209:	getelementptr	%581208 XXX XXX  Location: (mi_statrec.c:278)
+%581210:	load	%581209  Location: (mi_statrec.c:278)
+%581211:	icmp	%581205 %581210  Location: (mi_statrec.c:278)
+%581212:	br	%581211 if.end189 land.lhs.true138  Location: (mi_statrec.c:278)
+Function: _mi_read_rnd_static_record(...) Location: (mi_statrec.c:288)
+
+---- Part 3: Path Intersection ----
+[ 581201 581202 581203 581204 581205 581206 581207 581208 581209 581210 581211 581212 ]
+%581201:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581202:	load	%581201  Location: (mi_statrec.c:278)
+%581203:	getelementptr	%581202 XXX XXX  Location: (mi_statrec.c:278)
+%581204:	getelementptr	%581203 XXX XXX  Location: (mi_statrec.c:278)
+%581205:	load	%581204  Location: (mi_statrec.c:278)
+%581206:	getelementptr	info XXX XXX  Location: (mi_statrec.c:278)
+%581207:	load	%581206  Location: (mi_statrec.c:278)
+%581208:	getelementptr	%581207 XXX XXX  Location: (mi_statrec.c:278)
+%581209:	getelementptr	%581208 XXX XXX  Location: (mi_statrec.c:278)
+%581210:	load	%581209  Location: (mi_statrec.c:278)
+%581211:	icmp	%581205 %581210  Location: (mi_statrec.c:278)
+%581212:	br	%581211 if.end189 land.lhs.true138  Location: (mi_statrec.c:278)
+Function: _mi_read_rnd_static_record(...) Location: (mi_statrec.c:281)
+
+---- Part 3: Path Intersection ----
+[ 581114 581115 581116 581117 581118 581119 ]
+%581114:	getelementptr	info XXX XXX  Location: (mi_statrec.c:258)
+%581115:	load	%581114  Location: (mi_statrec.c:258)
+%581116:	getelementptr	%581115 XXX XXX  Location: (mi_statrec.c:258)
+%581117:	load	%581116  Location: (mi_statrec.c:258)
+%581118:	icmp	%581117 XXX  Location: (mi_statrec.c:258)
+%581119:	br	%581118 if.then80 if.end82  Location: (mi_statrec.c:258)
+Function: _mi_read_rnd_static_record(...) Location: (mi_statrec.c:259)
+
+   # of detected potential vulnerabilities: 4
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

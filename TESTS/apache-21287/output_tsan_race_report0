@@ -1,0 +1,2588 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-21287
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-21287/apache-21287.bc --ptrderef --danfunc --raceReport tsan_race_report0
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(worker.c : 1083)
+(thread.c : 127)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 71768 71769 71770 102782 102783 ]
+%71768:	load	start_thread_may_exit  Location: (worker.c:1083)
+%71769:	icmp	%71768 XXX  Location: (worker.c:1083)
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+%102782:	call	%102776 %102781 %102779  Location: (thread.c:127)
+%102783:	ret	%102782  Location: (thread.c:127)
+
+**************************************************
+                Busy Loop Detected!               
+%71769 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_atomic.c:127)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_atomic.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_atomic.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_cpystrn.c:93)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_cpystrn.c:95)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:165)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:227)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:229)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:230)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:243)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:244)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:247)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:257)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:267)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:268)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:269)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:272)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:273)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:291)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:293)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:294)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:302)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:305)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:307)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:309)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:312)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:313)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:316)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:317)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:323)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:324)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:334)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:335)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:336)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:337)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:354)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:355)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:356)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:362)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:363)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:367)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:374)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:378)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:385)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:386)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:391)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:392)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:395)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:401)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:629)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:632)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:633)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:634)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:639)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:640)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:641)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:642)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:645)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:646)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:647)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:653)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:655)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:656)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:658)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:659)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:660)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:661)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:663)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:665)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:668)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:669)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:670)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:674)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:676)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:678)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:681)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:682)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:683)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:684)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:759)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:760)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:763)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:766)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:769)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:773)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:777)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:778)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:789)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:790)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:791)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:1993)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:1994)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2080)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2081)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2082)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2086)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2088)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2089)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2096)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2099)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2105)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2120)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2121)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2126)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2143)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:2151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:167)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:175)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:179)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:186)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:188)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:204)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:234)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:237)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:238)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:243)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:244)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:246)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:247)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:250)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:253)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:255)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:257)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:258)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:263)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:266)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:270)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:272)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:280)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:281)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:418)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:474)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:487)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:493)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:495)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:497)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:513)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:514)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:518)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:519)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:520)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:521)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:523)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:528)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:578)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:580)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:585)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:594)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:596)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:598)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:601)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:605)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:607)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:611)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:613)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:620)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:627)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:631)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:632)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:638)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:640)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:643)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:644)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:645)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:677)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:699)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:756)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:757)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:761)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:773)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:778)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:782)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:800)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:801)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:805)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:806)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:821)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:822)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:823)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:826)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:827)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:854)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:858)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:862)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:866)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:886)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:888)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:892)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:894)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:896)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:898)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:900)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:906)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:908)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:912)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:914)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:916)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:918)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:920)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:933)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:935)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:939)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:941)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:943)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:945)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:947)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:949)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:958)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:960)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:964)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:966)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:968)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:970)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:972)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:974)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:975)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:982)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1014)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1028)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1048)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1068)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1071)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1080)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1081)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1089)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1090)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1097)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1098)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1112)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1121)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1137)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1139)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1174)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1193)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1245)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1246)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1247)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1253)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1254)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1265)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1273)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1274)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1279)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1281)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1313)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1314)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1317)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1318)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1320)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1321)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1322)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1324)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1338)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1339)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1342)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_snprintf.c:1347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:486)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:489)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:491)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:493)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:494)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:495)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_tables.c:496)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:113)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:115)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:121)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:125)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:128)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:164)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:165)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:170)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:171)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:174)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:175)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:179)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:182)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:186)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:193)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:194)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:198)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:199)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:205)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:208)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:209)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:215)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:219)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:223)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:230)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:231)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:233)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:238)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (inet_ntop.c:242)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:423)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:429)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:433)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:454)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:460)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:461)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:462)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:463)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:470)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:471)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:500)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:505)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:511)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:512)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:516)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:520)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:524)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:528)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:531)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:532)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:534)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:535)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:536)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:540)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:542)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:543)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:553)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:554)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:563)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:572)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:573)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:574)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (log.c:920)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (poll.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (poll.c:152)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (poll.c:154)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (poll.c:155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (poll.c:160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (poll.c:172)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (proc.c:560)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (proc.c:564)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:196)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:200)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:204)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:205)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:206)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:207)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:208)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:213)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:217)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:219)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:225)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:233)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:238)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:247)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:320)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:323)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:325)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:330)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (readwrite.c:331)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (signals.c:80)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (sockaddr.c:185)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (sockaddr.c:186)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (sockaddr.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (sockaddr.c:189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (sockaddr.c:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (sockaddr.c:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (sockaddr.c:197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread.c:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread.c:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:116)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:121)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:134)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:139)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:143)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:206)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (thread_mutex.c:230)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:83)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:115)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:123)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:137)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:138)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:139)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:140)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:141)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:143)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (time.c:287)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:88)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:105)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:137)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:138)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:164)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:165)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:198)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:199)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:200)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:201)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:202)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:203)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:204)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:205)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:206)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:207)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:208)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:209)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:211)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:213)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:215)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:217)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:219)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:223)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:224)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (util_time.c:225)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:78)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:79)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:80)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:81)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:84)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:85)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:86)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:87)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:89)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (waitio.c:94)
+
+   # of detected potential vulnerabilities: 505
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:152)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71770 ]
+%71770:	br	%71769 lor.lhs.false if.then45  Location: (worker.c:1083)
+Dangerous Operation Location: (apr_pools.c:402)
+
+   # of detected potential vulnerabilities: 3
+*********************************************************
+

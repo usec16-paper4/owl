@@ -1,0 +1,47 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report451
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sockets.c : 373)
+-------------------------
+  %socketdes = getelementptr inbounds %struct.apr_socket_t* %sock, i32 0, i32 1, !dbg !45695
+-------------------------
+(worker.c : 539)
+(worker.c : 894)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 129758 129759 129760 thesock 111619 ]
+%129758:	getelementptr	sock XXX XXX  Location: (sockets.c:373)
+%129759:	load	%129758  Location: (sockets.c:373)
+%129760:	store	%129759 thesock  Location: (sockets.c:373)
+Function args: thesock
+%111619:	call	%111604 sock apr_os_sock_get  Location: (worker.c:539)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

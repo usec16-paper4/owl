@@ -1,0 +1,88 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-25520
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-25520/apache-25520.bc --ptrderef --danfunc --raceReport valgrind_race_report4
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mod_log_config.c : 549)
+(mod_log_config.c : 856)
+(mod_log_config.c : 919)
+(mod_log_config.c : 950)
+(protocol.c : 1563)
+(http_request.c : 312)
+(http_core.c : 293)
+(connection.c : 85)
+(connection.c : 211)
+(worker.c : 632)
+(worker.c : 946)
+
+---- Part 1: Dataflow Result ---- 
+[ 50937 49868 49870 49871 49874 49876 49877 49754 49757 49756 49618 ]
+%50937:	bitcast	%50927  Location: (mod_log_config.c:549)
+%49868:	call	%49865 %49867 %49858  Location: (mod_log_config.c:856)
+%49870:	icmp	%49868 XXX  Location: (mod_log_config.c:857)
+%49871:	br	%49870 cond.false21 cond.true20  Location: (mod_log_config.c:857)
+%49874:	phi	%49868 XXX  Location: (mod_log_config.c:857)
+%49876:	phi	XXX %49874 
+%49877:	ret	%49876  Location: (mod_log_config.c:858)
+%49754:	call	%49736 %49726 %49753 process_item  Location: (mod_log_config.c:919)
+%49757:	store	%49754 %49756  Location: (mod_log_config.c:919)
+%49756:	getelementptr	%49709 %49755  Location: (mod_log_config.c:919)
+%49618:	call	r %49614 %49617 config_log_transaction  Location: (mod_log_config.c:950)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 50938 50939 50940 49868 49870 49871 49874 49876 49877 49754 49757 49756 49618 ]
+%50938:	zext	%50935  Location: (mod_log_config.c:549)
+%50939:	getelementptr	request_time_cache XXX %50938  Location: (mod_log_config.c:549)
+%50940:	bitcast	%50939  Location: (mod_log_config.c:549)
+%49868:	call	%49865 %49867 %49858  Location: (mod_log_config.c:856)
+%49870:	icmp	%49868 XXX  Location: (mod_log_config.c:857)
+%49871:	br	%49870 cond.false21 cond.true20  Location: (mod_log_config.c:857)
+%49874:	phi	%49868 XXX  Location: (mod_log_config.c:857)
+%49876:	phi	XXX %49874 
+%49877:	ret	%49876  Location: (mod_log_config.c:858)
+%49754:	call	%49736 %49726 %49753 process_item  Location: (mod_log_config.c:919)
+%49757:	store	%49754 %49756  Location: (mod_log_config.c:919)
+%49756:	getelementptr	%49709 %49755  Location: (mod_log_config.c:919)
+%49618:	call	r %49614 %49617 config_log_transaction  Location: (mod_log_config.c:950)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

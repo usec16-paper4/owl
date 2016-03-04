@@ -1,0 +1,73 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report362
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 2170)
+-------------------------
+  %next = getelementptr inbounds %struct.cleanup_t* %1, i32 0, i32 0, !dbg !45710
+-------------------------
+-------------------------
+  %free_cleanups3 = getelementptr inbounds %struct.apr_pool_t* %p, i32 0, i32 5, !dbg !45711
+-------------------------
+(apr_brigade.c : 67)
+(connection.c : 74)
+(connection.c : 123)
+(worker.c : 545)
+(worker.c : 894)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 126249 126250 126252 126251 143367 ]
+%126249:	getelementptr	%126247 XXX XXX  Location: (apr_pools.c:2170)
+%126250:	load	%126249  Location: (apr_pools.c:2170)
+%126252:	store	%126250 %126251  Location: (apr_pools.c:2170)
+%126251:	getelementptr	p XXX XXX  Location: (apr_pools.c:2170)
+%143367:	call	%143365 %143366 brigade_cleanup apr_pool_cleanup_null apr_pool_cleanup_register  Location: (apr_brigade.c:67)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 126251 126252 143367 ]
+%126251:	getelementptr	p XXX XXX  Location: (apr_pools.c:2170)
+%126252:	store	%126250 %126251  Location: (apr_pools.c:2170)
+%143367:	call	%143365 %143366 brigade_cleanup apr_pool_cleanup_null apr_pool_cleanup_register  Location: (apr_brigade.c:67)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

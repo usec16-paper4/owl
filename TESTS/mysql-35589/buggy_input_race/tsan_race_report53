@@ -1,0 +1,6 @@
+mysql_show_grants (sql_acl.cc:4504)
+mysql_execute_command (sql_parse.cc:3993)
+mysql_parse (sql_parse.cc:5929)
+dispatch_command (sql_parse.cc:1216)
+do_command (sql_parse.cc:857)
+handle_one_connection (sql_connect.cc:1115)

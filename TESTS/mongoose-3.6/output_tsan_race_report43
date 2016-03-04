@@ -1,0 +1,112 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report43
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 847)
+(mongoose.c : 4306)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 6491 6492 3875 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%3875:	call	conn %3874 %3629 handle_file_request 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:870)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:869)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:868)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:867)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:866)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:865)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:859)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:858)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:855)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:854)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:852)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+Function: next_option(...) Location: (mongoose.c:851)
+
+   # of detected potential vulnerabilities: 12
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

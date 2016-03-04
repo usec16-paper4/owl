@@ -1,0 +1,89 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/ssdb-1.9.2
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/ssdb-1.9.2
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/ssdb-1.9.2
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/ssdb-1.9.2/ssdb-1.9.2.bc --ptrderef --danfunc --raceReport race_report4
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(binlog.cpp : 359)
+
+---- Part 1: Dataflow Result ---- 
+[ 39847 39848 39849 39850 40430 40431 40432 40433 40434 40435 40437 39869 ]
+%39847:	getelementptr	%39839 XXX XXX 
+%39848:	load	%39847 
+%39849:	icmp	%39848 XXX 
+%39850:	br	%39849 if.then if.end 
+%40430:	getelementptr	this XXX XXX 
+%40431:	load	%40430 
+%40432:	bitcast	%40431 
+%40433:	load	%40432 
+%40434:	getelementptr	%40433 XXX 
+%40435:	load	%40434 
+%40437:	invoke	%40388 %40431 %40389 %40385 %40435 invoke.cont13 lpad 
+%39869:	call	%39839 %39863 %39867 _ZN11BinlogQueue9del_rangeEmm 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 9634
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 39869 ]
+%39847:	getelementptr	%39839 XXX XXX 
+%39848:	load	%39847 
+%39849:	icmp	%39848 XXX 
+%39850:	br	%39849 if.then if.end 
+%39869:	call	%39839 %39863 %39867 _ZN11BinlogQueue9del_rangeEmm 
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:373)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 39869 ]
+%39847:	getelementptr	%39839 XXX XXX 
+%39848:	load	%39847 
+%39849:	icmp	%39848 XXX 
+%39850:	br	%39849 if.then if.end 
+%39869:	call	%39839 %39863 %39867 _ZN11BinlogQueue9del_rangeEmm 
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:372)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 ]
+%39847:	getelementptr	%39839 XXX XXX 
+%39848:	load	%39847 
+%39849:	icmp	%39848 XXX 
+%39850:	br	%39849 if.then if.end 
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:370)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 ]
+%39847:	getelementptr	%39839 XXX XXX 
+%39848:	load	%39847 
+%39849:	icmp	%39848 XXX 
+%39850:	br	%39849 if.then if.end 
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:369)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 ]
+%39847:	getelementptr	%39839 XXX XXX 
+%39848:	load	%39847 
+%39849:	icmp	%39848 XXX 
+%39850:	br	%39849 if.then if.end 
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:365)
+
+   # of detected potential vulnerabilities: 5
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

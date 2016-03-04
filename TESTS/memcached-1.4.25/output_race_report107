@@ -1,0 +1,31 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report107
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(items.c : 246)
+ERROR: <items.c 246> sourcetoIRmap_ look up failed.
+(items.c : 380)
+(items.c : 877)
+(items.c : 189)
+(thread.c : 481)
+(memcached.c : 3113)
+(memcached.c : 3469)
+(memcached.c : 3802)
+(memcached.c : 4155)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+

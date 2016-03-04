@@ -1,0 +1,45 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench153
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(buf0buf.c : 2335)
+(srv0srv.c : 1592)
+(srv0srv.c : 2081)
+
+---- Part 1: Dataflow Result ---- 
+[ 527702 527703 527704 527707 527706 425827 ]
+%527702:	load	buf_pool  Location: (buf0buf.c:2335)
+%527703:	getelementptr	%527702 XXX XXX  Location: (buf0buf.c:2335)
+%527704:	load	%527703  Location: (buf0buf.c:2335)
+%527707:	store	%527704 %527706  Location: (buf0buf.c:2335)
+%527706:	getelementptr	%527705 XXX XXX  Location: (buf0buf.c:2335)
+%425827:	call	buf_refresh_io_stats  Location: (srv0srv.c:1592)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

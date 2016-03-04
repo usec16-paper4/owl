@@ -1,0 +1,193 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report66
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(util_time.c : 66)
+-------------------------
+  %t1 = getelementptr inbounds %struct.exploded_time_cache_element* %arrayidx, i32 0, i32 0, !dbg !45708
+-------------------------
+(util_time.c : 143)
+(util_time.c : 200)
+(http_filters.c : 919)
+(http_filters.c : 1251)
+(util_filter.c : 526)
+(protocol.c : 1338)
+(util_filter.c : 526)
+(byterange_filter.c : 177)
+(util_filter.c : 526)
+(core.c : 3740)
+(config.c : 157)
+(config.c : 372)
+(http_request.c : 258)
+(http_core.c : 190)
+(connection.c : 43)
+(connection.c : 178)
+(worker.c : 544)
+(worker.c : 894)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 42690 42691 42692 42693 42729 42730 19160 19161 19335 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+%42729:	getelementptr	%42687 XXX XXX  Location: (util_time.c:125)
+%42730:	store	%42684 %42729  Location: (util_time.c:125)
+%19160:	call	tm t XXX XXX cached_explode  Location: (util_time.c:143)
+%19161:	ret	%19160  Location: (util_time.c:143)
+%19335:	call	%19331 t ap_explode_recent_gmt  Location: (util_time.c:200)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:46)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:86)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:100)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:101)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:102)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:103)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:104)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:105)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:109)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 42693 ]
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Dangerous Operation Location: (time.c:116)
+
+---- Part 3: Path Intersection ----
+[ 42690 42691 42692 42693 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Function: cached_explode(...) Location: (util_time.c:129)
+
+---- Part 3: Path Intersection ----
+[ 42690 42691 42692 42693 42729 42730 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+%42729:	getelementptr	%42687 XXX XXX  Location: (util_time.c:125)
+%42730:	store	%42684 %42729  Location: (util_time.c:125)
+Function: cached_explode(...) Location: (util_time.c:127)
+
+---- Part 3: Path Intersection ----
+[ 42690 42691 42692 42693 42729 42730 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+%42729:	getelementptr	%42687 XXX XXX  Location: (util_time.c:125)
+%42730:	store	%42684 %42729  Location: (util_time.c:125)
+Function: cached_explode(...) Location: (util_time.c:126)
+
+---- Part 3: Path Intersection ----
+[ 42690 42691 42692 42693 42729 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+%42729:	getelementptr	%42687 XXX XXX  Location: (util_time.c:125)
+Function: cached_explode(...) Location: (util_time.c:125)
+
+---- Part 3: Path Intersection ----
+[ 42690 42691 42692 42693 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Function: cached_explode(...) Location: (util_time.c:110)
+
+---- Part 3: Path Intersection ----
+[ 42690 42691 42692 42693 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Function: cached_explode(...) Location: (util_time.c:99)
+
+---- Part 3: Path Intersection ----
+[ 42690 42691 42692 42693 ]
+%42690:	getelementptr	%42687 XXX XXX  Location: (util_time.c:66)
+%42691:	load	%42690  Location: (util_time.c:66)
+%42692:	icmp	%42691 %42684  Location: (util_time.c:66)
+%42693:	br	%42692 if.else10 if.then  Location: (util_time.c:66)
+Function: cached_explode(...) Location: (util_time.c:98)
+
+   # of detected potential vulnerabilities: 20
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

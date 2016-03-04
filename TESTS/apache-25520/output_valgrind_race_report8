@@ -1,0 +1,45 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-25520
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-25520/apache-25520.bc --ptrderef --danfunc --raceReport valgrind_race_report8
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(worker.c : 948)
+(thread.c : 127)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 72204 72205 72206 requests_this_child 120960 120961 ]
+%72204:	load	requests_this_child  Location: (worker.c:948)
+%72205:	add	%72204 XXX  Location: (worker.c:948)
+%72206:	store	%72205 requests_this_child  Location: (worker.c:948)
+Function args: requests_this_child
+%120960:	call	%120954 %120959 %120957  Location: (thread.c:127)
+%120961:	ret	%120960  Location: (thread.c:127)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

@@ -1,0 +1,99 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report71
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 5026)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 2997 3000 3001 3002 3006 3005 ]
+%2997:	sext	%2992 
+%3000:	getelementptr	%2999 %2997 
+%3001:	getelementptr	%3000 XXX XXX 
+%3002:	load	%3001 
+%3006:	store	%3002 %3005 
+%3005:	getelementptr	%3004 XXX XXX 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 2998 2999 3000 3001 3002 3006 3005 3040 3041 3042 listener 7689 7691 7693 7694 7697 7699 7698 7714 7715 7716 7717 7719 7721 7723 7724 7718 7725 3043 7749 7750 7751 7752 7753 7754 7759 7760 7761 7762 3053 ]
+%2998:	getelementptr	%2977 XXX XXX 
+%2999:	load	%2998 
+%3000:	getelementptr	%2999 %2997 
+%3001:	getelementptr	%3000 XXX XXX 
+%3002:	load	%3001 
+%3006:	store	%3002 %3005 
+%3005:	getelementptr	%3004 XXX XXX 
+%3040:	getelementptr	%2977 XXX XXX 
+%3041:	load	%3040 
+%3042:	getelementptr	%3041 %3039 
+Function args: listener
+%7689:	getelementptr	listener XXX XXX 
+%7691:	bitcast	%7689 
+%7693:	getelementptr	listener XXX XXX 
+%7694:	load	%7693 
+%7697:	call	%7694 %7696 %7681 accept 
+%7699:	store	%7697 %7698 
+%7698:	getelementptr	%7679 XXX XXX 
+%7714:	getelementptr	listener XXX XXX 
+%7715:	load	%7714 
+%7716:	and	%7715 XXX 
+%7717:	zext	%7716 
+%7719:	trunc	%7717 
+%7721:	and	%7719 XXX 
+%7723:	or	%7722 %7721 
+%7724:	store	%7723 %7718 
+%7718:	getelementptr	%7679 XXX XXX 
+%7725:	zext	%7721 
+%3043:	call	%3042 %2977 accept_new_connection 
+%7749:	getelementptr	ctx XXX XXX 
+%7750:	load	%7749 
+%7751:	getelementptr	%7750 %7748 
+%7752:	getelementptr	%7751 XXX XXX 
+%7753:	load	%7752 
+%7754:	call	%7753 close 
+%7759:	getelementptr	ctx XXX XXX 
+%7760:	load	%7759 
+%7761:	bitcast	%7760 
+%7762:	call	%7761 free 
+%3053:	call	%2977 close_all_listening_sockets 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

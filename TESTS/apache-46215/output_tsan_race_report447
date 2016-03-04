@@ -1,0 +1,470 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report447
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 2167)
+-------------------------
+  %free_cleanups = getelementptr inbounds %struct.apr_pool_t* %p, i32 0, i32 5, !dbg !45702
+-------------------------
+(apr_buckets_alloc.c : 75)
+(worker.c : 893)
+(apr_pools.c : 2296)
+(thread.c : 142)
+(sockets.c : 149)
+
+---- Part 1: Dataflow Result ---- 
+[ 126242 126243 126244 126245 126246 126247 126249 126250 126251 126252 126258 126259 126260 126261 126262 126263 126264 126267 126268 126270 126269 144819 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126246:	getelementptr	p XXX XXX  Location: (apr_pools.c:2169)
+%126247:	load	%126246  Location: (apr_pools.c:2169)
+%126249:	getelementptr	%126247 XXX XXX  Location: (apr_pools.c:2170)
+%126250:	load	%126249  Location: (apr_pools.c:2170)
+%126251:	getelementptr	p XXX XXX  Location: (apr_pools.c:2170)
+%126252:	store	%126250 %126251  Location: (apr_pools.c:2170)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+%126264:	store	child_cleanup_fn %126263  Location: (apr_pools.c:2176)
+%126267:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2177)
+%126268:	store	%126266 %126267  Location: (apr_pools.c:2177)
+%126270:	store	%126258 %126269  Location: (apr_pools.c:2178)
+%126269:	getelementptr	p XXX XXX  Location: (apr_pools.c:2178)
+%144819:	call	%144817 %144818 alloc_cleanup apr_pool_cleanup_null apr_pool_cleanup_register  Location: (apr_buckets_alloc.c:75)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:219)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:235)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:236)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:239)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:249)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:251)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:256)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:265)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:268)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:269)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:275)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:292)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:293)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:294)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:299)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:305)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:309)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:315)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:316)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:326)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:327)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:328)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:329)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:638)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:641)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:642)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:643)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:648)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:649)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:650)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:653)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:654)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:655)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:661)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:663)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:664)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:666)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:668)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:670)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:673)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:674)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:675)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:681)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:683)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:684)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (thread_mutex.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 126245 ]
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (thread_mutex.c:121)
+
+---- Part 3: Path Intersection ----
+[ 126242 126243 126244 126245 126258 126259 126260 126261 126262 126263 126264 126267 126268 126269 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+%126264:	store	child_cleanup_fn %126263  Location: (apr_pools.c:2176)
+%126267:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2177)
+%126268:	store	%126266 %126267  Location: (apr_pools.c:2177)
+%126269:	getelementptr	p XXX XXX  Location: (apr_pools.c:2178)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2178)
+
+---- Part 3: Path Intersection ----
+[ 126242 126243 126244 126245 126258 126259 126260 126261 126262 126263 126264 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+%126264:	store	child_cleanup_fn %126263  Location: (apr_pools.c:2176)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2177)
+
+---- Part 3: Path Intersection ----
+[ 126242 126243 126244 126245 126258 126259 126260 126261 126262 126263 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2176)
+
+---- Part 3: Path Intersection ----
+[ 126242 126243 126244 126245 126258 126259 126260 126261 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2175)
+
+---- Part 3: Path Intersection ----
+[ 126242 126243 126244 126245 126258 126259 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2174)
+
+---- Part 3: Path Intersection ----
+[ 126242 126243 126244 126245 126246 126247 126249 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126246:	getelementptr	p XXX XXX  Location: (apr_pools.c:2169)
+%126247:	load	%126246  Location: (apr_pools.c:2169)
+%126249:	getelementptr	%126247 XXX XXX  Location: (apr_pools.c:2170)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2170)
+
+---- Part 3: Path Intersection ----
+[ 126242 126243 126244 126245 126246 ]
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126246:	getelementptr	p XXX XXX  Location: (apr_pools.c:2169)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2169)
+
+   # of detected potential vulnerabilities: 70
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

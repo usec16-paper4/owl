@@ -1,0 +1,257 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report338
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 2233)
+-------------------------
+  %free_cleanups = getelementptr inbounds %struct.apr_pool_t* %p, i32 0, i32 5, !dbg !45718
+-------------------------
+-------------------------
+  %next6 = getelementptr inbounds %struct.cleanup_t* %c.0, i32 0, i32 0, !dbg !45719
+-------------------------
+(apr_pools.c : 2296)
+(sockets.c : 149)
+(worker.c : 238)
+(worker.c : 294)
+(worker.c : 1275)
+(worker.c : 1341)
+(worker.c : 1375)
+(worker.c : 1725)
+(main.c : 740)
+
+---- Part 1: Dataflow Result ---- 
+[ 126369 126370 126372 126371 126373 126374 126450 ]
+%126369:	getelementptr	p XXX XXX  Location: (apr_pools.c:2233)
+%126370:	load	%126369  Location: (apr_pools.c:2233)
+%126372:	store	%126370 %126371  Location: (apr_pools.c:2233)
+%126371:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2233)
+%126373:	getelementptr	p XXX XXX  Location: (apr_pools.c:2234)
+%126374:	store	%126354 %126373  Location: (apr_pools.c:2234)
+%126450:	call	p data cleanup_fn apr_pool_cleanup_kill  Location: (apr_pools.c:2296)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 126371 126372 126376 126378 126379 126450 126354 126355 126356 126357 126358 126359 126360 126361 126362 126363 126364 126365 126366 126367 126368 126374 126373 133687 ]
+%126371:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2233)
+%126372:	store	%126370 %126371  Location: (apr_pools.c:2233)
+%126376:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2238)
+%126378:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2239)
+%126379:	load	%126378  Location: (apr_pools.c:2239)
+%126450:	call	p data cleanup_fn apr_pool_cleanup_kill  Location: (apr_pools.c:2296)
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+%126366:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2231)
+%126367:	load	%126366  Location: (apr_pools.c:2231)
+%126368:	store	%126367 %126355  Location: (apr_pools.c:2231)
+%126374:	store	%126354 %126373  Location: (apr_pools.c:2234)
+%126373:	getelementptr	p XXX XXX  Location: (apr_pools.c:2234)
+%133687:	call	%133685 %133686 shm_cleanup_attach apr_pool_cleanup_kill  Location: (shm.c:579)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2264)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2263)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2259)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2258)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2256)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2255)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2244)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2243)
+
+---- Part 3: Path Intersection ----
+[ 126376 126378 126354 126355 126356 126357 126358 126359 126360 126361 ]
+%126376:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2238)
+%126378:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2239)
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2239)
+
+---- Part 3: Path Intersection ----
+[ 126376 126354 126355 126356 126357 126358 126359 126360 126361 ]
+%126376:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2238)
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2238)
+
+---- Part 3: Path Intersection ----
+[ 126371 126372 126354 126355 126356 126357 126358 126359 126360 126361 126362 126363 126364 126365 126366 126367 126368 126373 ]
+%126371:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2233)
+%126372:	store	%126370 %126371  Location: (apr_pools.c:2233)
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+%126366:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2231)
+%126367:	load	%126366  Location: (apr_pools.c:2231)
+%126368:	store	%126367 %126355  Location: (apr_pools.c:2231)
+%126373:	getelementptr	p XXX XXX  Location: (apr_pools.c:2234)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2234)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 126358 126359 126360 126361 126362 126363 126364 126365 126366 126367 126368 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+%126366:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2231)
+%126367:	load	%126366  Location: (apr_pools.c:2231)
+%126368:	store	%126367 %126355  Location: (apr_pools.c:2231)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2233)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 126358 126359 126360 126361 126362 126363 126364 126365 126366 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+%126366:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2231)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2231)
+
+---- Part 3: Path Intersection ----
+[ 126354 126355 126356 126357 126358 ]
+%126354:	phi	%126349 %126379 
+%126355:	phi	%126351 %126376 
+%126356:	icmp	%126354 XXX  Location: (apr_pools.c:2220)
+%126357:	br	%126356 while.end while.body  Location: (apr_pools.c:2220)
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2230)
+
+   # of detected potential vulnerabilities: 14
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,1357 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report58
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 4237)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 3668 3669 3670 3671 3672 spec 4121 list 6491 6492 6493 6494 6495 6496 6500 6499 4122 4124 4125 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3711 3712 3713 3714 3715 3716 3717 3797 3798 3799 3800 3801 s1 1020 1021 s 7494 7495 7496 7497 1023 1027 1030 1031 1032 1033 1034 1035 1037 1038 1039 3802 3803 3804 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 pattern pattern_len 4666 4667 4669 4670 4671 4672 4673 4674 4680 4681 4682 4683 4684 4685 4686 4687 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 4759 4760 4766 4767 4793 4794 4795 4800 4801 3824 3825 3826 3850 3851 3852 3853 3854 3855 3856 3857 3858 3859 3860 3861 3381 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+Function args: spec
+%4121:	phi	spec %4122 %4122 
+Function args: list
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+%4122:	call	%4121 %4103 %4104 next_option 
+%4124:	icmp	%4122 XXX 
+%4125:	br	%4124 while.end while.body 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3711:	getelementptr	conn XXX XXX 
+%3712:	load	%3711 
+%3713:	getelementptr	%3712 XXX XXX 
+%3714:	getelementptr	%3713 XXX XXX 
+%3715:	load	%3714 
+%3716:	icmp	%3715 XXX 
+%3717:	br	%3716 lor.lhs.false if.then45 
+%3797:	getelementptr	conn XXX XXX 
+%3798:	load	%3797 
+%3799:	getelementptr	%3798 XXX XXX 
+%3800:	getelementptr	%3799 XXX XXX 
+%3801:	load	%3800 
+Function args: s1
+%1020:	phi	s1 %1021 
+%1021:	getelementptr	%1020 XXX 
+Function args: s
+%7494:	load	s 
+%7495:	zext	%7494 
+%7496:	call	%7495 tolower 
+%7497:	ret	%7496 
+%1023:	call	%1020 lowercase 
+%1027:	sub	%1023 %1026 
+%1030:	icmp	%1027 XXX 
+%1031:	br	%1030 land.end land.rhs 
+%1032:	getelementptr	%1021 XXX 
+%1033:	load	%1032 
+%1034:	sext	%1033 
+%1035:	icmp	%1034 XXX 
+%1037:	phi	XXX %1035 
+%1038:	br	%1037 do.end do.body 
+%1039:	ret	%1027 
+%3802:	call	%3801 XXX mg_strcasecmp 
+%3803:	icmp	%3802 XXX 
+%3804:	br	%3803 if.then108 if.else110 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+Function args: pattern
+Function args: pattern_len
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4671:	ptrtoint	%4667 
+%4672:	ptrtoint	pattern 
+%4673:	sub	%4671 %4672 
+%4674:	trunc	%4673 
+%4680:	getelementptr	%4667 XXX 
+%4681:	sext	pattern_len 
+%4682:	getelementptr	pattern %4681 
+%4683:	getelementptr	%4667 XXX 
+%4684:	ptrtoint	%4682 
+%4685:	ptrtoint	%4683 
+%4686:	sub	%4684 %4685 
+%4687:	trunc	%4686 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+%4759:	icmp	%4757 pattern_len 
+%4760:	br	%4759 if.end66 if.then65 
+%4766:	getelementptr	pattern %4765 
+%4767:	sub	pattern_len %4757 
+%4793:	getelementptr	pattern %4792 
+%4794:	load	%4793 
+%4795:	sext	%4794 
+%4800:	icmp	%4795 %4799 
+%4801:	br	%4800 if.end96 if.then95 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+%3850:	getelementptr	conn XXX XXX 
+%3851:	load	%3850 
+%3852:	getelementptr	%3851 XXX XXX 
+%3853:	getelementptr	%3852 XXX XXX 
+%3854:	load	%3853 
+%3855:	getelementptr	conn XXX XXX 
+%3856:	load	%3855 
+%3857:	getelementptr	%3856 XXX XXX 
+%3858:	getelementptr	%3857 XXX XXX 
+%3859:	load	%3858 
+%3860:	call	%3859 strlen 
+%3861:	trunc	%3860 
+%3381:	call	conn handle_request 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:870)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:869)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:868)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:867)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:866)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:865)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:859)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:858)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:855)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:854)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:852)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:851)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+Function: match_prefix(...) Location: (mongoose.c:910)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 4759 4760 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+%4759:	icmp	%4757 pattern_len 
+%4760:	br	%4759 if.end66 if.then65 
+Function: match_prefix(...) Location: (mongoose.c:907)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+Function: match_prefix(...) Location: (mongoose.c:901)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+Function: match_prefix(...) Location: (mongoose.c:899)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+Function: match_prefix(...) Location: (mongoose.c:897)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:895)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:894)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+Function: match_prefix(...) Location: (mongoose.c:893)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+Function: match_prefix(...) Location: (mongoose.c:891)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4671 4672 4673 4674 4680 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4671:	ptrtoint	%4667 
+%4672:	ptrtoint	pattern 
+%4673:	sub	%4671 %4672 
+%4674:	trunc	%4673 
+%4680:	getelementptr	%4667 XXX 
+Function: match_prefix(...) Location: (mongoose.c:885)
+
+---- Part 3: Path Intersection ----
+[ 4121 4122 4124 4125 ]
+%4121:	phi	spec %4122 %4122 
+%4122:	call	%4121 %4103 %4104 next_option 
+%4124:	icmp	%4122 XXX 
+%4125:	br	%4124 while.end while.body 
+Function: set_throttle(...) Location: (mongoose.c:3948)
+
+---- Part 3: Path Intersection ----
+[ 4121 4122 4124 4125 ]
+%4121:	phi	spec %4122 %4122 
+%4122:	call	%4121 %4103 %4104 next_option 
+%4124:	icmp	%4122 XXX 
+%4125:	br	%4124 while.end while.body 
+Function: set_throttle(...) Location: (mongoose.c:3944)
+
+---- Part 3: Path Intersection ----
+[ 4121 4122 4124 4125 ]
+%4121:	phi	spec %4122 %4122 
+%4122:	call	%4121 %4103 %4104 next_option 
+%4124:	icmp	%4122 XXX 
+%4125:	br	%4124 while.end while.body 
+Function: set_throttle(...) Location: (mongoose.c:3942)
+
+---- Part 3: Path Intersection ----
+[ 4121 4122 4124 4125 ]
+%4121:	phi	spec %4122 %4122 
+%4122:	call	%4121 %4103 %4104 next_option 
+%4124:	icmp	%4122 XXX 
+%4125:	br	%4124 while.end while.body 
+Function: set_throttle(...) Location: (mongoose.c:3937)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 3850 3851 3852 3853 3854 3855 3856 3857 3858 3859 3860 3861 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+%3850:	getelementptr	conn XXX XXX 
+%3851:	load	%3850 
+%3852:	getelementptr	%3851 XXX XXX 
+%3853:	getelementptr	%3852 XXX XXX 
+%3854:	load	%3853 
+%3855:	getelementptr	conn XXX XXX 
+%3856:	load	%3855 
+%3857:	getelementptr	%3856 XXX XXX 
+%3858:	getelementptr	%3857 XXX XXX 
+%3859:	load	%3858 
+%3860:	call	%3859 strlen 
+%3861:	trunc	%3860 
+Function: handle_request(...) Location: (mongoose.c:4306)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 3850 3851 3852 3853 3854 3855 3856 3857 3858 3859 3860 3861 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+%3850:	getelementptr	conn XXX XXX 
+%3851:	load	%3850 
+%3852:	getelementptr	%3851 XXX XXX 
+%3853:	getelementptr	%3852 XXX XXX 
+%3854:	load	%3853 
+%3855:	getelementptr	conn XXX XXX 
+%3856:	load	%3855 
+%3857:	getelementptr	%3856 XXX XXX 
+%3858:	getelementptr	%3857 XXX XXX 
+%3859:	load	%3858 
+%3860:	call	%3859 strlen 
+%3861:	trunc	%3860 
+Function: handle_request(...) Location: (mongoose.c:4302)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 3850 3851 3852 3853 3854 3855 3856 3857 3858 3859 3860 3861 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+%3850:	getelementptr	conn XXX XXX 
+%3851:	load	%3850 
+%3852:	getelementptr	%3851 XXX XXX 
+%3853:	getelementptr	%3852 XXX XXX 
+%3854:	load	%3853 
+%3855:	getelementptr	conn XXX XXX 
+%3856:	load	%3855 
+%3857:	getelementptr	%3856 XXX XXX 
+%3858:	getelementptr	%3857 XXX XXX 
+%3859:	load	%3858 
+%3860:	call	%3859 strlen 
+%3861:	trunc	%3860 
+Function: handle_request(...) Location: (mongoose.c:4301)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 3850 3851 3852 3853 3854 3855 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+%3850:	getelementptr	conn XXX XXX 
+%3851:	load	%3850 
+%3852:	getelementptr	%3851 XXX XXX 
+%3853:	getelementptr	%3852 XXX XXX 
+%3854:	load	%3853 
+%3855:	getelementptr	conn XXX XXX 
+Function: handle_request(...) Location: (mongoose.c:4300)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+Function: handle_request(...) Location: (mongoose.c:4299)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+Function: handle_request(...) Location: (mongoose.c:4296)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+Function: handle_request(...) Location: (mongoose.c:4294)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+Function: handle_request(...) Location: (mongoose.c:4292)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+Function: handle_request(...) Location: (mongoose.c:4291)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 3824 3825 3826 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+%3824:	call	%3815 %3822 %3823 match_prefix 
+%3825:	icmp	%3824 XXX 
+%3826:	br	%3825 if.else142 if.then125 
+Function: handle_request(...) Location: (mongoose.c:4290)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 3817 3818 3819 3820 3821 3822 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+%3817:	load	%3816 
+%3818:	getelementptr	%3817 XXX XXX 
+%3819:	getelementptr	%3818 XXX XXX 
+%3820:	load	%3819 
+%3821:	call	%3820 strlen 
+%3822:	trunc	%3821 
+Function: handle_request(...) Location: (mongoose.c:4289)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3811 3812 3813 3814 3815 3816 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3811:	getelementptr	conn XXX XXX 
+%3812:	load	%3811 
+%3813:	getelementptr	%3812 XXX XXX 
+%3814:	getelementptr	%3813 XXX XXX 
+%3815:	load	%3814 
+%3816:	getelementptr	conn XXX XXX 
+Function: handle_request(...) Location: (mongoose.c:4288)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3797 3798 3799 3800 3801 3802 3803 3804 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3797:	getelementptr	conn XXX XXX 
+%3798:	load	%3797 
+%3799:	getelementptr	%3798 XXX XXX 
+%3800:	getelementptr	%3799 XXX XXX 
+%3801:	load	%3800 
+%3802:	call	%3801 XXX mg_strcasecmp 
+%3803:	icmp	%3802 XXX 
+%3804:	br	%3803 if.then108 if.else110 
+Function: handle_request(...) Location: (mongoose.c:4287)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3797 3798 3799 3800 3801 3802 3803 3804 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3797:	getelementptr	conn XXX XXX 
+%3798:	load	%3797 
+%3799:	getelementptr	%3798 XXX XXX 
+%3800:	getelementptr	%3799 XXX XXX 
+%3801:	load	%3800 
+%3802:	call	%3801 XXX mg_strcasecmp 
+%3803:	icmp	%3802 XXX 
+%3804:	br	%3803 if.then108 if.else110 
+Function: handle_request(...) Location: (mongoose.c:4277)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3797 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3797:	getelementptr	conn XXX XXX 
+Function: handle_request(...) Location: (mongoose.c:4276)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4275)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4274)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4273)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4272)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4271)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4269)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4267)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4266)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4263)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4260)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4259)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+Function: handle_request(...) Location: (mongoose.c:4258)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3711 3712 3713 3714 3715 3716 3717 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3711:	getelementptr	conn XXX XXX 
+%3712:	load	%3711 
+%3713:	getelementptr	%3712 XXX XXX 
+%3714:	getelementptr	%3713 XXX XXX 
+%3715:	load	%3714 
+%3716:	icmp	%3715 XXX 
+%3717:	br	%3716 lor.lhs.false if.then45 
+Function: handle_request(...) Location: (mongoose.c:4257)
+
+---- Part 3: Path Intersection ----
+[ 3668 3669 3670 3671 3672 3676 3678 3677 3699 3700 3701 3702 3703 3704 3705 3711 ]
+%3668:	getelementptr	conn XXX XXX 
+%3669:	load	%3668 
+%3670:	getelementptr	%3669 XXX XXX 
+%3671:	getelementptr	%3670 XXX XXX 
+%3672:	load	%3671 
+%3676:	call	%3672 %3673 %3675 set_throttle 
+%3678:	store	%3676 %3677 
+%3677:	getelementptr	conn XXX XXX 
+%3699:	getelementptr	conn XXX XXX 
+%3700:	load	%3699 
+%3701:	getelementptr	%3700 XXX XXX 
+%3702:	getelementptr	%3701 XXX XXX 
+%3703:	load	%3702 
+%3704:	icmp	%3703 XXX 
+%3705:	br	%3704 if.else33 if.then32 
+%3711:	getelementptr	conn XXX XXX 
+Function: handle_request(...) Location: (mongoose.c:4254)
+
+   # of detected potential vulnerabilities: 55
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

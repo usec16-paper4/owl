@@ -1,0 +1,161 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report375
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 851)
+Warning: Call Inst %125441 is the first one in the call stack!
+-------------------------
+  br i1 %cmp9, label %if.then10, label %if.end15, !dbg !45718
+-------------------------
+(apr_pools.c : 2230)
+(worker.c : 738)
+(thread.c : 142)
+(apr_pools.c : 2296)
+
+---- Part 1: Dataflow Result ---- 
+[ 125444 111360 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+%111360:	call	%111176 %111358 XXX %111359 apr_pool_create_ex  Location: (worker.c:738)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:902)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:901)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:893)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:892)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:890)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:889)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:885)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:881)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:875)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:874)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:873)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:872)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:871)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:870)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:869)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:868)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:867)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:866)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:865)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:863)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:862)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:860)
+
+---- Part 3: Path Intersection ----
+[ 125444 ]
+%125444:	br	%125443 if.end15 if.then10  Location: (apr_pools.c:851)
+Function: apr_pool_create_ex(...) Location: (apr_pools.c:859)
+
+   # of detected potential vulnerabilities: 23
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

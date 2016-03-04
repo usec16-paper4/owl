@@ -1,0 +1,58 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report498
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(worker.c : 238)
+-------------------------
+  %3 = load %struct.apr_socket_t*** @worker_sockets, align 8, !dbg !45703
+-------------------------
+(apr_pools.c : 2167)
+(worker.c : 294)
+(apr_buckets_alloc.c : 75)
+(worker.c : 1275)
+(worker.c : 893)
+(worker.c : 1341)
+(thread.c : 142)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 110957 110958 110959 thesocket 129339 129340 129341 p data 110960 110941 ]
+%110957:	load	worker_sockets  Location: (worker.c:238)
+%110958:	getelementptr	%110957 %110956  Location: (worker.c:238)
+%110959:	load	%110958  Location: (worker.c:238)
+Function args: thesocket
+%129339:	getelementptr	thesocket XXX XXX  Location: (sockets.c:149)
+%129340:	load	%129339  Location: (sockets.c:149)
+%129341:	bitcast	thesocket  Location: (sockets.c:149)
+Function args: p
+Function args: data
+%110960:	call	%110959 apr_socket_close  Location: (worker.c:238)
+%110941:	call	close_worker_sockets  Location: (worker.c:294)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

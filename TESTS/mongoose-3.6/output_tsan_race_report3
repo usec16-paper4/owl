@@ -1,0 +1,134 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report3
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 882)
+(mongoose.c : 907)
+(mongoose.c : 4287)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 4666 4667 4669 4670 4671 4673 4674 4680 4683 4685 4686 4687 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4671:	ptrtoint	%4667 
+%4673:	sub	%4671 %4672 
+%4674:	trunc	%4673 
+%4680:	getelementptr	%4667 XXX 
+%4683:	getelementptr	%4667 XXX 
+%4685:	ptrtoint	%4683 
+%4686:	sub	%4684 %4685 
+%4687:	trunc	%4686 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:910)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:907)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:901)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:899)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:897)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:895)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:894)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:893)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+Function: match_prefix(...) Location: (mongoose.c:891)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4671 4673 4674 4680 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4671:	ptrtoint	%4667 
+%4673:	sub	%4671 %4672 
+%4674:	trunc	%4673 
+%4680:	getelementptr	%4667 XXX 
+Function: match_prefix(...) Location: (mongoose.c:885)
+
+   # of detected potential vulnerabilities: 10
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

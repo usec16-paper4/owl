@@ -1,0 +1,36 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench10
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(btr0cur.c : 317)
+(btr0pcur.ic : 535)
+(row0sel.c : 2981)
+(row0sel.c : 3324)
+(ha_innodb.cc : 3826)
+(ha_innodb.cc : 3950)
+(sql_select.cc : 10481)
+(sql_select.cc : 10384)
+(sql_select.cc : 2316)
+(sql_select.cc : 714)
+(sql_select.cc : 242)
+(sql_parse.cc : 2587)
+(sql_prepare.cc : 2926)
+(sql_prepare.cc : 2251)
+(sql_parse.cc : 1727)
+(sql_parse.cc : 1550)
+(sql_parse.cc : 1181)
+
++ echo 'ConAnalysis Done!'

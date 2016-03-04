@@ -1,0 +1,53 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report515
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(thread.c : 179)
+-------------------------
+  %td16 = getelementptr inbounds %struct.apr_thread_t* %9, i32 0, i32 1, !dbg !45741
+-------------------------
+(apr_pools.c : 2230)
+(worker.c : 929)
+(apr_pools.c : 2296)
+(worker.c : 1019)
+(sockets.c : 149)
+(thread.c : 142)
+(worker.c : 238)
+
+---- Part 1: Dataflow Result ---- 
+[ 135181 135182 135185 135187 135188 135191 135192 ]
+%135181:	getelementptr	%135180 XXX XXX  Location: (thread.c:179)
+%135182:	load	%135181  Location: (thread.c:179)
+%135185:	call	%135182 %135172 dummy_worker %135184 pthread_create  Location: (thread.c:179)
+%135187:	icmp	%135185 XXX  Location: (thread.c:179)
+%135188:	br	%135187 if.else20 if.then19  Location: (thread.c:179)
+%135191:	phi	XXX XXX %135175 XXX %135185 
+%135192:	ret	%135191  Location: (thread.c:189)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,342 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report57
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 3480)
+(mongoose.c : 3482)
+(mongoose.c : 3592)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 5557 5558 5559 5560 5561 5562 5563 5564 5565 5566 5567 5568 pattern pattern_len 4666 4667 4669 4670 4671 4672 4673 4674 4680 4681 4682 4683 4684 4685 4686 4687 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 4759 4760 4766 4767 4793 4794 4795 4800 4801 5570 5571 5572 5575 ]
+%5557:	getelementptr	conn XXX XXX 
+%5558:	load	%5557 
+%5559:	getelementptr	%5558 XXX XXX 
+%5560:	getelementptr	%5559 XXX XXX 
+%5561:	load	%5560 
+%5562:	getelementptr	conn XXX XXX 
+%5563:	load	%5562 
+%5564:	getelementptr	%5563 XXX XXX 
+%5565:	getelementptr	%5564 XXX XXX 
+%5566:	load	%5565 
+%5567:	call	%5566 strlen 
+%5568:	trunc	%5567 
+Function args: pattern
+Function args: pattern_len
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4671:	ptrtoint	%4667 
+%4672:	ptrtoint	pattern 
+%4673:	sub	%4671 %4672 
+%4674:	trunc	%4673 
+%4680:	getelementptr	%4667 XXX 
+%4681:	sext	pattern_len 
+%4682:	getelementptr	pattern %4681 
+%4683:	getelementptr	%4667 XXX 
+%4684:	ptrtoint	%4682 
+%4685:	ptrtoint	%4683 
+%4686:	sub	%4684 %4685 
+%4687:	trunc	%4686 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+%4759:	icmp	%4757 pattern_len 
+%4760:	br	%4759 if.end66 if.then65 
+%4766:	getelementptr	pattern %4765 
+%4767:	sub	pattern_len %4757 
+%4793:	getelementptr	pattern %4792 
+%4794:	load	%4793 
+%4795:	sext	%4794 
+%4800:	icmp	%4795 %4799 
+%4801:	br	%4800 if.end96 if.then95 
+%5570:	call	%5561 %5568 %5569 match_prefix 
+%5571:	icmp	%5570 XXX 
+%5572:	br	%5571 if.else54 if.then52 
+%5575:	call	conn %5573 %5489 %5574 send_ssi_file 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 5557 5558 5559 5560 5561 5562 5563 5564 5565 5566 5567 5568 5570 5571 5572 ]
+%5557:	getelementptr	conn XXX XXX 
+%5558:	load	%5557 
+%5559:	getelementptr	%5558 XXX XXX 
+%5560:	getelementptr	%5559 XXX XXX 
+%5561:	load	%5560 
+%5562:	getelementptr	conn XXX XXX 
+%5563:	load	%5562 
+%5564:	getelementptr	%5563 XXX XXX 
+%5565:	getelementptr	%5564 XXX XXX 
+%5566:	load	%5565 
+%5567:	call	%5566 strlen 
+%5568:	trunc	%5567 
+%5570:	call	%5561 %5568 %5569 match_prefix 
+%5571:	icmp	%5570 XXX 
+%5572:	br	%5571 if.else54 if.then52 
+Function: do_ssi_include(...) Location: (mongoose.c:3482)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+Function: match_prefix(...) Location: (mongoose.c:910)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 4759 4760 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+%4759:	icmp	%4757 pattern_len 
+%4760:	br	%4759 if.end66 if.then65 
+Function: match_prefix(...) Location: (mongoose.c:907)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+Function: match_prefix(...) Location: (mongoose.c:901)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 4738 4739 4740 4741 4742 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+%4738:	getelementptr	pattern %4737 
+%4739:	load	%4738 
+%4740:	sext	%4739 
+%4741:	icmp	%4740 XXX 
+%4742:	br	%4741 if.else57 if.then51 
+Function: match_prefix(...) Location: (mongoose.c:899)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 4730 4731 4732 4733 4734 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4730:	getelementptr	pattern %4729 
+%4731:	load	%4730 
+%4732:	sext	%4731 
+%4733:	icmp	%4732 XXX 
+%4734:	br	%4733 if.else86 if.then45 
+Function: match_prefix(...) Location: (mongoose.c:897)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:895)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 4714 4715 4716 4717 4718 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:894)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 4701 4702 4703 4704 4705 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4701:	getelementptr	pattern %4700 
+%4702:	load	%4701 
+%4703:	sext	%4702 
+%4704:	icmp	%4703 XXX 
+%4705:	br	%4704 if.else land.lhs.true 
+Function: match_prefix(...) Location: (mongoose.c:893)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4698 4699 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+Function: match_prefix(...) Location: (mongoose.c:891)
+
+---- Part 3: Path Intersection ----
+[ 4666 4667 4669 4670 4671 4672 4673 4674 4680 ]
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4671:	ptrtoint	%4667 
+%4672:	ptrtoint	pattern 
+%4673:	sub	%4671 %4672 
+%4674:	trunc	%4673 
+%4680:	getelementptr	%4667 XXX 
+Function: match_prefix(...) Location: (mongoose.c:885)
+
+   # of detected potential vulnerabilities: 11
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

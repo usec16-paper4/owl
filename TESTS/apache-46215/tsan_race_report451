@@ -1,0 +1,4 @@
+apr_os_sock_get (sockets.c:373)
+process_socket (worker.c:539)
+worker_thread (worker.c:894)
+dummy_worker (thread.c:142)

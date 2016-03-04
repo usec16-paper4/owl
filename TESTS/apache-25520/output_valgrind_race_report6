@@ -1,0 +1,716 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-25520
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-25520/apache-25520.bc --ptrderef --danfunc --raceReport valgrind_race_report6
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mod_log_config.c : 1342)
+(mod_log_config.c : 930)
+(mod_log_config.c : 950)
+(protocol.c : 1563)
+(http_request.c : 312)
+(http_core.c : 293)
+(connection.c : 85)
+(connection.c : 211)
+(worker.c : 632)
+(worker.c : 946)
+(thread.c : 127)
+
+---- Part 1: Dataflow Result ---- 
+[ 51089 51090 51091 51092 51093 50460 50461 50462 50463 50472 nbytes 108469 108470 108512 108515 108517 108518 108528 108529 108535 108543 108547 108548 108545 108549 108550 108552 108568 108569 108572 108573 108580 108581 108598 108604 108605 108608 108609 108616 108617 108626 108627 108628 108635 108636 108637 108638 108642 50473 50474 50475 51094 108511 108546 51132 51136 51137 51139 51142 51158 51164 51165 51166 51167 51170 51171 49795 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50460:	getelementptr	buf XXX XXX  Location: (mod_log_config.c:862)
+%50461:	load	%50460  Location: (mod_log_config.c:862)
+%50462:	icmp	%50461 XXX  Location: (mod_log_config.c:862)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%50472:	getelementptr	buf XXX XXX  Location: (mod_log_config.c:863)
+Function args: nbytes
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108515:	icmp	%108512 XXX  Location: (readwrite.c:212)
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108528:	icmp	%108512 %108527  Location: (readwrite.c:216)
+%108529:	br	%108528 cond.false cond.true  Location: (readwrite.c:216)
+%108535:	phi	%108532 %108512  Location: (readwrite.c:216)
+%108543:	sext	%108535  Location: (readwrite.c:218)
+%108547:	add	%108546 %108535  Location: (readwrite.c:219)
+%108548:	store	%108547 %108545  Location: (readwrite.c:219)
+%108545:	getelementptr	thefile XXX XXX  Location: (readwrite.c:219)
+%108549:	sext	%108535  Location: (readwrite.c:220)
+%108550:	getelementptr	%108511 %108549  Location: (readwrite.c:220)
+%108552:	sub	%108512 %108535  Location: (readwrite.c:221)
+%108568:	load	nbytes  Location: (readwrite.c:233)
+%108569:	call	%108567 buf %108568 write  Location: (readwrite.c:233)
+%108572:	icmp	%108569 XXX  Location: (readwrite.c:234)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108580:	icmp	%108569 XXX  Location: (readwrite.c:236)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+%108598:	store	XXX nbytes  Location: (readwrite.c:241)
+%108604:	load	nbytes  Location: (readwrite.c:247)
+%108605:	call	%108603 buf %108604 write  Location: (readwrite.c:247)
+%108608:	icmp	%108605 XXX  Location: (readwrite.c:248)
+%108609:	br	%108608 land.end84 land.rhs80  Location: (readwrite.c:248)
+%108616:	icmp	%108605 XXX  Location: (readwrite.c:249)
+%108617:	br	%108616 if.else97 land.lhs.true88  Location: (readwrite.c:249)
+%108626:	load	nbytes  Location: (readwrite.c:251)
+%108627:	udiv	%108626 XXX  Location: (readwrite.c:251)
+%108628:	store	%108627 nbytes  Location: (readwrite.c:251)
+%108635:	phi	%108605 %108569 %108569 %108569 
+%108636:	icmp	%108635 XXX  Location: (readwrite.c:262)
+%108637:	br	%108636 if.end107 if.then105  Location: (readwrite.c:262)
+%108638:	store	XXX nbytes  Location: (readwrite.c:263)
+%108642:	store	%108635 nbytes  Location: (readwrite.c:266)
+%50473:	call	%50469 %50471 %50472 apr_file_write  Location: (mod_log_config.c:863)
+%50474:	getelementptr	buf XXX XXX  Location: (mod_log_config.c:864)
+%50475:	store	XXX %50474  Location: (mod_log_config.c:864)
+%51094:	call	%51087 flush_log  Location: (mod_log_config.c:1343)
+%108511:	phi	buf %108550 
+%108546:	load	%108545  Location: (readwrite.c:219)
+%51132:	call	%51131 %51102 %51080 apr_file_write  Location: (mod_log_config.c:1354)
+%51136:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1358)
+%51137:	load	%51136  Location: (mod_log_config.c:1358)
+%51139:	getelementptr	%51138 XXX %51137  Location: (mod_log_config.c:1358)
+%51142:	phi	%51139 %51158 
+%51158:	getelementptr	%51142 %51157  Location: (mod_log_config.c:1360)
+%51164:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1362)
+%51165:	load	%51164  Location: (mod_log_config.c:1362)
+%51166:	add	%51165 len  Location: (mod_log_config.c:1362)
+%51167:	store	%51166 %51164  Location: (mod_log_config.c:1362)
+%51170:	phi	%51132 XXX 
+%51171:	ret	%51170  Location: (mod_log_config.c:1365)
+%49795:	call	%49736 %49792 %49709 %49718 %49794 %49765 %49790  Location: (mod_log_config.c:930)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (apr_atomic.c:127)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (apr_atomic.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (apr_atomic.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+Dangerous Operation Location: (mod_log_config.c:862)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (poll.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (poll.c:152)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (poll.c:154)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (poll.c:155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (poll.c:160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (poll.c:172)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:196)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:200)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:204)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:205)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:206)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:207)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Dangerous Operation Location: (readwrite.c:208)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:225)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:233)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:320)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:323)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:325)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:330)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (readwrite.c:331)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:116)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:121)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:134)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:139)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:143)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:206)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+Dangerous Operation Location: (thread_mutex.c:230)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:78)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:79)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:80)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:81)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:84)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:85)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:86)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:87)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:89)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 51093 50463 108518 108573 108581 ]
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Dangerous Operation Location: (waitio.c:94)
+
+---- Part 3: Path Intersection ----
+[ 108568 108569 108572 108573 108580 108581 ]
+%108568:	load	nbytes  Location: (readwrite.c:233)
+%108569:	call	%108567 buf %108568 write  Location: (readwrite.c:233)
+%108572:	icmp	%108569 XXX  Location: (readwrite.c:234)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108580:	icmp	%108569 XXX  Location: (readwrite.c:236)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Function: apr_file_write(...) Location: (readwrite.c:247)
+
+---- Part 3: Path Intersection ----
+[ 108568 108569 108572 108573 108580 108581 ]
+%108568:	load	nbytes  Location: (readwrite.c:233)
+%108569:	call	%108567 buf %108568 write  Location: (readwrite.c:233)
+%108572:	icmp	%108569 XXX  Location: (readwrite.c:234)
+%108573:	br	%108572 land.end55 land.rhs51  Location: (readwrite.c:234)
+%108580:	icmp	%108569 XXX  Location: (readwrite.c:236)
+%108581:	br	%108580 if.end102 land.lhs.true  Location: (readwrite.c:236)
+Function: apr_file_write(...) Location: (readwrite.c:238)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108511 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108511:	phi	buf %108550 
+Function: apr_file_write(...) Location: (readwrite.c:226)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108511 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108511:	phi	buf %108550 
+Function: apr_file_write(...) Location: (readwrite.c:225)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108528 108529 108535 108543 108547 108548 108545 108549 108511 108546 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108528:	icmp	%108512 %108527  Location: (readwrite.c:216)
+%108529:	br	%108528 cond.false cond.true  Location: (readwrite.c:216)
+%108535:	phi	%108532 %108512  Location: (readwrite.c:216)
+%108543:	sext	%108535  Location: (readwrite.c:218)
+%108547:	add	%108546 %108535  Location: (readwrite.c:219)
+%108548:	store	%108547 %108545  Location: (readwrite.c:219)
+%108545:	getelementptr	thefile XXX XXX  Location: (readwrite.c:219)
+%108549:	sext	%108535  Location: (readwrite.c:220)
+%108511:	phi	buf %108550 
+%108546:	load	%108545  Location: (readwrite.c:219)
+Function: apr_file_write(...) Location: (readwrite.c:220)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108528 108529 108535 108543 108545 108511 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108528:	icmp	%108512 %108527  Location: (readwrite.c:216)
+%108529:	br	%108528 cond.false cond.true  Location: (readwrite.c:216)
+%108535:	phi	%108532 %108512  Location: (readwrite.c:216)
+%108543:	sext	%108535  Location: (readwrite.c:218)
+%108545:	getelementptr	thefile XXX XXX  Location: (readwrite.c:219)
+%108511:	phi	buf %108550 
+Function: apr_file_write(...) Location: (readwrite.c:219)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108528 108529 108535 108511 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108528:	icmp	%108512 %108527  Location: (readwrite.c:216)
+%108529:	br	%108528 cond.false cond.true  Location: (readwrite.c:216)
+%108535:	phi	%108532 %108512  Location: (readwrite.c:216)
+%108511:	phi	buf %108550 
+Function: apr_file_write(...) Location: (readwrite.c:218)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108528 108529 108511 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108528:	icmp	%108512 %108527  Location: (readwrite.c:216)
+%108529:	br	%108528 cond.false cond.true  Location: (readwrite.c:216)
+%108511:	phi	buf %108550 
+Function: apr_file_write(...) Location: (readwrite.c:217)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108511 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108511:	phi	buf %108550 
+Function: apr_file_write(...) Location: (readwrite.c:216)
+
+---- Part 3: Path Intersection ----
+[ 108469 108470 108512 108517 108518 108511 ]
+%108469:	load	nbytes  Location: (readwrite.c:192)
+%108470:	trunc	%108469  Location: (readwrite.c:192)
+%108512:	phi	%108470 %108552 
+%108517:	phi	XXX %108515 
+%108518:	br	%108517 while.end while.body  Location: (readwrite.c:212)
+%108511:	phi	buf %108550 
+Function: apr_file_write(...) Location: (readwrite.c:213)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 51136 51137 51139 51142 51164 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%51136:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1358)
+%51137:	load	%51136  Location: (mod_log_config.c:1358)
+%51139:	getelementptr	%51138 XXX %51137  Location: (mod_log_config.c:1358)
+%51142:	phi	%51139 %51158 
+%51164:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1362)
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1362)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 51136 51137 51139 51142 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%51136:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1358)
+%51137:	load	%51136  Location: (mod_log_config.c:1358)
+%51139:	getelementptr	%51138 XXX %51137  Location: (mod_log_config.c:1358)
+%51142:	phi	%51139 %51158 
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1360)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 51136 51137 51139 51142 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%51136:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1358)
+%51137:	load	%51136  Location: (mod_log_config.c:1358)
+%51139:	getelementptr	%51138 XXX %51137  Location: (mod_log_config.c:1358)
+%51142:	phi	%51139 %51158 
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1359)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 51136 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+%51136:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1358)
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1358)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1354)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1351)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1350)
+
+---- Part 3: Path Intersection ----
+[ 51089 51090 51091 51092 51093 ]
+%51089:	getelementptr	%51087 XXX XXX  Location: (mod_log_config.c:1342)
+%51090:	load	%51089  Location: (mod_log_config.c:1342)
+%51091:	add	len %51090  Location: (mod_log_config.c:1342)
+%51092:	icmp	%51091 XXX  Location: (mod_log_config.c:1342)
+%51093:	br	%51092 if.end if.then  Location: (mod_log_config.c:1342)
+Function: ap_buffered_log_writer(...) Location: (mod_log_config.c:1348)
+
+---- Part 3: Path Intersection ----
+[ 50460 50461 50462 50463 50472 50473 50474 ]
+%50460:	getelementptr	buf XXX XXX  Location: (mod_log_config.c:862)
+%50461:	load	%50460  Location: (mod_log_config.c:862)
+%50462:	icmp	%50461 XXX  Location: (mod_log_config.c:862)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+%50472:	getelementptr	buf XXX XXX  Location: (mod_log_config.c:863)
+%50473:	call	%50469 %50471 %50472 apr_file_write  Location: (mod_log_config.c:863)
+%50474:	getelementptr	buf XXX XXX  Location: (mod_log_config.c:864)
+Function: flush_log(...) Location: (mod_log_config.c:864)
+
+---- Part 3: Path Intersection ----
+[ 50460 50461 50462 50463 ]
+%50460:	getelementptr	buf XXX XXX  Location: (mod_log_config.c:862)
+%50461:	load	%50460  Location: (mod_log_config.c:862)
+%50462:	icmp	%50461 XXX  Location: (mod_log_config.c:862)
+%50463:	br	%50462 if.end land.lhs.true  Location: (mod_log_config.c:862)
+Function: flush_log(...) Location: (mod_log_config.c:863)
+
+   # of detected potential vulnerabilities: 71
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

@@ -1,0 +1,119 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report278
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sendrecv.c : 94)
+-------------------------
+  %socketdes17 = getelementptr inbounds %struct.apr_socket_t* %sock, i32 0, i32 1, !dbg !45741
+-------------------------
+(apr_buckets_socket.c : 36)
+(apr_brigade.c : 319)
+(core_filters.c : 155)
+(util_filter.c : 489)
+(protocol.c : 231)
+(protocol.c : 596)
+(protocol.c : 891)
+(http_core.c : 183)
+(connection.c : 43)
+(connection.c : 178)
+(worker.c : 544)
+(worker.c : 894)
+(thread.c : 142)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 127808 127809 127811 127814 127815 127768 127769 127771 127774 127775 127783 127784 127785 127824 127825 127835 127836 127842 len 127843 127844 19883 19884 19885 111629 ]
+%127808:	getelementptr	sock XXX XXX  Location: (sendrecv.c:94)
+%127809:	load	%127808  Location: (sendrecv.c:94)
+%127811:	call	%127809 buf %127810 read  Location: (sendrecv.c:94)
+%127814:	icmp	%127811 XXX  Location: (sendrecv.c:95)
+%127815:	br	%127814 land.end24 land.rhs21  Location: (sendrecv.c:95)
+%127768:	getelementptr	sock XXX XXX  Location: (sendrecv.c:81)
+%127769:	load	%127768  Location: (sendrecv.c:81)
+%127771:	call	%127769 buf %127770 read  Location: (sendrecv.c:81)
+%127774:	icmp	%127771 XXX  Location: (sendrecv.c:82)
+%127775:	br	%127774 land.end land.rhs  Location: (sendrecv.c:82)
+%127783:	phi	%127811 %127771 
+%127784:	icmp	%127783 XXX  Location: (sendrecv.c:84)
+%127785:	br	%127784 land.end12 land.lhs.true  Location: (sendrecv.c:84)
+%127824:	icmp	%127783 XXX  Location: (sendrecv.c:98)
+%127825:	br	%127824 if.end30 if.then28  Location: (sendrecv.c:98)
+%127835:	icmp	%127783 %127834  Location: (sendrecv.c:102)
+%127836:	br	%127835 if.end37 if.then35  Location: (sendrecv.c:102)
+%127842:	store	%127783 len  Location: (sendrecv.c:105)
+Function args: len
+%127843:	icmp	%127783 XXX  Location: (sendrecv.c:106)
+%127844:	br	%127843 if.end40 if.then39  Location: (sendrecv.c:106)
+%19883:	call	%19848 %19882 %19836 apr_socket_recv  Location: (connection.c:153)
+%19884:	icmp	%19883 XXX  Location: (connection.c:153)
+%19885:	br	%19884 lor.lhs.false18 if.then20  Location: (connection.c:153)
+%111629:	call	%111623 ap_lingering_close  Location: (worker.c:545)
+
+**************************************************
+                Busy Loop Detected!               
+%127814 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 127815 127775 127785 127825 19885 ]
+%127815:	br	%127814 land.end24 land.rhs21  Location: (sendrecv.c:95)
+%127775:	br	%127774 land.end land.rhs  Location: (sendrecv.c:82)
+%127785:	br	%127784 land.end12 land.lhs.true  Location: (sendrecv.c:84)
+%127825:	br	%127824 if.end30 if.then28  Location: (sendrecv.c:98)
+%19885:	br	%19884 lor.lhs.false18 if.then20  Location: (connection.c:153)
+Dangerous Operation Location: (time.c:78)
+
+---- Part 3: Path Intersection ----
+[ 127783 127784 127785 127824 127825 127835 127836 ]
+%127783:	phi	%127811 %127771 
+%127784:	icmp	%127783 XXX  Location: (sendrecv.c:84)
+%127785:	br	%127784 land.end12 land.lhs.true  Location: (sendrecv.c:84)
+%127824:	icmp	%127783 XXX  Location: (sendrecv.c:98)
+%127825:	br	%127824 if.end30 if.then28  Location: (sendrecv.c:98)
+%127835:	icmp	%127783 %127834  Location: (sendrecv.c:102)
+%127836:	br	%127835 if.end37 if.then35  Location: (sendrecv.c:102)
+Function: apr_socket_recv(...) Location: (sendrecv.c:103)
+
+---- Part 3: Path Intersection ----
+[ 127783 127784 127785 127824 127825 ]
+%127783:	phi	%127811 %127771 
+%127784:	icmp	%127783 XXX  Location: (sendrecv.c:84)
+%127785:	br	%127784 land.end12 land.lhs.true  Location: (sendrecv.c:84)
+%127824:	icmp	%127783 XXX  Location: (sendrecv.c:98)
+%127825:	br	%127824 if.end30 if.then28  Location: (sendrecv.c:98)
+Function: apr_socket_recv(...) Location: (sendrecv.c:102)
+
+---- Part 3: Path Intersection ----
+[ 127783 127784 127785 ]
+%127783:	phi	%127811 %127771 
+%127784:	icmp	%127783 XXX  Location: (sendrecv.c:84)
+%127785:	br	%127784 land.end12 land.lhs.true  Location: (sendrecv.c:84)
+Function: apr_socket_recv(...) Location: (sendrecv.c:85)
+
+   # of detected potential vulnerabilities: 4
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,54 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report109
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 3003)
+(memcached.c : 3460)
+(memcached.c : 3802)
+(memcached.c : 4155)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 9339 9340 9341 9342 9343 9348 9349 9350 9351 9352 7631 ]
+%9339:	getelementptr	%9065 XXX XXX  Location: (memcached.c:3003)
+%9340:	load	%9339  Location: (memcached.c:3003)
+%9341:	zext	%9340  Location: (memcached.c:3003)
+%9342:	and	%9341 XXX  Location: (memcached.c:3003)
+%9343:	sext	%9342  Location: (memcached.c:3003)
+%9348:	getelementptr	%9347 XXX %9343  Location: (memcached.c:3003)
+%9349:	getelementptr	%9348 XXX XXX  Location: (memcached.c:3003)
+%9350:	load	%9349  Location: (memcached.c:3003)
+%9351:	add	%9350 XXX  Location: (memcached.c:3003)
+%9352:	store	%9351 %9349  Location: (memcached.c:3003)
+%7631:	call	c %7630 %7614 XXX process_get_command  Location: (memcached.c:3460)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

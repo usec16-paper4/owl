@@ -1,0 +1,6 @@
+process_delete_command (memcached.c:3381)
+process_command (memcached.c:3489)
+try_read_command (memcached.c:3802)
+drive_machine (memcached.c:4155)
+event_handler (memcached.c:4400)
+event_persist_closure (event.c:1291)

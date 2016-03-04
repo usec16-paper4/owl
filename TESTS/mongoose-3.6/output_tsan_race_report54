@@ -1,0 +1,45 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report54
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 2458)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 4326 4327 4328 4329 4330 4333 4334 path 3381 ]
+%4326:	getelementptr	conn XXX XXX 
+%4327:	load	%4326 
+%4328:	getelementptr	%4327 XXX XXX 
+%4329:	getelementptr	%4328 XXX XXX 
+%4330:	load	%4329 
+%4333:	icmp	%4330 XXX 
+%4334:	br	%4333 if.end land.lhs.true 
+Function args: path
+%3381:	call	conn handle_request 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

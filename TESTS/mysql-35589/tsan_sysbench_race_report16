@@ -1,0 +1,8 @@
+query_cache_insert (sql_cache.cc:710)
+net_real_write (net_serv.cc:565)
+net_flush (net_serv.cc:342)
+net_send_eof (protocol.cc:205)
+net_end_statement (protocol.cc:400)
+dispatch_command (sql_parse.cc:1586)
+do_command (sql_parse.cc:857)
+handle_one_connection (sql_connect.cc:1115)

@@ -1,0 +1,486 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench192
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(buf0flu.c : 267)
+(buf0flu.c : 584)
+(buf0flu.c : 765)
+(buf0flu.c : 873)
+(srv0srv.c : 2336)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 530105 530106 530107 530108 530871 ]
+%530105:	getelementptr	%530055 XXX XXX  Location: (buf0flu.c:267)
+%530106:	load	%530105  Location: (buf0flu.c:267)
+%530107:	icmp	%530106 XXX  Location: (buf0flu.c:267)
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+%530871:	call	buf_flush_buffered_writes  Location: (buf0flu.c:584)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (btr0btr.ic:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:255)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:257)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:406)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:413)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:414)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:415)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:417)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:418)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:420)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:424)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:434)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:435)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:442)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.c:443)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:208)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:211)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:246)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:247)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:257)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (buf0buf.ic:258)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (dict0dict.c:913)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (dict0dict.c:919)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (dict0dict.c:928)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (dict0dict.c:4553)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (dict0dict.c:4555)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (dict0dict.ic:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (dict0dict.ic:79)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (fil0fil.c:4431)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ha_innodb.cc:1099)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ha_innodb.cc:1102)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:35)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:66)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:67)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:193)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:194)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:196)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:320)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (mach0data.ic:322)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0cur.ic:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0cur.ic:87)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0cur.ic:127)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.c:1580)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.c:1671)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.c:1672)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:193)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:449)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:483)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:565)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:566)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:567)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (page0page.ic:578)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (rem0rec.ic:189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (rem0rec.ic:275)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (rem0rec.ic:299)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:24)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:25)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:39)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:96)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:98)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:100)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0byte.ic:102)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0rnd.ic:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0rnd.ic:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:319)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:327)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:328)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:418)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 530108 ]
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Dangerous Operation Location: (ut0ut.c:430)
+
+---- Part 3: Path Intersection ----
+[ 530105 530106 530107 530108 ]
+%530105:	getelementptr	%530055 XXX XXX  Location: (buf0flu.c:267)
+%530106:	load	%530105  Location: (buf0flu.c:267)
+%530107:	icmp	%530106 XXX  Location: (buf0flu.c:267)
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Function: buf_flush_buffered_writes(...) Location: (buf0flu.c:278)
+
+---- Part 3: Path Intersection ----
+[ 530105 530106 530107 530108 ]
+%530105:	getelementptr	%530055 XXX XXX  Location: (buf0flu.c:267)
+%530106:	load	%530105  Location: (buf0flu.c:267)
+%530107:	icmp	%530106 XXX  Location: (buf0flu.c:267)
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Function: buf_flush_buffered_writes(...) Location: (buf0flu.c:270)
+
+---- Part 3: Path Intersection ----
+[ 530105 530106 530107 530108 ]
+%530105:	getelementptr	%530055 XXX XXX  Location: (buf0flu.c:267)
+%530106:	load	%530105  Location: (buf0flu.c:267)
+%530107:	icmp	%530106 XXX  Location: (buf0flu.c:267)
+%530108:	br	%530107 if.end46 land.lhs.true  Location: (buf0flu.c:267)
+Function: buf_flush_buffered_writes(...) Location: (buf0flu.c:268)
+
+   # of detected potential vulnerabilities: 86
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

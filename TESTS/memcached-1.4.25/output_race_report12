@@ -1,0 +1,152 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report12
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(items.c : 402)
+(thread.c : 564)
+(memcached.c : 1304)
+(memcached.c : 2245)
+(memcached.c : 2294)
+(memcached.c : 4193)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 13345 13346 13349 13350 13358 13359 16672 ]
+%13345:	getelementptr	it XXX XXX  Location: (items.c:402)
+%13346:	load	%13345  Location: (items.c:402)
+%13349:	icmp	%13346 %13348  Location: (items.c:402)
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+%13358:	getelementptr	it XXX XXX  Location: (items.c:406)
+%13359:	store	%13357 %13358  Location: (items.c:406)
+%16672:	call	item do_item_update  Location: (thread.c:564)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:278)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:281)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:282)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:291)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:293)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:298)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:299)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:303)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:307)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:312)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:313)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:314)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:319)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 13350 ]
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Dangerous Operation Location: (items.c:321)
+
+---- Part 3: Path Intersection ----
+[ 13345 13346 13349 13350 ]
+%13345:	getelementptr	it XXX XXX  Location: (items.c:402)
+%13346:	load	%13345  Location: (items.c:402)
+%13349:	icmp	%13346 %13348  Location: (items.c:402)
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Function: do_item_update(...) Location: (items.c:406)
+
+---- Part 3: Path Intersection ----
+[ 13345 13346 13349 13350 ]
+%13345:	getelementptr	it XXX XXX  Location: (items.c:402)
+%13346:	load	%13345  Location: (items.c:402)
+%13349:	icmp	%13346 %13348  Location: (items.c:402)
+%13350:	br	%13349 if.end7 if.then  Location: (items.c:402)
+Function: do_item_update(...) Location: (items.c:405)
+
+   # of detected potential vulnerabilities: 19
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

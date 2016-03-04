@@ -1,0 +1,43 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-2.4.18
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-2.4.18/apache-2.4.18.bc --ptrderef --danfunc --raceReport tsan_report15
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(worker.c : 998)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 80819 80820 80821 status 112341 112342 ]
+%80819:	load	dying  Location: (worker.c:998)
+%80820:	icmp	%80819 XXX  Location: (worker.c:998)
+%80821:	select	%80820 XXX XXX  Location: (worker.c:998)
+Function args: status
+%112341:	call	%112335 %112340 %112338  Location: (thread.c:142)
+%112342:	ret	%112341  Location: (thread.c:142)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12416
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

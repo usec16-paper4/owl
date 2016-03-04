@@ -1,0 +1,8 @@
+close_worker_sockets (worker.c:238)
+apr_pool_cleanup_register (apr_pools.c:2167)
+signal_threads (worker.c:294)
+apr_bucket_alloc_create (apr_buckets_alloc.c:75)
+child_main (worker.c:1275)
+worker_thread (worker.c:893)
+make_child (worker.c:1341)
+dummy_worker (thread.c:142)

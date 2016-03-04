@@ -1,0 +1,2 @@
+worker_thread (worker.c:998)
+dummy_worker (thread.c:142)

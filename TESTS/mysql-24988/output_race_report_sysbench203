@@ -1,0 +1,70 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench203
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mach0data.ic : 67)
+(page0page.ic : 61)
+(page0page.ic : 165)
+(btr0cur.c : 160)
+(btr0cur.c : 479)
+(btr0pcur.ic : 493)
+(row0row.c : 707)
+(row0purge.c : 223)
+(row0purge.c : 306)
+(row0purge.c : 396)
+(row0purge.c : 628)
+(row0purge.c : 666)
+(que0que.c : 1192)
+(que0que.c : 1248)
+(trx0purge.c : 1129)
+(srv0srv.c : 2366)
+
+---- Part 1: Dataflow Result ---- 
+[ 431684 431685 431686 431687 431688 432429 432430 430696 430697 496138 496140 496141 496142 496143 496144 496145 496146 492714 ]
+%431684:	getelementptr	b XXX  Location: (mach0data.ic:67)
+%431685:	load	%431684  Location: (mach0data.ic:67)
+%431686:	zext	%431685  Location: (mach0data.ic:67)
+%431687:	add	%431683 %431686  Location: (mach0data.ic:66)
+%431688:	ret	%431687  Location: (mach0data.ic:66)
+%432429:	call	%432428 mach_read_from_2  Location: (page0page.ic:61)
+%432430:	ret	%432429  Location: (page0page.ic:61)
+%430696:	call	page XXX page_header_get_field  Location: (page0page.ic:165)
+%430697:	and	%430696 XXX  Location: (page0page.ic:165)
+%496138:	call	%496135 page_is_comp14275  Location: (btr0cur.c:160)
+%496140:	icmp	%496138 %496139  Location: (btr0cur.c:160)
+%496141:	zext	%496140  Location: (btr0cur.c:160)
+%496142:	sext	%496141  Location: (btr0cur.c:160)
+%496143:	icmp	%496142 XXX  Location: (btr0cur.c:160)
+%496144:	xor	%496143 XXX  Location: (btr0cur.c:160)
+%496145:	zext	%496144  Location: (btr0cur.c:160)
+%496146:	sext	%496145  Location: (btr0cur.c:160)
+%492714:	call	%492666 %492620 %492641 %492559 cursor mtr btr_cur_latch_leaves  Location: (btr0cur.c:479)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

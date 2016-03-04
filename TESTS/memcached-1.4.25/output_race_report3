@@ -1,0 +1,163 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report3
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 509)
+(memcached.c : 522)
+(memcached.c : 577)
+(memcached.c : 4366)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 3863 3864 3865 3866 3868 3869 3870 3871 3881 3882 3883 3884 3807 ]
+%3863:	getelementptr	c XXX XXX  Location: (memcached.c:509)
+%3864:	load	%3863  Location: (memcached.c:509)
+%3865:	icmp	%3864 XXX  Location: (memcached.c:509)
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3868:	getelementptr	c XXX XXX  Location: (memcached.c:510)
+%3869:	load	%3868  Location: (memcached.c:510)
+%3870:	icmp	%3869 XXX  Location: (memcached.c:510)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+%3881:	getelementptr	c XXX XXX  Location: (memcached.c:510)
+%3882:	load	%3881  Location: (memcached.c:510)
+%3883:	add	%3882 XXX  Location: (memcached.c:510)
+%3884:	store	%3883 %3881  Location: (memcached.c:510)
+%3807:	call	c conn_release_items  Location: (memcached.c:522)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:128)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:132)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:135)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:136)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:137)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:139)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:140)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:146)
+
+---- Part 3: Path Intersection ----
+[ 3863 3864 3865 3866 ]
+%3863:	getelementptr	c XXX XXX  Location: (memcached.c:509)
+%3864:	load	%3863  Location: (memcached.c:509)
+%3865:	icmp	%3864 XXX  Location: (memcached.c:509)
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+Function: conn_release_items(...) Location: (memcached.c:516)
+
+---- Part 3: Path Intersection ----
+[ 3863 3864 3865 3866 ]
+%3863:	getelementptr	c XXX XXX  Location: (memcached.c:509)
+%3864:	load	%3863  Location: (memcached.c:509)
+%3865:	icmp	%3864 XXX  Location: (memcached.c:509)
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+Function: conn_release_items(...) Location: (memcached.c:515)
+
+---- Part 3: Path Intersection ----
+[ 3863 3864 3865 3866 3868 3869 3870 3871 ]
+%3863:	getelementptr	c XXX XXX  Location: (memcached.c:509)
+%3864:	load	%3863  Location: (memcached.c:509)
+%3865:	icmp	%3864 XXX  Location: (memcached.c:509)
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3868:	getelementptr	c XXX XXX  Location: (memcached.c:510)
+%3869:	load	%3868  Location: (memcached.c:510)
+%3870:	icmp	%3869 XXX  Location: (memcached.c:510)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Function: conn_release_items(...) Location: (memcached.c:511)
+
+---- Part 3: Path Intersection ----
+[ 3863 3864 3865 3866 ]
+%3863:	getelementptr	c XXX XXX  Location: (memcached.c:509)
+%3864:	load	%3863  Location: (memcached.c:509)
+%3865:	icmp	%3864 XXX  Location: (memcached.c:509)
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+Function: conn_release_items(...) Location: (memcached.c:510)
+
+   # of detected potential vulnerabilities: 15
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3866 3871 ]
+%3866:	br	%3865 if.end13 if.then6  Location: (memcached.c:509)
+%3871:	br	%3870 for.end for.body  Location: (memcached.c:510)
+Dangerous Operation Location: (cache.c:142)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+

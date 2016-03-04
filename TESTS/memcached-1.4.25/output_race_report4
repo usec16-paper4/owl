@@ -1,0 +1,169 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report4
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 2274)
+(memcached.c : 4168)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 7201 7202 7203 7204 7205 7206 7207 item 16612 16613 16614 16615 16616 16617 16618 16619 16620 16621 16622 16623 7208 7209 7210 3353 ]
+%7201:	getelementptr	c XXX XXX  Location: (memcached.c:2274)
+%7202:	load	%7201  Location: (memcached.c:2274)
+%7203:	icmp	%7202 XXX  Location: (memcached.c:2274)
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+%7205:	getelementptr	c XXX XXX  Location: (memcached.c:2275)
+%7206:	load	%7205  Location: (memcached.c:2275)
+%7207:	bitcast	%7206  Location: (memcached.c:2275)
+Function args: item
+%16612:	getelementptr	item XXX XXX  Location: (thread.c:529)
+%16613:	bitcast	%16612  Location: (thread.c:529)
+%16614:	getelementptr	item XXX XXX  Location: (thread.c:529)
+%16615:	load	%16614  Location: (thread.c:529)
+%16616:	zext	%16615  Location: (thread.c:529)
+%16617:	and	%16616 XXX  Location: (thread.c:529)
+%16618:	icmp	%16617 XXX  Location: (thread.c:529)
+%16619:	select	%16618 XXX XXX  Location: (thread.c:529)
+%16620:	getelementptr	%16613 %16619  Location: (thread.c:529)
+%16621:	getelementptr	item XXX XXX  Location: (thread.c:529)
+%16622:	load	%16621  Location: (thread.c:529)
+%16623:	zext	%16622  Location: (thread.c:529)
+%7208:	call	%7207 item_remove  Location: (memcached.c:2275)
+%7209:	getelementptr	c XXX XXX  Location: (memcached.c:2276)
+%7210:	store	XXX %7209  Location: (memcached.c:2276)
+%3353:	call	c reset_cmd_handler  Location: (memcached.c:4168)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (items.c:243)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (items.c:251)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (items.c:379)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:302)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:303)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:305)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:307)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (slabs.c:308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (thread.c:122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (thread.c:138)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 7204 ]
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Dangerous Operation Location: (thread.c:529)
+
+---- Part 3: Path Intersection ----
+[ 7201 7202 7203 7204 ]
+%7201:	getelementptr	c XXX XXX  Location: (memcached.c:2274)
+%7202:	load	%7201  Location: (memcached.c:2274)
+%7203:	icmp	%7202 XXX  Location: (memcached.c:2274)
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+Function: reset_cmd_handler(...) Location: (memcached.c:2279)
+
+---- Part 3: Path Intersection ----
+[ 7201 7202 7203 7204 7205 7206 7207 7208 7209 ]
+%7201:	getelementptr	c XXX XXX  Location: (memcached.c:2274)
+%7202:	load	%7201  Location: (memcached.c:2274)
+%7203:	icmp	%7202 XXX  Location: (memcached.c:2274)
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+%7205:	getelementptr	c XXX XXX  Location: (memcached.c:2275)
+%7206:	load	%7205  Location: (memcached.c:2275)
+%7207:	bitcast	%7206  Location: (memcached.c:2275)
+%7208:	call	%7207 item_remove  Location: (memcached.c:2275)
+%7209:	getelementptr	c XXX XXX  Location: (memcached.c:2276)
+Function: reset_cmd_handler(...) Location: (memcached.c:2276)
+
+---- Part 3: Path Intersection ----
+[ 7201 7202 7203 7204 7205 ]
+%7201:	getelementptr	c XXX XXX  Location: (memcached.c:2274)
+%7202:	load	%7201  Location: (memcached.c:2274)
+%7203:	icmp	%7202 XXX  Location: (memcached.c:2274)
+%7204:	br	%7203 if.end if.then  Location: (memcached.c:2274)
+%7205:	getelementptr	c XXX XXX  Location: (memcached.c:2275)
+Function: reset_cmd_handler(...) Location: (memcached.c:2275)
+
+   # of detected potential vulnerabilities: 18
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

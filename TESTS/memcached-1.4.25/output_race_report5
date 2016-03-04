@@ -1,0 +1,337 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report5
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 834)
+(memcached.c : 2845)
+(memcached.c : 3497)
+(memcached.c : 3802)
+(memcached.c : 4155)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 4853 4854 4855 4856 4865 4866 8255 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+%4865:	getelementptr	c XXX XXX  Location: (memcached.c:837)
+%4866:	store	XXX %4865  Location: (memcached.c:837)
+%8255:	call	c XXX out_string  Location: (memcached.c:2845)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:265)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:272)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:273)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:282)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:289)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:290)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:292)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:667)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:682)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:689)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:702)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:704)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:705)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:712)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:713)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:716)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:717)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:718)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:741)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:747)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:750)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:751)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:753)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:760)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:761)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:767)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:768)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:769)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:771)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:772)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:773)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 4856 ]
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Dangerous Operation Location: (memcached.c:775)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:864)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:861)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:860)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:859)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:858)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:852)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:848)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:847)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:846)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:843)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 4865 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+%4865:	getelementptr	c XXX XXX  Location: (memcached.c:837)
+Function: out_string(...) Location: (memcached.c:837)
+
+---- Part 3: Path Intersection ----
+[ 4853 4854 4855 4856 ]
+%4853:	getelementptr	c XXX XXX  Location: (memcached.c:834)
+%4854:	load	%4853  Location: (memcached.c:834)
+%4855:	trunc	%4854  Location: (memcached.c:834)
+%4856:	br	%4855 if.end3 if.then  Location: (memcached.c:834)
+Function: out_string(...) Location: (memcached.c:836)
+
+   # of detected potential vulnerabilities: 50
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,3854 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_sysbench_race_report22
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mysqld.cc : 4964)
+-------------------------
+  %17 = load volatile i8* @abort_loop, align 1, !dbg !152055
+-------------------------
+(mysqld.cc : 4470)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 170469 170470 170471 170472 170348 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+%170348:	call	XXX handle_connections_sockets  Location: (mysqld.cc:4470)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (array.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (array.c:178)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:348)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:349)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:969)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:970)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:971)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:972)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:973)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:999)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1002)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1003)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1044)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1046)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1048)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1049)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1067)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1070)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1071)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1075)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1076)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1077)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1156)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1405)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1557)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1558)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1624)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1658)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1659)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1660)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1661)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1662)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1690)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1694)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1696)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1752)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1753)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1756)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1761)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1762)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1763)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1780)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1782)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1786)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1787)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1792)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1793)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1794)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1795)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1796)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1797)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1798)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1799)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:1985)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:2058)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:2259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:2260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:2261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (dbug.c:2263)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:44)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:152)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:154)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:170)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:213)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:230)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:270)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:272)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:273)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:302)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:456)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:459)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:460)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:462)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:465)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:468)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:470)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:473)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:474)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:479)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:480)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:482)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:483)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:484)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:491)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:493)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:496)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:499)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:501)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:504)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:505)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:509)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:510)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:512)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:514)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:522)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:523)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:524)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:527)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:528)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:529)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:668)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:669)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:674)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:677)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:688)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (hash.c:693)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:68)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:89)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (int2str.c:163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:833)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:834)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:4809)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:4810)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:4811)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:4835)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:4836)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (log.cc:4837)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:85)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:86)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:90)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:91)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:95)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:96)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_error.c:99)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_malloc.c:36)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_sleep.c:29)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_sleep.c:30)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_thr_init.c:381)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_thr_init.c:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_thr_init.c:399)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_thr_init.c:400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_thr_init.c:402)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:45)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:49)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:55)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:58)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:66)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:67)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:70)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:78)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:81)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:82)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:85)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:113)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:126)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:131)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:169)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:181)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:182)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_vsnprintf.c:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:1773)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:1779)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:1780)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:1783)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:1784)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:4858)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:4862)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:4877)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:4897)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:120)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:126)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:127)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:128)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:130)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:131)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:132)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:340)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:342)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:344)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:348)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:438)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:446)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:447)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:448)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:452)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:460)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:461)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:462)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:497)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:498)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:500)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:507)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:510)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:511)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:512)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:514)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:515)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:518)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:529)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:533)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:537)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:538)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:561)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:568)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:571)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:573)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:581)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:582)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:584)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:587)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:589)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:591)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:592)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:593)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:606)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:613)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:616)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:618)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:622)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:625)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:627)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:634)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:635)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:650)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:664)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:665)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:668)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:672)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:686)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:688)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:1129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (net_serv.cc:1142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:78)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:80)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:88)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:91)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:95)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:266)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:275)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:287)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:288)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:289)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:292)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:293)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:296)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (protocol.cc:297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:211)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:213)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:215)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:217)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:223)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:257)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:258)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:282)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:290)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:291)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:292)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:293)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:296)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:298)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:303)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:311)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:312)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:313)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:314)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:316)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (queues.c:320)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:389)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:390)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:392)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:394)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:464)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:465)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:478)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:479)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:480)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:481)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:488)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:496)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:502)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:508)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:517)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:526)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:527)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:536)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:551)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:553)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:572)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:586)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:591)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:598)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:604)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:610)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:630)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:638)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:649)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:651)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:697)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:710)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:725)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:763)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:1679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:1687)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:1688)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2169)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2175)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2181)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2224)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2227)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2228)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2237)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2240)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2241)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2247)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2254)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2255)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2335)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2337)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2352)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2354)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2358)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2372)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2384)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2397)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2406)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2435)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2444)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2445)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2448)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2449)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2450)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2472)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2488)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2489)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2491)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2492)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2497)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2525)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2526)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2532)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2533)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2534)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2535)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2539)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2546)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2553)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2931)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2932)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2933)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2934)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2935)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2937)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2939)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2941)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2951)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2952)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2969)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2971)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:2986)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3005)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3007)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3008)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3013)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3015)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3018)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3023)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3025)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3027)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3030)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3031)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3035)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3042)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3044)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3045)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3052)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3058)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3059)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3060)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3074)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3075)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3076)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3081)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3082)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3083)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3084)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3093)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3095)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3096)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3097)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3098)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3099)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3100)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3101)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3103)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3123)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3131)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3135)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3136)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3137)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3156)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3178)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3179)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3188)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3196)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3207)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3211)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3223)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3225)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3255)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3256)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3257)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3267)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3269)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3275)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3279)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3280)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3281)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3282)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3317)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3321)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3322)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3327)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3336)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3337)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3338)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3339)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3340)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3341)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3981)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:3988)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4000)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4006)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4011)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4013)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4019)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4021)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4023)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4025)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4027)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4031)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4032)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4041)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4050)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4053)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4059)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4060)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4068)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4077)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4079)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4086)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4087)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4088)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4094)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4097)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4098)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4100)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4118)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4121)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4173)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4178)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4199)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4203)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4211)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4213)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4225)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4227)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4233)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4234)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4236)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4237)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4243)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4244)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4246)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4256)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4258)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4271)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4273)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4278)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4294)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4295)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4318)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4323)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4324)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4326)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4328)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4334)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4336)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4365)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4370)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4373)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4374)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4378)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4382)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4386)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4395)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4402)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4413)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4414)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4415)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4417)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4425)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4437)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4439)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4445)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4450)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4451)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4452)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4454)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4465)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4467)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4473)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4478)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4479)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4494)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4496)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4502)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4507)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4511)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4523)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4525)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4531)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4536)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4548)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4550)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4565)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4567)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4576)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4582)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4586)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4600)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4602)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4611)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.cc:4617)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:152)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:156)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:188)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:200)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:217)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_cache.h:474)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_class.cc:2645)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_client.cc:30)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_client.cc:36)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_client.cc:37)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_state.c:42)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_state.c:43)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_state.c:48)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_state.c:49)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_state.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (sql_string.h:99)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (strend.c:46)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (strend.c:47)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (strmake.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (strmake.c:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (strnmov.c:29)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (strnmov.c:30)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:209)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:213)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:215)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:235)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:258)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_alarm.c:264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:63)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:114)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:167)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:205)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:215)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:224)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:229)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:232)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:236)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:237)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:238)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:245)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:246)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:250)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:254)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:255)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (thr_mutex.c:256)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:39)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:40)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:41)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:42)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:44)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:109)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:112)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:113)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:114)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:115)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:116)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:118)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:120)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (vio.c:162)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5130)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5126)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5120)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5119)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5112)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:4990)
+
+   # of detected potential vulnerabilities: 751
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (my_malloc.c:59)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 170472 ]
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Dangerous Operation Location: (mysqld.cc:4901)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5126)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5120)
+
+---- Part 3: Path Intersection ----
+[ 170469 170470 170471 170472 ]
+%170469:	load	abort_loop  Location: (mysqld.cc:4964)
+%170470:	trunc	%170469  Location: (mysqld.cc:4964)
+%170471:	xor	%170470 XXX  Location: (mysqld.cc:4964)
+%170472:	br	%170471 while.end while.body  Location: (mysqld.cc:4964)
+Function: handle_connections_sockets(...) Location: (mysqld.cc:5102)
+
+   # of detected potential vulnerabilities: 5
+*********************************************************
+
++ echo 'ConAnalysis Done!'

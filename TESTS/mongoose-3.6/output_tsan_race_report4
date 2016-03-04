@@ -1,0 +1,160 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report4
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 893)
+(mongoose.c : 907)
+(mongoose.c : 883)
+(mongoose.c : 4299)
+(mongoose.c : 4852)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 4713 4714 4715 4716 4717 4718 4772 4775 4776 4784 4785 4787 4788 4790 4813 4814 4675 4677 4678 4690 3863 3864 3865 3381 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+%4772:	call	%4766 %4767 %4771 match_prefix 
+%4775:	icmp	%4772 XXX 
+%4776:	br	%4775 land.end land.rhs 
+%4784:	icmp	%4772 XXX 
+%4785:	br	%4784 cond.false81 cond.true80 
+%4787:	add	%4697 %4772 
+%4788:	add	%4787 %4781 
+%4790:	phi	XXX %4788 
+%4813:	phi	%4690 %4727 %4761 %4790 XXX %4697 
+%4814:	ret	%4813 
+%4675:	call	pattern %4674 str match_prefix 
+%4677:	icmp	%4675 XXX 
+%4678:	br	%4677 cond.false cond.true 
+%4690:	phi	%4675 %4688 
+%3863:	call	%3854 %3861 %3862 match_prefix 
+%3864:	icmp	%3863 XXX 
+%3865:	br	%3864 if.else157 if.then155 
+%3381:	call	conn handle_request 
+
+**************************************************
+                Busy Loop Detected!               
+%4717 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:910)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:907)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:901)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:899)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:897)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:895)
+
+---- Part 3: Path Intersection ----
+[ 4713 4714 4715 4716 4717 4718 ]
+%4713:	sext	%4696 
+%4714:	getelementptr	pattern %4713 
+%4715:	load	%4714 
+%4716:	sext	%4715 
+%4717:	icmp	%4716 XXX 
+%4718:	br	%4717 if.else39 if.then29 
+Function: match_prefix(...) Location: (mongoose.c:894)
+
+---- Part 3: Path Intersection ----
+[ 4675 4677 4678 ]
+%4675:	call	pattern %4674 str match_prefix 
+%4677:	icmp	%4675 XXX 
+%4678:	br	%4677 cond.false cond.true 
+Function: match_prefix(...) Location: (mongoose.c:885)
+
+---- Part 3: Path Intersection ----
+[ 3863 3864 3865 ]
+%3863:	call	%3854 %3861 %3862 match_prefix 
+%3864:	icmp	%3863 XXX 
+%3865:	br	%3864 if.else157 if.then155 
+Function: handle_request(...) Location: (mongoose.c:4306)
+
+---- Part 3: Path Intersection ----
+[ 3863 3864 3865 ]
+%3863:	call	%3854 %3861 %3862 match_prefix 
+%3864:	icmp	%3863 XXX 
+%3865:	br	%3864 if.else157 if.then155 
+Function: handle_request(...) Location: (mongoose.c:4302)
+
+   # of detected potential vulnerabilities: 10
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

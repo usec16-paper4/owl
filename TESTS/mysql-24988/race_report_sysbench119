@@ -1,0 +1,7 @@
+ha_innobase::info (ha_innodb.cc:5361)
+mysql_execute_command (sql_parse.cc:3288)
+Prepared_statement::execute (sql_prepare.cc:2926)
+mysql_stmt_execute (sql_prepare.cc:2251)
+dispatch_command (sql_parse.cc:1727)
+do_command (sql_parse.cc:1550)
+handle_one_connection (sql_parse.cc:1181)

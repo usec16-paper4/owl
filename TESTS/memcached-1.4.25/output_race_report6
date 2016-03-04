@@ -1,0 +1,121 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report6
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 3929)
+(memcached.c : 4124)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 2307 2308 2309 2310 2311 2327 2328 3311 3312 2298 ]
+%2307:	getelementptr	c XXX XXX  Location: (memcached.c:3929)
+%2308:	load	%2307  Location: (memcached.c:3929)
+%2309:	sext	%2308  Location: (memcached.c:3929)
+%2310:	icmp	%2309 new_flags  Location: (memcached.c:3929)
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+%2327:	getelementptr	c XXX XXX  Location: (memcached.c:3934)
+%2328:	store	%2326 %2327  Location: (memcached.c:3934)
+%3311:	call	c XXX update_event  Location: (memcached.c:4124)
+%3312:	br	%3311 if.then52 if.end58  Location: (memcached.c:4124)
+%2298:	call	%2282 drive_machine  Location: (memcached.c:4400)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 2311 3312 ]
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+%3312:	br	%3311 if.then52 if.end58  Location: (memcached.c:4124)
+Dangerous Operation Location: (memcached.c:667)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 2311 3312 ]
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+%3312:	br	%3311 if.then52 if.end58  Location: (memcached.c:4124)
+Dangerous Operation Location: (memcached.c:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 2311 3312 ]
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+%3312:	br	%3311 if.then52 if.end58  Location: (memcached.c:4124)
+Dangerous Operation Location: (memcached.c:682)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 2311 3312 ]
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+%3312:	br	%3311 if.then52 if.end58  Location: (memcached.c:4124)
+Dangerous Operation Location: (memcached.c:689)
+
+---- Part 3: Path Intersection ----
+[ 2307 2308 2309 2310 2311 2327 2328 ]
+%2307:	getelementptr	c XXX XXX  Location: (memcached.c:3929)
+%2308:	load	%2307  Location: (memcached.c:3929)
+%2309:	sext	%2308  Location: (memcached.c:3929)
+%2310:	icmp	%2309 new_flags  Location: (memcached.c:3929)
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+%2327:	getelementptr	c XXX XXX  Location: (memcached.c:3934)
+%2328:	store	%2326 %2327  Location: (memcached.c:3934)
+Function: update_event(...) Location: (memcached.c:3935)
+
+---- Part 3: Path Intersection ----
+[ 2307 2308 2309 2310 2311 ]
+%2307:	getelementptr	c XXX XXX  Location: (memcached.c:3929)
+%2308:	load	%2307  Location: (memcached.c:3929)
+%2309:	sext	%2308  Location: (memcached.c:3929)
+%2310:	icmp	%2309 new_flags  Location: (memcached.c:3929)
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+Function: update_event(...) Location: (memcached.c:3934)
+
+---- Part 3: Path Intersection ----
+[ 2307 2308 2309 2310 2311 ]
+%2307:	getelementptr	c XXX XXX  Location: (memcached.c:3929)
+%2308:	load	%2307  Location: (memcached.c:3929)
+%2309:	sext	%2308  Location: (memcached.c:3929)
+%2310:	icmp	%2309 new_flags  Location: (memcached.c:3929)
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+Function: update_event(...) Location: (memcached.c:3933)
+
+---- Part 3: Path Intersection ----
+[ 2307 2308 2309 2310 2311 ]
+%2307:	getelementptr	c XXX XXX  Location: (memcached.c:3929)
+%2308:	load	%2307  Location: (memcached.c:3929)
+%2309:	sext	%2308  Location: (memcached.c:3929)
+%2310:	icmp	%2309 new_flags  Location: (memcached.c:3929)
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+Function: update_event(...) Location: (memcached.c:3932)
+
+---- Part 3: Path Intersection ----
+[ 2307 2308 2309 2310 2311 ]
+%2307:	getelementptr	c XXX XXX  Location: (memcached.c:3929)
+%2308:	load	%2307  Location: (memcached.c:3929)
+%2309:	sext	%2308  Location: (memcached.c:3929)
+%2310:	icmp	%2309 new_flags  Location: (memcached.c:3929)
+%2311:	br	%2310 if.end if.then  Location: (memcached.c:3929)
+Function: update_event(...) Location: (memcached.c:3931)
+
+   # of detected potential vulnerabilities: 9
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

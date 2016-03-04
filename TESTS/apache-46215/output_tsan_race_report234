@@ -1,0 +1,67 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report234
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(thread.c : 142)
+-------------------------
+  %func = getelementptr inbounds %struct.apr_thread_t* %0, i32 0, i32 3, !dbg !45696
+-------------------------
+-------------------------
+  %data = getelementptr inbounds %struct.apr_thread_t* %0, i32 0, i32 2, !dbg !45697
+-------------------------
+
+---- Part 1: Dataflow Result ---- 
+[ 141487 141488 141491 141492 ]
+%141487:	getelementptr	%141485 XXX XXX  Location: (thread.c:142)
+%141488:	load	%141487  Location: (thread.c:142)
+%141491:	call	%141485 %141490 %141488  Location: (thread.c:142)
+%141492:	ret	%141491  Location: (thread.c:142)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 141489 141490 141491 141492 ]
+%141489:	getelementptr	%141485 XXX XXX  Location: (thread.c:142)
+%141490:	load	%141489  Location: (thread.c:142)
+%141491:	call	%141485 %141490 %141488  Location: (thread.c:142)
+%141492:	ret	%141491  Location: (thread.c:142)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,281 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/ssdb-1.9.2
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/ssdb-1.9.2
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/ssdb-1.9.2
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/ssdb-1.9.2/ssdb-1.9.2.bc --ptrderef --danfunc --raceReport race_report4
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(binlog.cpp : 359)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 39847 39848 39849 39850 40430 40431 40432 40433 40434 40435 40437 39869 ]
+%39847:	getelementptr	%39839 XXX XXX  Location: (binlog.cpp:359)
+%39848:	load	%39847  Location: (binlog.cpp:359)
+%39849:	icmp	%39848 XXX  Location: (binlog.cpp:359)
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+%40430:	getelementptr	this XXX XXX  Location: (binlog.cpp:347)
+%40431:	load	%40430  Location: (binlog.cpp:347)
+%40432:	bitcast	%40431  Location: (binlog.cpp:347)
+%40433:	load	%40432  Location: (binlog.cpp:347)
+%40434:	getelementptr	%40433 XXX  Location: (binlog.cpp:347)
+%40435:	load	%40434  Location: (binlog.cpp:347)
+%40437:	invoke	%40388 %40431 %40389 %40385 %40435 invoke.cont13 lpad  Location: (binlog.cpp:347)
+%39869:	call	%39839 %39863 %39867 _ZN11BinlogQueue9del_rangeEmm  Location: (binlog.cpp:371)
+
+**************************************************
+                Busy Loop Detected!               
+%39849 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 9634
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (binlog.cpp:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:49)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:164)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:170)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:172)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:173)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:174)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:175)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:178)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:182)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:186)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:242)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:248)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:252)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:253)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:257)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:262)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:267)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:268)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:271)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:273)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:274)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:279)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:280)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:281)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:285)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 39869 ]
+%39847:	getelementptr	%39839 XXX XXX  Location: (binlog.cpp:359)
+%39848:	load	%39847  Location: (binlog.cpp:359)
+%39849:	icmp	%39848 XXX  Location: (binlog.cpp:359)
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+%39869:	call	%39839 %39863 %39867 _ZN11BinlogQueue9del_rangeEmm  Location: (binlog.cpp:371)
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:373)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 39869 ]
+%39847:	getelementptr	%39839 XXX XXX  Location: (binlog.cpp:359)
+%39848:	load	%39847  Location: (binlog.cpp:359)
+%39849:	icmp	%39848 XXX  Location: (binlog.cpp:359)
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+%39869:	call	%39839 %39863 %39867 _ZN11BinlogQueue9del_rangeEmm  Location: (binlog.cpp:371)
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:372)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 ]
+%39847:	getelementptr	%39839 XXX XXX  Location: (binlog.cpp:359)
+%39848:	load	%39847  Location: (binlog.cpp:359)
+%39849:	icmp	%39848 XXX  Location: (binlog.cpp:359)
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:370)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 ]
+%39847:	getelementptr	%39839 XXX XXX  Location: (binlog.cpp:359)
+%39848:	load	%39847  Location: (binlog.cpp:359)
+%39849:	icmp	%39848 XXX  Location: (binlog.cpp:359)
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:369)
+
+---- Part 3: Path Intersection ----
+[ 39847 39848 39849 39850 ]
+%39847:	getelementptr	%39839 XXX XXX  Location: (binlog.cpp:359)
+%39848:	load	%39847  Location: (binlog.cpp:359)
+%39849:	icmp	%39848 XXX  Location: (binlog.cpp:359)
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Function: _ZN11BinlogQueue21log_clean_thread_funcEPv(...) Location: (binlog.cpp:365)
+
+   # of detected potential vulnerabilities: 38
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (binlog.cpp:343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (binlog.cpp:351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (binlog.cpp:353)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 39850 ]
+%39850:	br	%39849 if.then if.end  Location: (binlog.cpp:359)
+Dangerous Operation Location: (log.cpp:263)
+
+   # of detected potential vulnerabilities: 4
+*********************************************************
+

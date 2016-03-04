@@ -1,0 +1,154 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report388
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 2230)
+-------------------------
+  %data2 = getelementptr inbounds %struct.cleanup_t* %c.0, i32 0, i32 1, !dbg !45708
+-------------------------
+-------------------------
+  %plain_cleanup_fn = getelementptr inbounds %struct.cleanup_t* %c.0, i32 0, i32 2, !dbg !45712
+-------------------------
+(apr_pools.c : 2296)
+(sockets.c : 149)
+(worker.c : 238)
+(worker.c : 294)
+(worker.c : 1275)
+(worker.c : 1341)
+(worker.c : 1543)
+(worker.c : 1646)
+(worker.c : 1748)
+(main.c : 740)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 126358 126359 126360 126361 126450 ]
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+%126450:	call	p data cleanup_fn apr_pool_cleanup_kill  Location: (apr_pools.c:2296)
+
+**************************************************
+                Busy Loop Detected!               
+%126360 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 126358 126359 126360 126361 ]
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2239)
+
+---- Part 3: Path Intersection ----
+[ 126358 126359 126360 126361 ]
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2238)
+
+---- Part 3: Path Intersection ----
+[ 126358 126359 126360 126361 ]
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2234)
+
+---- Part 3: Path Intersection ----
+[ 126358 126359 126360 126361 ]
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2233)
+
+---- Part 3: Path Intersection ----
+[ 126358 126359 126360 126361 ]
+%126358:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126359:	load	%126358  Location: (apr_pools.c:2230)
+%126360:	icmp	%126359 data  Location: (apr_pools.c:2230)
+%126361:	br	%126360 if.end8 land.lhs.true  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2231)
+
+   # of detected potential vulnerabilities: 5
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 126362 126363 126364 126365 126450 ]
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+%126450:	call	p data cleanup_fn apr_pool_cleanup_kill  Location: (apr_pools.c:2296)
+
+**************************************************
+                Busy Loop Detected!               
+%126364 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 126362 126363 126364 126365 ]
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2234)
+
+---- Part 3: Path Intersection ----
+[ 126362 126363 126364 126365 ]
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2233)
+
+---- Part 3: Path Intersection ----
+[ 126362 126363 126364 126365 ]
+%126362:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2230)
+%126363:	load	%126362  Location: (apr_pools.c:2230)
+%126364:	icmp	%126363 cleanup_fn  Location: (apr_pools.c:2230)
+%126365:	br	%126364 if.end8 if.then5  Location: (apr_pools.c:2230)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2231)
+
+   # of detected potential vulnerabilities: 3
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

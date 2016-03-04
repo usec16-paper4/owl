@@ -1,0 +1,8 @@
+logs_empty_and_mark_files_at_shutdown (log0log.c:3198)
+innobase_shutdown_for_mysql (srv0start.c:1776)
+innobase_end (ha_innodb.cc:1476)
+ha_panic (handler.cc:527)
+clean_up (mysqld.cc:1112)
+unireg_end (mysqld.cc:1057)
+kill_server (mysqld.cc:995)
+kill_server_thread (mysqld.cc:1017)

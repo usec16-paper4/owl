@@ -1,0 +1,204 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench21
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sync0arr.c : 915)
+Warning: Call Inst %583346 is the first one in the call stack!
+(srv0srv.c : 2084)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 583347 583348 583349 583350 583351 583607 583608 583609 583610 583355 583364 583365 583366 583368 583369 425032 425033 425034 ]
+%583347:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:915)
+%583348:	load	%583347  Location: (sync0arr.c:915)
+%583349:	call	%583346 %583348 difftime  Location: (sync0arr.c:915)
+%583350:	fcmp	%583349 XXX  Location: (sync0arr.c:915)
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+%583607:	getelementptr	cell XXX XXX  Location: (sync0arr.c:457)
+%583608:	load	%583607  Location: (sync0arr.c:457)
+%583609:	call	%583606 %583608 difftime  Location: (sync0arr.c:457)
+%583610:	call	file XXX %583601 %583603 %583605 %583609 fprintf  Location: (sync0arr.c:453)
+%583355:	call	%583354 %583340 sync_array_cell_print  Location: (sync0arr.c:918)
+%583364:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:923)
+%583365:	load	%583364  Location: (sync0arr.c:923)
+%583366:	call	%583363 %583365 difftime  Location: (sync0arr.c:923)
+%583368:	fcmp	%583366 %583367  Location: (sync0arr.c:923)
+%583369:	br	%583368 if.end15 if.then14  Location: (sync0arr.c:922)
+%425032:	call	sync_array_print_long_waits  Location: (srv0srv.c:2084)
+%425033:	icmp	%425032 XXX  Location: (srv0srv.c:2084)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:451)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:455)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:456)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:457)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:462)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:470)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:471)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:475)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:481)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:485)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:486)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:487)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:491)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:500)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:501)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:502)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:503)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:504)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:505)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:510)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:514)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 425034 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 425034 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 425034 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 425034 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 425034 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583351 425034 ]
+%583351:	br	%583350 if.end if.then  Location: (sync0arr.c:914)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:150)
+
+   # of detected potential vulnerabilities: 28
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

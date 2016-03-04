@@ -1,0 +1,3512 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report.txt
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sql_parse.cc : 5262)
+(sql_parse.cc : 5386)
+(sql_parse.cc : 2542)
+(sql_parse.cc : 5870)
+(sql_parse.cc : 1766)
+(sql_parse.cc : 1550)
+(sql_parse.cc : 1181)
+
+---- Part 1: Dataflow Result ---- 
+[ 150039 150040 150041 155892 155893 150829 150830 150833 150844 150845 150846 149415 ]
+%150039:	load	grant_option  Location: (sql_parse.cc:5262)
+%150040:	trunc	%150039  Location: (sql_parse.cc:5262)
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155892:	call	thd want_access %155881 %155884 XXX %155885 %155891 _Z12check_accessP3THDmPKcPmbbb  Location: (sql_parse.cc:5386)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150829:	call	thd %150828 %150670 XXX _Z18check_table_accessP3THDmP13st_table_listb  Location: (sql_parse.cc:2542)
+%150830:	zext	%150829  Location: (sql_parse.cc:2542)
+%150833:	phi	%150830 XXX XXX 
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+%149415:	call	thd _Z21mysql_execute_commandP3THD  Location: (sql_parse.cc:5870)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:125)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:126)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:127)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:130)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:131)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (array.c:152)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:357)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:361)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:362)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:363)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:510)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:511)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:522)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:525)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:526)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:527)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:531)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:532)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:534)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:539)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:540)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:544)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:547)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:561)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:564)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:567)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:571)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:574)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:576)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:583)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:584)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:588)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:591)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:594)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:595)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:597)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:602)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:709)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:710)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:711)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:712)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:713)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:741)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:744)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:745)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:794)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:796)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:798)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:800)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:817)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:818)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:823)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:824)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:825)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:863)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:864)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:902)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:904)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:906)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:908)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:909)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:910)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:912)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:914)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:915)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:920)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1044)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1047)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1050)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1051)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1092)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1093)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1136)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1137)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1138)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1139)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1140)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1141)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1143)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1239)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1240)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1241)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1242)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1349)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1352)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1353)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1384)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1419)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1420)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1421)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1482)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1483)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1491)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1493)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1496)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1497)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1499)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1502)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1503)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1532)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1536)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1537)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1740)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1744)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1747)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1779)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:2058)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:2059)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:2062)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:45)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:152)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:154)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:170)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:213)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:230)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:270)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:272)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:273)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:302)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:320)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:323)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:324)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:326)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:327)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:331)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:332)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:334)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:345)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:352)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:360)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:361)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:365)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:375)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:382)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:383)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:387)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:391)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:395)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:401)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:406)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:410)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:411)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:416)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:417)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:420)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:421)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:425)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:426)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:430)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:431)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:447)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:450)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:451)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:453)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:456)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:459)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:461)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:464)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:465)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:470)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:471)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:473)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:474)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:475)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:482)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:484)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:487)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:492)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:495)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:496)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:500)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:501)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:503)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:505)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:513)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:514)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:515)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:518)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:519)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash.c:520)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:91)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:94)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:96)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:100)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:101)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:103)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:104)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:105)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:113)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:115)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:116)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:121)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:125)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:126)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:128)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (hash_filo.h:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:68)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:88)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:91)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:105)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:109)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:156)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (int2str.c:160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:38)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:40)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:41)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:44)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:49)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:53)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:54)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:59)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:68)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:69)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:70)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:75)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:76)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:77)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (mf_wcomp.c:80)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:173)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:178)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:179)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:185)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:186)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:188)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:193)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:199)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:200)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:203)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:204)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:205)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:206)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:214)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:215)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_alloc.c:217)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:83)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:84)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:93)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:94)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:95)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:98)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:99)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:100)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_error.c:102)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_malloc.c:37)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_realloc.c:58)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_thr_init.c:282)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_thr_init.c:285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_thr_init.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_thr_init.c:288)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:39)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:42)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:48)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:54)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:58)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:59)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:62)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:70)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:73)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:74)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:77)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:84)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:89)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:101)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:103)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:135)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:154)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:173)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:174)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_vsnprintf.c:175)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1199)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1200)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1203)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1206)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1207)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1209)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1210)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1223)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1225)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1227)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1228)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1244)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1245)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1247)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1249)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1598)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1601)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1604)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1627)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1629)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1631)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1633)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:1634)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5752)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5753)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5754)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5755)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5758)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5760)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5771)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5772)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5773)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5774)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5775)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_acl.cc:5779)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_class.h:1750)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1536)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1544)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1547)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1549)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1550)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1553)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1555)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1558)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1562)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1569)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1571)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1574)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1575)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1578)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1579)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1581)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1589)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1590)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1591)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1592)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1593)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1594)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1596)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1601)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1604)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1606)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.cc:1609)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.h:446)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_lex.h:591)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_parse.cc:2366)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_parse.cc:2368)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_parse.cc:2370)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_parse.cc:2372)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_parse.cc:2375)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_parse.cc:2377)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5171)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5178)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5185)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5189)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5200)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5202)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5223)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5224)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5225)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5228)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5231)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5237)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5238)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5239)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5240)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5241)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5248)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5249)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5252)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5255)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5258)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5269)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5270)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (sql_parse.cc:5271)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:70)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:73)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:75)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:77)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:78)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:85)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:86)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:87)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:88)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:89)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:90)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:95)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:443)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:445)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:447)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:449)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:458)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:460)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:461)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:807)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:809)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:811)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:813)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:820)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:824)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:834)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.cc:842)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:65)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:66)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:87)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:90)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:179)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:181)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:182)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:252)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:254)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:258)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_string.h:260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (str2int.c:101)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (str2int.c:103)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (str2int.c:104)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (str2int.c:112)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (str2int.c:118)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (str2int.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Dangerous Operation Location: (str2int.c:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (strmake.c:49)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (strmake.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (strnmov.c:30)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (strnmov.c:31)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:62)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:65)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:98)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:115)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:116)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:125)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:132)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:134)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:143)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (thr_mutex.c:171)
+
+---- Part 3: Path Intersection ----
+[ 155892 155893 ]
+%155892:	call	thd want_access %155881 %155884 XXX %155885 %155891 _Z12check_accessP3THDmPKcPmbbb  Location: (sql_parse.cc:5386)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+Function: _Z18check_table_accessP3THDmP13st_table_listb(...) Location: (sql_parse.cc:5389)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2589)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2588)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2580)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2579)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2574)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2572)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2569)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2568)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2556)
+
+---- Part 3: Path Intersection ----
+[ 150039 150040 150041 ]
+%150039:	load	grant_option  Location: (sql_parse.cc:5262)
+%150040:	trunc	%150039  Location: (sql_parse.cc:5262)
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+Function: _Z12check_accessP3THDmPKcPmbbb(...) Location: (sql_parse.cc:5271)
+
+---- Part 3: Path Intersection ----
+[ 150039 150040 150041 ]
+%150039:	load	grant_option  Location: (sql_parse.cc:5262)
+%150040:	trunc	%150039  Location: (sql_parse.cc:5262)
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+Function: _Z12check_accessP3THDmPKcPmbbb(...) Location: (sql_parse.cc:5270)
+
+---- Part 3: Path Intersection ----
+[ 150039 150040 150041 ]
+%150039:	load	grant_option  Location: (sql_parse.cc:5262)
+%150040:	trunc	%150039  Location: (sql_parse.cc:5262)
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+Function: _Z12check_accessP3THDmPKcPmbbb(...) Location: (sql_parse.cc:5269)
+
+   # of detected potential vulnerabilities: 515
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:606)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1423)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (dbug.c:1452)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (my_malloc.c:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 150041 155893 150846 ]
+%150041:	br	%150040 if.end143 land.lhs.true134  Location: (sql_parse.cc:5261)
+%155893:	br	%155892 if.end62 if.then61  Location: (sql_parse.cc:5386)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Dangerous Operation Location: (sql_parse.cc:2374)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2589)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2580)
+
+---- Part 3: Path Intersection ----
+[ 150844 150845 150846 ]
+%150844:	phi	%150833 %150841 
+%150845:	trunc	%150844  Location: (sql_parse.cc:2551)
+%150846:	br	%150845 if.end88 if.then87  Location: (sql_parse.cc:2551)
+Function: _Z21mysql_execute_commandP3THD(...) Location: (sql_parse.cc:2568)
+
+   # of detected potential vulnerabilities: 8
+*********************************************************
+
++ echo 'ConAnalysis Done!'

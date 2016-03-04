@@ -1,0 +1,231 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench2
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sync0arr.c : 914)
+(srv0srv.c : 2084)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 583342 583343 583344 583345 583359 583360 583361 583362 425032 425033 425034 ]
+%583342:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:914)
+%583343:	load	%583342  Location: (sync0arr.c:914)
+%583344:	icmp	%583343 XXX  Location: (sync0arr.c:914)
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583359:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:922)
+%583360:	load	%583359  Location: (sync0arr.c:922)
+%583361:	icmp	%583360 XXX  Location: (sync0arr.c:922)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+%425032:	call	sync_array_print_long_waits  Location: (srv0srv.c:2084)
+%425033:	icmp	%425032 XXX  Location: (srv0srv.c:2084)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:451)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:455)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:456)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:457)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:462)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:470)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:471)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:475)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:481)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:485)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:486)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:487)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:491)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:500)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:501)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:502)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:503)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:504)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:505)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:510)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Dangerous Operation Location: (sync0arr.c:514)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 583362 425034 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 583362 425034 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 583362 425034 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 583362 425034 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 583362 425034 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 583345 583362 425034 ]
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+%425034:	br	%425033 if.else if.then13  Location: (srv0srv.c:2084)
+Dangerous Operation Location: (ut0ut.c:150)
+
+---- Part 3: Path Intersection ----
+[ 583342 583343 583344 583345 583359 583360 583361 583362 ]
+%583342:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:914)
+%583343:	load	%583342  Location: (sync0arr.c:914)
+%583344:	icmp	%583343 XXX  Location: (sync0arr.c:914)
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583359:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:922)
+%583360:	load	%583359  Location: (sync0arr.c:922)
+%583361:	icmp	%583360 XXX  Location: (sync0arr.c:922)
+%583362:	br	%583361 if.end15 land.lhs.true8  Location: (sync0arr.c:922)
+Function: sync_array_print_long_waits(...) Location: (sync0arr.c:923)
+
+---- Part 3: Path Intersection ----
+[ 583342 583343 583344 583345 583359 ]
+%583342:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:914)
+%583343:	load	%583342  Location: (sync0arr.c:914)
+%583344:	icmp	%583343 XXX  Location: (sync0arr.c:914)
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+%583359:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:922)
+Function: sync_array_print_long_waits(...) Location: (sync0arr.c:922)
+
+---- Part 3: Path Intersection ----
+[ 583342 583343 583344 583345 ]
+%583342:	getelementptr	%583340 XXX XXX  Location: (sync0arr.c:914)
+%583343:	load	%583342  Location: (sync0arr.c:914)
+%583344:	icmp	%583343 XXX  Location: (sync0arr.c:914)
+%583345:	br	%583344 if.end land.lhs.true  Location: (sync0arr.c:914)
+Function: sync_array_print_long_waits(...) Location: (sync0arr.c:915)
+
+   # of detected potential vulnerabilities: 31
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

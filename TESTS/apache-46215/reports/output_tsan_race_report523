@@ -1,0 +1,55 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report523
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 2175)
+-------------------------
+  %plain_cleanup_fn5 = getelementptr inbounds %struct.cleanup_t* %c.0, i32 0, i32 2, !dbg !45716
+-------------------------
+(apr_pools.c : 2239)
+(apr_brigade.c : 67)
+(apr_pools.c : 2296)
+(connection.c : 74)
+(sockets.c : 149)
+(connection.c : 123)
+(connection.c : 163)
+(worker.c : 545)
+(worker.c : 545)
+(worker.c : 894)
+(worker.c : 894)
+(thread.c : 142)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 126261 126262 143367 ]
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%143367:	call	%143365 %143366 brigade_cleanup apr_pool_cleanup_null apr_pool_cleanup_register  Location: (apr_brigade.c:67)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

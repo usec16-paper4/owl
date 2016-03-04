@@ -1,0 +1,183 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench162
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(trx0trx.c : 1736)
+(lock0lock.c : 3311)
+(lock0lock.c : 3388)
+(lock0lock.c : 3388)
+(lock0lock.c : 3190)
+(lock0lock.c : 1844)
+(lock0lock.c : 2092)
+(lock0lock.c : 2157)
+(lock0lock.c : 5131)
+(row0sel.c : 781)
+(row0sel.c : 3751)
+(ha_innodb.cc : 3826)
+(handler.cc : 2623)
+(handler.cc : 2495)
+(opt_range.cc : 6713)
+(records.cc : 224)
+(sql_parse.cc : 3288)
+(sql_prepare.cc : 2926)
+(sql_prepare.cc : 2251)
+(sql_parse.cc : 1727)
+(sql_parse.cc : 1550)
+(sql_parse.cc : 1181)
+
+---- Part 1: Dataflow Result ---- 
+[ 516865 516866 516867 516868 568367 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+%568367:	call	%568360 %568366 XXX XXX  Location: (lock0lock.c:3311)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1789)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1788)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1781)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1778)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1773)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1770)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1769)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1765)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1764)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1761)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1751)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1746)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1745)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1743)
+
+---- Part 3: Path Intersection ----
+[ 516865 516866 516867 516868 ]
+%516865:	getelementptr	trx XXX XXX  Location: (trx0trx.c:1736)
+%516866:	load	%516865  Location: (trx0trx.c:1736)
+%516867:	icmp	%516866 XXX  Location: (trx0trx.c:1736)
+%516868:	br	%516867 if.end32 if.then30  Location: (trx0trx.c:1736)
+Function: trx_print(...) Location: (trx0trx.c:1738)
+
+   # of detected potential vulnerabilities: 15
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

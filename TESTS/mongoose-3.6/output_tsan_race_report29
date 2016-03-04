@@ -1,0 +1,76 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report29
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 1811)
+(mongoose.c : 4852)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 4069 4070 4071 4072 4073 4074 4075 pattern_len 4666 4667 4669 4670 4671 4673 4674 4680 4681 4682 4683 4684 4685 4686 4687 4698 4699 4759 4760 4767 4076 4077 4078 3381 ]
+%4069:	getelementptr	conn XXX XXX 
+%4070:	load	%4069 
+%4071:	getelementptr	%4070 XXX XXX 
+%4072:	getelementptr	%4071 XXX XXX 
+%4073:	load	%4072 
+%4074:	call	%4073 strlen 
+%4075:	trunc	%4074 
+Function args: pattern_len
+%4666:	sext	pattern_len 
+%4667:	call	pattern XXX %4666 memchr 
+%4669:	icmp	%4667 XXX 
+%4670:	br	%4669 if.end if.then 
+%4671:	ptrtoint	%4667 
+%4673:	sub	%4671 %4672 
+%4674:	trunc	%4673 
+%4680:	getelementptr	%4667 XXX 
+%4681:	sext	pattern_len 
+%4682:	getelementptr	pattern %4681 
+%4683:	getelementptr	%4667 XXX 
+%4684:	ptrtoint	%4682 
+%4685:	ptrtoint	%4683 
+%4686:	sub	%4684 %4685 
+%4687:	trunc	%4686 
+%4698:	icmp	%4696 pattern_len 
+%4699:	br	%4698 for.end for.body 
+%4759:	icmp	%4757 pattern_len 
+%4760:	br	%4759 if.end66 if.then65 
+%4767:	sub	pattern_len %4757 
+%4076:	call	%4068 %4075 buf match_prefix 
+%4077:	icmp	%4076 XXX 
+%4078:	br	%4077 if.else land.lhs.true 
+%3381:	call	conn handle_request 
+
+#0 0x1dcf8f0 llvm::sys::PrintStackTrace(_IO_FILE*) (/usr/local/bin/opt+0x1dcf8f0)
+#1 0x1dcfb8b PrintStackTraceSignalHandler(void*) (/usr/local/bin/opt+0x1dcfb8b)
+#2 0x1dce7ad SignalHandler(int) (/usr/local/bin/opt+0x1dce7ad)
+#3 0x7f73a2f6c340 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x10340)
+#4 0xc520f0 llvm::SmallPtrSetImplBase::isSmall() const (/usr/local/bin/opt+0xc520f0)
+#5 0xc5206e llvm::SmallPtrSetImplBase::count_imp(void const*) const (/usr/local/bin/opt+0xc5206e)
+#6 0x14d2a70 llvm::SmallPtrSetImpl<llvm::BasicBlock const*>::count(llvm::BasicBlock const*) const (/usr/local/bin/opt+0x14d2a70)
+#7 0x156d17d llvm::LoopBase<llvm::BasicBlock, llvm::Loop>::contains(llvm::BasicBlock const*) const (/usr/local/bin/opt+0x156d17d)
+#8 0x156d2c8 llvm::LoopBase<llvm::BasicBlock, llvm::Loop>::isLoopExiting(llvm::BasicBlock const*) const (/usr/local/bin/opt+0x156d2c8)
+#9 0x7f73a1f0f639 ConAnal::ConAnalysis::getCorruptedIRs(llvm::Module&, ConAnal::DOL&, bool) /home/ruigu/Workspace/ConAnalysis/lib/ConAnal/ConAnalysis.cpp:439:0
+#10 0x7f73a1f0e4e3 ConAnal::ConAnalysis::runOnModule(llvm::Module&) /home/ruigu/Workspace/ConAnalysis/lib/ConAnal/ConAnalysis.cpp:296:0
+#11 0x1a0cf9c (anonymous namespace)::MPPassManager::runOnModule(llvm::Module&) (/usr/local/bin/opt+0x1a0cf9c)
+#12 0x1a0d642 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/usr/local/bin/opt+0x1a0d642)
+#13 0x1a0d861 llvm::legacy::PassManager::run(llvm::Module&) (/usr/local/bin/opt+0x1a0d861)
+#14 0xc860b6 main (/usr/local/bin/opt+0xc860b6)
+#15 0x7f73a2398ec5 __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21ec5)
+#16 0xc4d149 _start (/usr/local/bin/opt+0xc4d149)
+Stack dump:
+0.	Program arguments: opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report29 
+1.	Running pass 'concurrency bug analysis code' on module '../../../TESTS/mongoose-3.6/mongoose-3.6.bc'.
+./autotest.sh: line 17:  9865 Segmentation fault      (core dumped) opt -load ../../$DOL_DIR/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../$CONANAL_DIR/libConAnalysis.so -ConAnalysis ../../../TESTS/${1}/${1}.bc --ptrderef --danfunc --raceReport ${2} > /dev/null

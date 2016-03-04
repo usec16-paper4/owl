@@ -1,0 +1,70 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report24
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 543)
+
+---- Part 1: Dataflow Result ---- 
+[ 1986 1987 1988 1989 1992 1991 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2007 2008 2009 2010 ]
+%1986:	getelementptr	conn XXX XXX 
+%1987:	load	%1986 
+%1988:	getelementptr	%1987 XXX XXX 
+%1989:	load	%1988 
+%1992:	store	%1989 %1991 
+%1991:	getelementptr	%1990 XXX XXX 
+%1996:	getelementptr	conn XXX XXX 
+%1997:	load	%1996 
+%1998:	icmp	%1997 XXX 
+%1999:	br	%1998 lor.lhs.false7 cond.true 
+%2000:	getelementptr	conn XXX XXX 
+%2001:	load	%2000 
+%2002:	getelementptr	%2001 XXX XXX 
+%2003:	load	%2002 
+%2004:	icmp	%2003 XXX 
+%2005:	br	%2004 cond.false cond.true 
+%2007:	getelementptr	conn XXX XXX 
+%2008:	load	%2007 
+%2009:	getelementptr	%2008 XXX XXX 
+%2010:	load	%2009 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2007 ]
+%1996:	getelementptr	conn XXX XXX 
+%1997:	load	%1996 
+%1998:	icmp	%1997 XXX 
+%1999:	br	%1998 lor.lhs.false7 cond.true 
+%2000:	getelementptr	conn XXX XXX 
+%2001:	load	%2000 
+%2002:	getelementptr	%2001 XXX XXX 
+%2003:	load	%2002 
+%2004:	icmp	%2003 XXX 
+%2005:	br	%2004 cond.false cond.true 
+%2007:	getelementptr	conn XXX XXX 
+Function: call_user(...) Location: (mongoose.c:546)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

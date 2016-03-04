@@ -1,0 +1,272 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-2.4.18
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-2.4.18/apache-2.4.18.bc --ptrderef --danfunc --raceReport tsan_report1
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(worker.c : 746)
+(thread.c : 142)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 80133 80134 80135 112341 112342 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+%112341:	call	%112335 %112340 %112338  Location: (thread.c:142)
+%112342:	ret	%112341  Location: (thread.c:142)
+
+**************************************************
+                Busy Loop Detected!               
+%80134 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12416
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2265)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2277)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2279)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2280)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2284)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2289)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2290)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2302)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2305)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2309)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (apr_pools.c:2310)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (fdqueue.c:230)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (fdqueue.c:234)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (fdqueue.c:235)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (fdqueue.c:236)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (fdqueue.c:389)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (fdqueue.c:392)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (fdqueue.c:393)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (sockets.c:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (thread_cond.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (worker.c:270)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (worker.c:271)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 80135 ]
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Dangerous Operation Location: (worker.c:272)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:898)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:895)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:886)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:883)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:882)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:878)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:854)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:845)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:826)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:784)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:782)
+
+---- Part 3: Path Intersection ----
+[ 80133 80134 80135 ]
+%80133:	load	requests_this_child  Location: (worker.c:746)
+%80134:	icmp	%80133 XXX  Location: (worker.c:746)
+%80135:	br	%80134 if.end18 if.then17  Location: (worker.c:746)
+Function: listener_thread(...) Location: (worker.c:773)
+
+   # of detected potential vulnerabilities: 40
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

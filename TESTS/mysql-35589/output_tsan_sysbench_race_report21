@@ -1,0 +1,67 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_sysbench_race_report21
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(log.cc : 4112)
+-------------------------
+  %general_log_handler_list = getelementptr inbounds %class.LOGGER* %this, i32 0, i32 7, !dbg !152009
+-------------------------
+(sql_parse.cc : 1449)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 328154 328155 328156 328157 328158 179517 ]
+%328154:	getelementptr	this XXX XXX  Location: (log.cc:4112)
+%328155:	getelementptr	%328154 XXX XXX  Location: (log.cc:4112)
+%328156:	load	%328155  Location: (log.cc:4112)
+%328157:	icmp	%328156 XXX  Location: (log.cc:4112)
+%328158:	br	%328157 if.end9 land.lhs.true  Location: (log.cc:4112)
+%179517:	call	thd command XXX XXX  Location: (sql_parse.cc:1449)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 3: Path Intersection ----
+[ 328154 328155 328156 328157 328158 ]
+%328154:	getelementptr	this XXX XXX  Location: (log.cc:4112)
+%328155:	getelementptr	%328154 XXX XXX  Location: (log.cc:4112)
+%328156:	load	%328155  Location: (log.cc:4112)
+%328157:	icmp	%328156 XXX  Location: (log.cc:4112)
+%328158:	br	%328157 if.end9 land.lhs.true  Location: (log.cc:4112)
+Function: _ZN6LOGGER11log_commandEP3THD19enum_server_command(...) Location: (log.cc:4116)
+
+---- Part 3: Path Intersection ----
+[ 328154 328155 328156 328157 328158 ]
+%328154:	getelementptr	this XXX XXX  Location: (log.cc:4112)
+%328155:	getelementptr	%328154 XXX XXX  Location: (log.cc:4112)
+%328156:	load	%328155  Location: (log.cc:4112)
+%328157:	icmp	%328156 XXX  Location: (log.cc:4112)
+%328158:	br	%328157 if.end9 land.lhs.true  Location: (log.cc:4112)
+Function: _ZN6LOGGER11log_commandEP3THD19enum_server_command(...) Location: (log.cc:4114)
+
+   # of detected potential vulnerabilities: 2
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

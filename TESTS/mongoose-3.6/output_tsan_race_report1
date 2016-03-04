@@ -1,0 +1,154 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report1
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 5049)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 3058 ]
+%3058:	br	while.cond37 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5068)
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5058)
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5057)
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5056)
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5055)
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5052)
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5050)
+
+---- Part 3: Path Intersection ----
+[ 3058 ]
+%3058:	br	while.cond37 
+Function: master_thread(...) Location: (mongoose.c:5049)
+
+   # of detected potential vulnerabilities: 8
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+Function: master_thread(...) Location: (mongoose.c:5068)
+
+---- Part 3: Path Intersection ----
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+Function: master_thread(...) Location: (mongoose.c:5058)
+
+---- Part 3: Path Intersection ----
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+Function: master_thread(...) Location: (mongoose.c:5057)
+
+---- Part 3: Path Intersection ----
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+Function: master_thread(...) Location: (mongoose.c:5056)
+
+---- Part 3: Path Intersection ----
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+Function: master_thread(...) Location: (mongoose.c:5055)
+
+---- Part 3: Path Intersection ----
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+Function: master_thread(...) Location: (mongoose.c:5052)
+
+---- Part 3: Path Intersection ----
+[ 3059 3060 3061 3062 ]
+%3059:	getelementptr	%2977 XXX XXX 
+%3060:	load	%3059 
+%3061:	icmp	%3060 XXX 
+%3062:	br	%3061 while.end43 while.body40 
+Function: master_thread(...) Location: (mongoose.c:5050)
+
+   # of detected potential vulnerabilities: 7
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

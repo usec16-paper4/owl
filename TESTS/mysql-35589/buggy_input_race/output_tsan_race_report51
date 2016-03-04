@@ -1,0 +1,69 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_race_report51
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mi_locking.c : 34)
+(ha_myisam.cc : 1878)
+(handler.cc : 4554)
+(lock.cc : 364)
+(lock.cc : 260)
+(sql_base.cc : 5287)
+(sql_base.cc : 4985)
+(mysql_priv.h : 1550)
+(sql_acl.cc : 5048)
+(sql_parse.cc : 3796)
+(sql_parse.cc : 5929)
+(sql_parse.cc : 1216)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 578919 578920 ]
+%578919:	br	do.body  Location: (mi_locking.c:34)
+%578920:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:34)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 3: Path Intersection ----
+[ 578919 578920 ]
+%578919:	br	do.body  Location: (mi_locking.c:34)
+%578920:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:34)
+Function: mi_lock_database(...) Location: (mi_locking.c:41)
+
+---- Part 3: Path Intersection ----
+[ 578919 578920 ]
+%578919:	br	do.body  Location: (mi_locking.c:34)
+%578920:	call	XXX XXX _db_pargs_  Location: (mi_locking.c:34)
+Function: mi_lock_database(...) Location: (mi_locking.c:40)
+
+---- Part 3: Path Intersection ----
+[ 578919 ]
+%578919:	br	do.body  Location: (mi_locking.c:34)
+Function: mi_lock_database(...) Location: (mi_locking.c:34)
+
+   # of detected potential vulnerabilities: 3
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

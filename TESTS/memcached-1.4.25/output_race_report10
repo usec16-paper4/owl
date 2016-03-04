@@ -1,0 +1,105 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report10
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 524)
+(memcached.c : 577)
+(memcached.c : 4366)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 3808 3809 3810 3811 3812 3813 3814 3815 3816 10282 ]
+%3808:	getelementptr	c XXX XXX  Location: (memcached.c:524)
+%3809:	load	%3808  Location: (memcached.c:524)
+%3810:	icmp	%3809 XXX  Location: (memcached.c:524)
+%3811:	br	%3810 if.end if.then  Location: (memcached.c:524)
+%3812:	getelementptr	c XXX XXX  Location: (memcached.c:525)
+%3813:	load	%3812  Location: (memcached.c:525)
+%3814:	call	%3813 free  Location: (memcached.c:525)
+%3815:	getelementptr	c XXX XXX  Location: (memcached.c:526)
+%3816:	store	XXX %3815  Location: (memcached.c:526)
+%10282:	call	c conn_cleanup  Location: (memcached.c:577)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 3: Path Intersection ----
+[ 3808 3809 3810 3811 ]
+%3808:	getelementptr	c XXX XXX  Location: (memcached.c:524)
+%3809:	load	%3808  Location: (memcached.c:524)
+%3810:	icmp	%3809 XXX  Location: (memcached.c:524)
+%3811:	br	%3810 if.end if.then  Location: (memcached.c:524)
+Function: conn_cleanup(...) Location: (memcached.c:535)
+
+---- Part 3: Path Intersection ----
+[ 3808 3809 3810 3811 ]
+%3808:	getelementptr	c XXX XXX  Location: (memcached.c:524)
+%3809:	load	%3808  Location: (memcached.c:524)
+%3810:	icmp	%3809 XXX  Location: (memcached.c:524)
+%3811:	br	%3810 if.end if.then  Location: (memcached.c:524)
+Function: conn_cleanup(...) Location: (memcached.c:532)
+
+---- Part 3: Path Intersection ----
+[ 3808 3809 3810 3811 ]
+%3808:	getelementptr	c XXX XXX  Location: (memcached.c:524)
+%3809:	load	%3808  Location: (memcached.c:524)
+%3810:	icmp	%3809 XXX  Location: (memcached.c:524)
+%3811:	br	%3810 if.end if.then  Location: (memcached.c:524)
+Function: conn_cleanup(...) Location: (memcached.c:529)
+
+---- Part 3: Path Intersection ----
+[ 3808 3809 3810 3811 3812 3813 3814 3815 ]
+%3808:	getelementptr	c XXX XXX  Location: (memcached.c:524)
+%3809:	load	%3808  Location: (memcached.c:524)
+%3810:	icmp	%3809 XXX  Location: (memcached.c:524)
+%3811:	br	%3810 if.end if.then  Location: (memcached.c:524)
+%3812:	getelementptr	c XXX XXX  Location: (memcached.c:525)
+%3813:	load	%3812  Location: (memcached.c:525)
+%3814:	call	%3813 free  Location: (memcached.c:525)
+%3815:	getelementptr	c XXX XXX  Location: (memcached.c:526)
+Function: conn_cleanup(...) Location: (memcached.c:526)
+
+---- Part 3: Path Intersection ----
+[ 3808 3809 3810 3811 3812 ]
+%3808:	getelementptr	c XXX XXX  Location: (memcached.c:524)
+%3809:	load	%3808  Location: (memcached.c:524)
+%3810:	icmp	%3809 XXX  Location: (memcached.c:524)
+%3811:	br	%3810 if.end if.then  Location: (memcached.c:524)
+%3812:	getelementptr	c XXX XXX  Location: (memcached.c:525)
+Function: conn_cleanup(...) Location: (memcached.c:525)
+
+   # of detected potential vulnerabilities: 5
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 3: Path Intersection ----
+[ 3808 3809 3810 3811 3812 ]
+%3808:	getelementptr	c XXX XXX  Location: (memcached.c:524)
+%3809:	load	%3808  Location: (memcached.c:524)
+%3810:	icmp	%3809 XXX  Location: (memcached.c:524)
+%3811:	br	%3810 if.end if.then  Location: (memcached.c:524)
+%3812:	getelementptr	c XXX XXX  Location: (memcached.c:525)
+Function: conn_cleanup(...) Location: (memcached.c:525)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+

@@ -1,0 +1,201 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-21287
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-21287/apache-21287.bc --ptrderef --danfunc --raceReport tsan_race_report3
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(worker.c : 711)
+(thread.c : 127)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 71877 71878 71879 102782 102783 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+%102782:	call	%102776 %102781 %102779  Location: (thread.c:127)
+%102783:	ret	%102782  Location: (thread.c:127)
+
+**************************************************
+                Busy Loop Detected!               
+%71878 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (apr_pools.c:1944)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (apr_pools.c:1945)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (apr_pools.c:1947)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (apr_pools.c:1948)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (apr_pools.c:1952)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (apr_pools.c:1953)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (fdqueue.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (fdqueue.c:184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (fdqueue.c:185)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (fdqueue.c:186)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (fdqueue.c:333)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (fdqueue.c:336)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (fdqueue.c:337)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (sockets.c:164)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (thread_cond.c:169)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (worker.c:264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (worker.c:265)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 71879 ]
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Dangerous Operation Location: (worker.c:266)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:862)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:825)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:824)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:808)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:785)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:780)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:753)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:743)
+
+---- Part 3: Path Intersection ----
+[ 71877 71878 71879 ]
+%71877:	load	requests_this_child  Location: (worker.c:711)
+%71878:	icmp	%71877 XXX  Location: (worker.c:711)
+%71879:	br	%71878 if.end if.then  Location: (worker.c:711)
+Function: listener_thread(...) Location: (worker.c:742)
+
+   # of detected potential vulnerabilities: 27
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

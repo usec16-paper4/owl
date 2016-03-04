@@ -1,0 +1,23 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/ssdb-1.9.2
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/ssdb-1.9.2
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/ssdb-1.9.2
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/ssdb-1.9.2/ssdb-1.9.2.bc --ptrderef --danfunc --raceReport race_report2
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(proc.h : 79)
+(server.cpp : 86)
+(ssdb-server.cpp : 88)
+(app.cpp : 17)
+(ssdb-server.cpp : 98)
+

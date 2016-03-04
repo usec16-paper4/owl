@@ -1,0 +1,423 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench18
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(btr0sea.c : 217)
+(btr0sea.c : 475)
+(btr0sea.ic : 66)
+(btr0cur.c : 547)
+(btr0pcur.ic : 535)
+(row0sel.c : 3443)
+(ha_innodb.cc : 3826)
+(handler.cc : 2623)
+(handler.cc : 2495)
+(opt_range.cc : 6713)
+(records.cc : 224)
+(sql_parse.cc : 3288)
+(sql_prepare.cc : 2926)
+(sql_prepare.cc : 2251)
+(sql_parse.cc : 1727)
+(sql_parse.cc : 1550)
+(sql_parse.cc : 1181)
+
+---- Part 1: Dataflow Result ---- 
+[ 502328 502329 502330 502331 502341 502342 502343 502344 502392 502393 502394 502395 502411 502412 502422 502423 502461 502462 500633 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502341:	getelementptr	info XXX XXX  Location: (btr0sea.c:227)
+%502342:	load	%502341  Location: (btr0sea.c:227)
+%502343:	add	%502342 XXX  Location: (btr0sea.c:227)
+%502344:	store	%502343 %502341  Location: (btr0sea.c:227)
+%502392:	getelementptr	info XXX XXX  Location: (btr0sea.c:250)
+%502393:	load	%502392  Location: (btr0sea.c:250)
+%502394:	add	%502393 XXX  Location: (btr0sea.c:250)
+%502395:	store	%502394 %502392  Location: (btr0sea.c:250)
+%502411:	getelementptr	info XXX XXX  Location: (btr0sea.c:264)
+%502412:	store	XXX %502411  Location: (btr0sea.c:264)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+%500633:	call	info cursor btr_search_info_update_hash  Location: (btr0sea.c:475)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:308)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:305)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:304)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:302)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:301)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:299)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:297)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:296)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 502462 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+%502462:	store	XXX %502461  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:294)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502461 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502461:	getelementptr	info XXX XXX  Location: (btr0sea.c:292)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:292)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:290)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:287)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:286)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:284)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:283)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:281)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:279)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:278)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 502423 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+%502423:	store	XXX %502422  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:276)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502422 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502422:	getelementptr	info XXX XXX  Location: (btr0sea.c:274)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:274)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502411 502412 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502411:	getelementptr	info XXX XXX  Location: (btr0sea.c:264)
+%502412:	store	XXX %502411  Location: (btr0sea.c:264)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:271)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502411 502412 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502411:	getelementptr	info XXX XXX  Location: (btr0sea.c:264)
+%502412:	store	XXX %502411  Location: (btr0sea.c:264)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:269)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502411 502412 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502411:	getelementptr	info XXX XXX  Location: (btr0sea.c:264)
+%502412:	store	XXX %502411  Location: (btr0sea.c:264)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:268)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502411 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502411:	getelementptr	info XXX XXX  Location: (btr0sea.c:264)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:264)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:262)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:261)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:259)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502392 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502392:	getelementptr	info XXX XXX  Location: (btr0sea.c:250)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:250)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:245)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:244)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:242)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:241)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:236)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:235)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:233)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:232)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 502341 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+%502341:	getelementptr	info XXX XXX  Location: (btr0sea.c:227)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:227)
+
+---- Part 3: Path Intersection ----
+[ 502328 502329 502330 502331 ]
+%502328:	getelementptr	info XXX XXX  Location: (btr0sea.c:217)
+%502329:	load	%502328  Location: (btr0sea.c:217)
+%502330:	icmp	%502329 XXX  Location: (btr0sea.c:217)
+%502331:	br	%502330 if.end4 if.then3  Location: (btr0sea.c:217)
+Function: btr_search_info_update_hash(...) Location: (btr0sea.c:225)
+
+   # of detected potential vulnerabilities: 38
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

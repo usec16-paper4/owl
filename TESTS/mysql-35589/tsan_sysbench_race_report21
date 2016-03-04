@@ -1,0 +1,4 @@
+LOGGER::log_command (log.cc:4112)
+dispatch_command (sql_parse.cc:1449)
+do_command (sql_parse.cc:857)
+handle_one_connection (sql_connect.cc:1115)

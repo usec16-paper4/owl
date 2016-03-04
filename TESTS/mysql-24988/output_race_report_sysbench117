@@ -1,0 +1,54 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport race_report_sysbench117
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(dict0dict.c : 4110)
+(dict0dict.c : 4132)
+(row0mysql.c : 878)
+(row0mysql.c : 1425)
+(ha_innodb.cc : 3522)
+(sql_parse.cc : 3288)
+(sql_prepare.cc : 2926)
+(sql_prepare.cc : 2251)
+(sql_parse.cc : 1727)
+(sql_parse.cc : 1550)
+(sql_parse.cc : 1181)
+
+---- Part 1: Dataflow Result ---- 
+[ 435871 435872 435873 435874 435876 435875 432993 ]
+%435871:	getelementptr	%435868 XXX XXX  Location: (dict0dict.c:4110)
+%435872:	load	%435871  Location: (dict0dict.c:4110)
+%435873:	getelementptr	%435872 %435870  Location: (dict0dict.c:4110)
+%435874:	load	%435873  Location: (dict0dict.c:4110)
+%435876:	store	%435874 %435875  Location: (dict0dict.c:4110)
+%435875:	getelementptr	table XXX XXX  Location: (dict0dict.c:4110)
+%432993:	call	table XXX dict_update_statistics_low  Location: (dict0dict.c:4132)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

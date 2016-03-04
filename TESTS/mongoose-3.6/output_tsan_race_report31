@@ -1,0 +1,79 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report31
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 2405)
+(mongoose.c : 2462)
+(mongoose.c : 4852)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 7166 7167 7168 7169 7170 7172 7173 7174 4338 4342 4343 3381 ]
+%7166:	getelementptr	conn XXX XXX 
+%7167:	load	%7166 
+%7168:	getelementptr	%7167 XXX XXX 
+%7169:	getelementptr	%7168 XXX XXX 
+%7170:	load	%7169 
+%7172:	call	%7170 %7171 strcmp 
+%7173:	icmp	%7172 XXX 
+%7174:	br	%7173 if.then17 if.end20 
+%4338:	call	conn %4321 authorize 
+%4342:	phi	%4338 XXX XXX 
+%4343:	ret	%4342 
+%3381:	call	conn handle_request 
+
+**************************************************
+                Busy Loop Detected!               
+%7173 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 7166 7167 7168 7169 7170 7172 7173 7174 ]
+%7166:	getelementptr	conn XXX XXX 
+%7167:	load	%7166 
+%7168:	getelementptr	%7167 XXX XXX 
+%7169:	getelementptr	%7168 XXX XXX 
+%7170:	load	%7169 
+%7172:	call	%7170 %7171 strcmp 
+%7173:	icmp	%7172 XXX 
+%7174:	br	%7173 if.then17 if.end20 
+Function: authorize(...) Location: (mongoose.c:2407)
+
+---- Part 3: Path Intersection ----
+[ 7166 7167 7168 7169 7170 7172 7173 7174 ]
+%7166:	getelementptr	conn XXX XXX 
+%7167:	load	%7166 
+%7168:	getelementptr	%7167 XXX XXX 
+%7169:	getelementptr	%7168 XXX XXX 
+%7170:	load	%7169 
+%7172:	call	%7170 %7171 strcmp 
+%7173:	icmp	%7172 XXX 
+%7174:	br	%7173 if.then17 if.end20 
+Function: authorize(...) Location: (mongoose.c:2406)
+
+   # of detected potential vulnerabilities: 2
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,1435 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_race_report56
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mi_extra.c : 105)
+(ha_myisam.cc : 1862)
+(records.cc : 261)
+(sql_acl.cc : 327)
+(sql_acl.cc : 719)
+(sql_parse.cc : 6762)
+(sql_parse.cc : 3945)
+(sql_parse.cc : 5929)
+(sql_parse.cc : 1216)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 569003 569004 569005 cache_myflags 646486 646487 646488 646518 646544 646547 my_flags 650176 650177 650178 650182 650183 650184 650187 650188 650189 650193 650194 650195 646548 646550 646549 646551 646552 646591 646593 646592 569006 569007 569008 569108 569109 569110 561474 561476 561477 397269 ]
+%569003:	getelementptr	%568850 XXX XXX  Location: (mi_extra.c:105)
+%569004:	load	%569003  Location: (mi_extra.c:105)
+%569005:	and	%569004 XXX  Location: (mi_extra.c:105)
+Function args: cache_myflags
+%646486:	and	cache_myflags XXX  Location: (mf_iocache.c:206)
+%646487:	icmp	%646486 XXX  Location: (mf_iocache.c:206)
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%646518:	and	cache_myflags XXX  Location: (mf_iocache.c:222)
+%646544:	and	%646518 XXX  Location: (mf_iocache.c:237)
+%646547:	or	%646544 %646546  Location: (mf_iocache.c:237)
+Function args: my_flags
+%650176:	and	my_flags XXX  Location: (my_malloc.c:37)
+%650177:	icmp	%650176 XXX  Location: (my_malloc.c:37)
+%650178:	br	%650177 if.end6 if.then5  Location: (my_malloc.c:37)
+%650182:	and	my_flags XXX  Location: (my_malloc.c:39)
+%650183:	icmp	%650182 XXX  Location: (my_malloc.c:39)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650187:	and	my_flags XXX  Location: (my_malloc.c:41)
+%650188:	icmp	%650187 XXX  Location: (my_malloc.c:41)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%650193:	and	my_flags XXX  Location: (my_malloc.c:44)
+%650194:	icmp	%650193 XXX  Location: (my_malloc.c:44)
+%650195:	br	%650194 if.end19 if.then18  Location: (my_malloc.c:44)
+%646548:	call	%646543 %646547 my_malloc  Location: (mf_iocache.c:236)
+%646550:	store	%646548 %646549  Location: (mf_iocache.c:235)
+%646549:	getelementptr	info XXX XXX  Location: (mf_iocache.c:235)
+%646551:	icmp	%646548 XXX  Location: (mf_iocache.c:235)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+%646591:	and	%646518 XXX  Location: (mf_iocache.c:255)
+%646593:	store	%646591 %646592  Location: (mf_iocache.c:255)
+%646592:	getelementptr	info XXX XXX  Location: (mf_iocache.c:255)
+%569006:	call	%568978 %568980 %568997 XXX XXX %569002 %569005 init_io_cache  Location: (mi_extra.c:101)
+%569007:	icmp	%569006 XXX  Location: (mi_extra.c:101)
+%569008:	br	%569007 if.then84 if.end89  Location: (mi_extra.c:101)
+%569108:	getelementptr	%568850 XXX XXX  Location: (mi_extra.c:140)
+%569109:	load	%569108  Location: (mi_extra.c:140)
+%569110:	and	%569109 XXX  Location: (mi_extra.c:140)
+%561474:	call	%561472 operation %561473 mi_extra  Location: (ha_myisam.cc:1862)
+%561476:	phi	XXX %561474 
+%561477:	ret	%561476  Location: (ha_myisam.cc:1863)
+%397269:	call	%397261 XXX %397268 %397265  Location: (records.cc:261)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:348)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:349)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:969)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:970)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:971)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:972)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:973)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:999)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:1002)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (dbug.c:1003)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1044)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1046)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1048)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1049)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1067)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1070)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1071)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1075)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1076)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1077)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1156)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1405)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1557)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1558)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1658)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1659)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1660)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1661)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1662)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1690)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1694)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1696)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1752)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1753)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1756)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1761)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1762)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1763)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1780)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1782)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1786)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1787)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1792)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1793)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1794)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1795)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1796)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1797)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1798)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1799)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:1985)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:2058)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:2259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:2260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:2261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (dbug.c:2263)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:68)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:89)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (int2str.c:163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:88)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:90)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:91)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:95)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:96)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:104)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:116)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:120)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (mf_iocache.c:125)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:85)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:86)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:90)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:91)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:95)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:96)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_error.c:99)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+Dangerous Operation Location: (my_seek.c:71)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (my_thr_init.c:381)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (my_thr_init.c:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (my_thr_init.c:399)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (my_thr_init.c:400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (my_thr_init.c:402)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:45)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:49)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:55)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:58)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:66)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:67)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:70)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:78)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:81)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:82)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:85)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:113)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:126)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:131)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:169)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:181)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:182)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (my_vsnprintf.c:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (strmake.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (strmake.c:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (strnmov.c:29)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+Dangerous Operation Location: (strnmov.c:30)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:63)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:114)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:167)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 646488 650184 650189 646552 ]
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+%650184:	br	%650183 if.end11 if.then9  Location: (my_malloc.c:39)
+%650189:	br	%650188 if.end15 if.then14  Location: (my_malloc.c:41)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Dangerous Operation Location: (thr_mutex.c:205)
+
+---- Part 3: Path Intersection ----
+[ 646544 646547 646548 646550 646549 646551 646552 ]
+%646544:	and	%646518 XXX  Location: (mf_iocache.c:237)
+%646547:	or	%646544 %646546  Location: (mf_iocache.c:237)
+%646548:	call	%646543 %646547 my_malloc  Location: (mf_iocache.c:236)
+%646550:	store	%646548 %646549  Location: (mf_iocache.c:235)
+%646549:	getelementptr	info XXX XXX  Location: (mf_iocache.c:235)
+%646551:	icmp	%646548 XXX  Location: (mf_iocache.c:235)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Function: init_io_cache(...) Location: (mf_iocache.c:243)
+
+---- Part 3: Path Intersection ----
+[ 646544 646547 646548 646550 646549 646551 646552 ]
+%646544:	and	%646518 XXX  Location: (mf_iocache.c:237)
+%646547:	or	%646544 %646546  Location: (mf_iocache.c:237)
+%646548:	call	%646543 %646547 my_malloc  Location: (mf_iocache.c:236)
+%646550:	store	%646548 %646549  Location: (mf_iocache.c:235)
+%646549:	getelementptr	info XXX XXX  Location: (mf_iocache.c:235)
+%646551:	icmp	%646548 XXX  Location: (mf_iocache.c:235)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Function: init_io_cache(...) Location: (mf_iocache.c:242)
+
+---- Part 3: Path Intersection ----
+[ 646544 646547 646548 646550 646549 646551 646552 ]
+%646544:	and	%646518 XXX  Location: (mf_iocache.c:237)
+%646547:	or	%646544 %646546  Location: (mf_iocache.c:237)
+%646548:	call	%646543 %646547 my_malloc  Location: (mf_iocache.c:236)
+%646550:	store	%646548 %646549  Location: (mf_iocache.c:235)
+%646549:	getelementptr	info XXX XXX  Location: (mf_iocache.c:235)
+%646551:	icmp	%646548 XXX  Location: (mf_iocache.c:235)
+%646552:	br	%646551 if.end83 if.then74  Location: (mf_iocache.c:235)
+Function: init_io_cache(...) Location: (mf_iocache.c:240)
+
+---- Part 3: Path Intersection ----
+[ 646486 646487 646488 ]
+%646486:	and	cache_myflags XXX  Location: (mf_iocache.c:206)
+%646487:	icmp	%646486 XXX  Location: (mf_iocache.c:206)
+%646488:	br	%646487 if.then27 if.end45  Location: (mf_iocache.c:206)
+Function: init_io_cache(...) Location: (mf_iocache.c:211)
+
+---- Part 3: Path Intersection ----
+[ 569003 569004 569005 569006 569007 569008 ]
+%569003:	getelementptr	%568850 XXX XXX  Location: (mi_extra.c:105)
+%569004:	load	%569003  Location: (mi_extra.c:105)
+%569005:	and	%569004 XXX  Location: (mi_extra.c:105)
+%569006:	call	%568978 %568980 %568997 XXX XXX %569002 %569005 init_io_cache  Location: (mi_extra.c:101)
+%569007:	icmp	%569006 XXX  Location: (mi_extra.c:101)
+%569008:	br	%569007 if.then84 if.end89  Location: (mi_extra.c:101)
+Function: mi_extra(...) Location: (mi_extra.c:111)
+
+---- Part 3: Path Intersection ----
+[ 569003 569004 569005 569006 569007 569008 ]
+%569003:	getelementptr	%568850 XXX XXX  Location: (mi_extra.c:105)
+%569004:	load	%569003  Location: (mi_extra.c:105)
+%569005:	and	%569004 XXX  Location: (mi_extra.c:105)
+%569006:	call	%568978 %568980 %568997 XXX XXX %569002 %569005 init_io_cache  Location: (mi_extra.c:101)
+%569007:	icmp	%569006 XXX  Location: (mi_extra.c:101)
+%569008:	br	%569007 if.then84 if.end89  Location: (mi_extra.c:101)
+Function: mi_extra(...) Location: (mi_extra.c:110)
+
+---- Part 3: Path Intersection ----
+[ 569003 569004 569005 569006 569007 569008 ]
+%569003:	getelementptr	%568850 XXX XXX  Location: (mi_extra.c:105)
+%569004:	load	%569003  Location: (mi_extra.c:105)
+%569005:	and	%569004 XXX  Location: (mi_extra.c:105)
+%569006:	call	%568978 %568980 %568997 XXX XXX %569002 %569005 init_io_cache  Location: (mi_extra.c:101)
+%569007:	icmp	%569006 XXX  Location: (mi_extra.c:101)
+%569008:	br	%569007 if.then84 if.end89  Location: (mi_extra.c:101)
+Function: mi_extra(...) Location: (mi_extra.c:108)
+
+---- Part 3: Path Intersection ----
+[ 569003 569004 569005 569006 569007 569008 ]
+%569003:	getelementptr	%568850 XXX XXX  Location: (mi_extra.c:105)
+%569004:	load	%569003  Location: (mi_extra.c:105)
+%569005:	and	%569004 XXX  Location: (mi_extra.c:105)
+%569006:	call	%568978 %568980 %568997 XXX XXX %569002 %569005 init_io_cache  Location: (mi_extra.c:101)
+%569007:	icmp	%569006 XXX  Location: (mi_extra.c:101)
+%569008:	br	%569007 if.then84 if.end89  Location: (mi_extra.c:101)
+Function: mi_extra(...) Location: (mi_extra.c:107)
+
+   # of detected potential vulnerabilities: 182
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

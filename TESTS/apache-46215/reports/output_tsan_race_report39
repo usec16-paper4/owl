@@ -1,0 +1,82 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report39
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_buckets_alloc.c : 187)
+-------------------------
+  %freelist = getelementptr inbounds %struct.apr_bucket_alloc_t* %1, i32 0, i32 2, !dbg !45703
+-------------------------
+-------------------------
+  %next = getelementptr inbounds %struct.node_header_t* %0, i32 0, i32 3, !dbg !45705
+-------------------------
+(apr_buckets_heap.c : 37)
+(apr_brigade.c : 44)
+(apr_brigade.c : 53)
+(core_filters.c : 876)
+(util_filter.c : 526)
+(http_request.c : 231)
+(http_request.c : 282)
+(http_core.c : 190)
+(connection.c : 43)
+(connection.c : 178)
+(worker.c : 544)
+(worker.c : 894)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 144965 144966 144968 144967 144969 144970 164332 ]
+%144965:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:187)
+%144966:	load	%144965  Location: (apr_buckets_alloc.c:187)
+%144968:	store	%144966 %144967  Location: (apr_buckets_alloc.c:187)
+%144967:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:187)
+%144969:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:188)
+%144970:	store	%144956 %144969  Location: (apr_buckets_alloc.c:188)
+%164332:	call	%164331 apr_bucket_free  Location: (apr_buckets_heap.c:37)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 144967 144968 164332 ]
+%144967:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:187)
+%144968:	store	%144966 %144967  Location: (apr_buckets_alloc.c:187)
+%164332:	call	%164331 apr_bucket_free  Location: (apr_buckets_heap.c:37)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

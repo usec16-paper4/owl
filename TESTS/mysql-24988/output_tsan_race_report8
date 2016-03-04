@@ -1,0 +1,77 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport tsan_race_report8
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(srv0srv.c : 2554)
+-------------------------
+  %79 = load i64* @srv_fast_shutdown, align 8, !dbg !172901
+-------------------------
+-------------------------
+  %80 = load i64* @srv_shutdown_state, align 8, !dbg !172904
+-------------------------
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 425427 425428 425429 ]
+%425427:	load	srv_fast_shutdown  Location: (srv0srv.c:2554)
+%425428:	icmp	%425427 XXX  Location: (srv0srv.c:2554)
+%425429:	br	%425428 if.else137 land.lhs.true129  Location: (srv0srv.c:2554)
+
+**************************************************
+                Busy Loop Detected!               
+%425428 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 425430 425431 425432 ]
+%425430:	load	srv_shutdown_state  Location: (srv0srv.c:2554)
+%425431:	icmp	%425430 XXX  Location: (srv0srv.c:2554)
+%425432:	br	%425431 if.else137 if.then131  Location: (srv0srv.c:2554)
+
+**************************************************
+                Busy Loop Detected!               
+%425431 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

@@ -1,0 +1,726 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport tsan_race_report0
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(srv0srv.c : 2077)
+Warning: Call Inst %425025 is the first one in the call stack!
+-------------------------
+  %42 = load i64* @srv_last_monitor_time, align 8, !dbg !172650
+-------------------------
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 425026 425027 425028 425029 ]
+%425026:	load	srv_last_monitor_time  Location: (srv0srv.c:2077)
+%425027:	call	%425025 %425026 difftime  Location: (srv0srv.c:2077)
+%425028:	fcmp	%425027 XXX  Location: (srv0srv.c:2077)
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (buf0buf.c:2331)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (buf0buf.c:2332)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (buf0buf.c:2333)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (buf0buf.c:2334)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (buf0buf.c:2335)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (buf0buf.c:2336)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (log0log.c:3355)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (log0log.c:3356)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (my_thr_init.c:282)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (my_thr_init.c:285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (my_thr_init.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (my_thr_init.c:288)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:218)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:223)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:226)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:246)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:248)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:251)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:254)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:317)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:319)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:322)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:323)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:325)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:336)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:497)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:499)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:501)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:515)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:517)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0sync.c:521)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0thread.c:271)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (os0thread.c:272)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (strmake.c:49)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (strmake.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:127)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:303)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:315)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:316)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:341)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:344)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:354)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:355)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:357)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:360)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:362)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:365)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:366)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:368)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:369)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:371)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:408)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:411)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:412)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:803)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:805)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:807)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:808)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:831)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:836)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:840)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0arr.c:843)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:357)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:416)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:437)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:521)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:545)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:546)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.c:548)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:113)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:173)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (sync0sync.ic:254)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:98)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:108)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:115)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:116)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:117)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:125)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:132)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:134)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:142)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:143)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:163)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:171)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:181)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:190)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:195)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:198)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:202)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:203)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:204)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:211)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:212)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:216)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:220)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (thr_mutex.c:222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:93)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:94)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:145)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:146)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:147)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 425029 ]
+%425029:	br	%425028 if.end11 if.then10  Location: (srv0srv.c:2077)
+Dangerous Operation Location: (ut0ut.c:150)
+
+   # of detected potential vulnerabilities: 136
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

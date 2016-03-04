@@ -1,0 +1,702 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_sysbench_race_report7
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sql_cache.h : 124)
+-------------------------
+  %type = getelementptr inbounds %struct.Query_cache_block* %this, i32 0, i32 6, !dbg !152001
+-------------------------
+(sql_cache.cc : 3081)
+(sql_cache.cc : 3109)
+(sql_cache.cc : 880)
+(sql_parse.cc : 1587)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 460776 460777 460778 460779 460780 455298 455299 455300 453722 ]
+%460776:	getelementptr	this XXX XXX  Location: (sql_cache.h:124)
+%460777:	load	%460776  Location: (sql_cache.h:124)
+%460778:	icmp	%460777 XXX  Location: (sql_cache.h:124)
+%460779:	zext	%460778  Location: (sql_cache.h:124)
+%460780:	ret	%460779  Location: (sql_cache.h:124)
+%455298:	call	%455297 _ZN17Query_cache_block7is_freeEv  Location: (sql_cache.cc:3081)
+%455299:	icmp	%455298 XXX  Location: (sql_cache.cc:3081)
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+%453722:	call	this %453692 _ZN11Query_cache17free_memory_blockEP17Query_cache_block  Location: (sql_cache.cc:3109)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:348)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:349)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:350)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:351)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:969)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:970)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:971)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:972)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:973)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:999)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1002)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1003)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1044)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1046)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1048)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1049)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1067)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1070)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1071)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1075)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1076)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1077)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1110)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1148)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1150)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1153)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1155)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1156)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1157)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1160)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1161)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1162)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1405)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1407)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1557)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1558)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1559)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1658)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1659)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1660)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1661)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1662)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1690)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1694)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1696)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1752)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1753)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1756)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1761)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1762)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1763)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1780)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1782)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1786)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1787)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1792)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1793)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1794)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1795)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1796)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1797)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1798)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1799)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:1985)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:2058)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:2259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:2260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:2261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (dbug.c:2263)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (my_thr_init.c:381)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (my_thr_init.c:396)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (my_thr_init.c:399)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (my_thr_init.c:400)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (my_thr_init.c:402)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:488)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:490)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:496)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:502)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3123)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3129)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3131)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3133)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3135)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3136)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3137)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3178)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3179)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3317)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3321)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3322)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (sql_cache.cc:3327)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (strmake.c:50)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (strmake.c:51)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:60)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:61)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:63)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:64)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:97)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:106)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:107)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:111)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:114)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:119)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:124)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:144)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:149)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:151)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:158)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:159)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:166)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:167)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:168)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:176)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:177)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:180)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:184)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:187)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:191)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:192)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:197)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 455300 ]
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Dangerous Operation Location: (thr_mutex.c:205)
+
+---- Part 3: Path Intersection ----
+[ 455298 455299 455300 ]
+%455298:	call	%455297 _ZN17Query_cache_block7is_freeEv  Location: (sql_cache.cc:3081)
+%455299:	icmp	%455298 XXX  Location: (sql_cache.cc:3081)
+%455300:	br	%455299 if.end if.then  Location: (sql_cache.cc:3081)
+Function: _ZN11Query_cache17free_memory_blockEP17Query_cache_block(...) Location: (sql_cache.cc:3082)
+
+   # of detected potential vulnerabilities: 129
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

@@ -1,0 +1,122 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report16
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 2279)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 7434 7435 7436 7437 7438 7440 7441 path 3381 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function args: path
+%3381:	call	conn handle_request 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 7434 7435 7436 7437 7438 7440 7441 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function: open_auth_file(...) Location: (mongoose.c:2297)
+
+---- Part 3: Path Intersection ----
+[ 7434 7435 7436 7437 7438 7440 7441 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function: open_auth_file(...) Location: (mongoose.c:2295)
+
+---- Part 3: Path Intersection ----
+[ 7434 7435 7436 7437 7438 7440 7441 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function: open_auth_file(...) Location: (mongoose.c:2293)
+
+---- Part 3: Path Intersection ----
+[ 7434 7435 7436 7437 7438 7440 7441 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function: open_auth_file(...) Location: (mongoose.c:2292)
+
+---- Part 3: Path Intersection ----
+[ 7434 7435 7436 7437 7438 7440 7441 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function: open_auth_file(...) Location: (mongoose.c:2289)
+
+---- Part 3: Path Intersection ----
+[ 7434 7435 7436 7437 7438 7440 7441 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function: open_auth_file(...) Location: (mongoose.c:2287)
+
+---- Part 3: Path Intersection ----
+[ 7434 7435 7436 7437 7438 7440 7441 ]
+%7434:	getelementptr	conn XXX XXX 
+%7435:	load	%7434 
+%7436:	getelementptr	%7435 XXX XXX 
+%7437:	getelementptr	%7436 XXX XXX 
+%7438:	load	%7437 
+%7440:	icmp	%7438 XXX 
+%7441:	br	%7440 if.else if.then 
+Function: open_auth_file(...) Location: (mongoose.c:2286)
+
+   # of detected potential vulnerabilities: 7
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

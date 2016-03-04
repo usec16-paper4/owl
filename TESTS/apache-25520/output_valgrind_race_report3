@@ -1,0 +1,72 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-25520
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-25520
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-25520/apache-25520.bc --ptrderef --danfunc --raceReport valgrind_race_report3
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(util_time.c : 135)
+(util_time.c : 182)
+(util_time.c : 239)
+(http_protocol.c : 1276)
+(http_protocol.c : 1670)
+(util_filter.c : 550)
+(protocol.c : 1263)
+(util_filter.c : 550)
+(http_protocol.c : 2902)
+(util_filter.c : 550)
+(core.c : 3558)
+
+---- Part 1: Dataflow Result ---- 
+[ 32380 15340 15341 15515 ]
+%32380:	bitcast	%32365  Location: (util_time.c:135)
+%15340:	call	tm t XXX XXX cached_explode  Location: (util_time.c:182)
+%15341:	ret	%15340  Location: (util_time.c:182)
+%15515:	call	%15511 t ap_explode_recent_gmt  Location: (util_time.c:239)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 32381 15340 15341 15515 ]
+%32381:	bitcast	%32373  Location: (util_time.c:135)
+%15340:	call	tm t XXX XXX cached_explode  Location: (util_time.c:182)
+%15341:	ret	%15340  Location: (util_time.c:182)
+%15515:	call	%15511 t ap_explode_recent_gmt  Location: (util_time.c:239)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

@@ -1,0 +1,75 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-2.4.18
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-2.4.18
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-2.4.18/apache-2.4.18.bc --ptrderef --danfunc --raceReport tsan_report9
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(util_time.c : 106)
+(util_time.c : 147)
+(util_time.c : 200)
+(log.c : 638)
+(log.c : 928)
+(log.c : 1270)
+(log.c : 1331)
+(mod_example_hooks.c : 494)
+ERROR: <mod_example_hooks.c 494> sourcetoIRmap_ look up failed.
+(mod_example_hooks.c : 1356)
+ERROR: <mod_example_hooks.c 1356> sourcetoIRmap_ look up failed.
+(connection.c : 38)
+(worker.c : 627)
+(worker.c : 990)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 57141 31500 31501 31546 ]
+%57141:	bitcast	%57126  Location: (util_time.c:106)
+%31500:	call	tm t XXX XXX cached_explode  Location: (util_time.c:147)
+%31501:	ret	%31500  Location: (util_time.c:147)
+%31546:	call	%31513 t ap_explode_recent_localtime  Location: (util_time.c:200)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12416
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 57142 31500 31501 31546 ]
+%57142:	bitcast	%57134  Location: (util_time.c:106)
+%31500:	call	tm t XXX XXX cached_explode  Location: (util_time.c:147)
+%31501:	ret	%31500  Location: (util_time.c:147)
+%31546:	call	%31513 t ap_explode_recent_localtime  Location: (util_time.c:200)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12416
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

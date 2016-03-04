@@ -1,0 +1,52 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-35589
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-35589
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-35589/mysql-35589.bc --ptrderef --danfunc --raceReport tsan_sysbench_race_report8
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sql_cache.h : 150)
+-------------------------
+  %res = getelementptr inbounds %struct.Query_cache_query* %this, i32 0, i32 2, !dbg !152001
+-------------------------
+(sql_cache.cc : 1372)
+(sql_prepare.cc : 3565)
+(sql_prepare.cc : 3241)
+(sql_prepare.cc : 2462)
+(sql_parse.cc : 1171)
+(sql_parse.cc : 857)
+(sql_connect.cc : 1115)
+
+---- Part 1: Dataflow Result ---- 
+[ 460569 460570 460571 455818 this ]
+%460569:	getelementptr	this XXX XXX  Location: (sql_cache.h:150)
+%460570:	load	%460569  Location: (sql_cache.h:150)
+%460571:	ret	%460570  Location: (sql_cache.h:150)
+%455818:	call	%455814 _ZN17Query_cache_block5queryEv  Location: (sql_cache.cc:1372)
+Function args: this
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 68101
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

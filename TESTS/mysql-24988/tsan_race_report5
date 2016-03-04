@@ -1,0 +1,3 @@
+THD (sql_class.cc:272)
+handle_connections_sockets (mysqld.cc:4116)
+main (mysqld.cc:3525)

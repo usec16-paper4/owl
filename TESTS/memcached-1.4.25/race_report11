@@ -1,0 +1,6 @@
+conn_release_items (memcached.c:496)
+conn_cleanup (memcached.c:522)
+conn_close (memcached.c:577)
+drive_machine (memcached.c:4366)
+event_handler (memcached.c:4400)
+event_persist_closure (event.c:1291)

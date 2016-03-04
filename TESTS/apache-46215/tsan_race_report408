@@ -1,0 +1,6 @@
+listener_thread (worker.c:738)
+apr_pool_cleanup_kill (apr_pools.c:2239)
+dummy_worker (thread.c:142)
+apr_pool_cleanup_run (apr_pools.c:2296)
+apr_socket_close (sockets.c:149)
+close_worker_sockets (worker.c:238)

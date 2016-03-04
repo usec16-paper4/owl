@@ -1,0 +1,49 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report603
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 2239)
+-------------------------
+  %next10 = getelementptr inbounds %struct.cleanup_t* %c.0, i32 0, i32 0, !dbg !45723
+-------------------------
+(apr_pools.c : 2296)
+(sockets.c : 149)
+(connection.c : 163)
+(worker.c : 545)
+(worker.c : 894)
+(thread.c : 142)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 126378 126379 126450 ]
+%126378:	getelementptr	%126354 XXX XXX  Location: (apr_pools.c:2239)
+%126379:	load	%126378  Location: (apr_pools.c:2239)
+%126450:	call	p data cleanup_fn apr_pool_cleanup_kill  Location: (apr_pools.c:2296)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

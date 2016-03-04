@@ -1,0 +1,69 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report75
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 925)
+(mongoose.c : 4865)
+(mongoose.c : 4942)
+
+---- Part 1: Dataflow Result ---- 
+[ 3906 3907 3908 3909 3910 s1 1020 1021 s 7494 7495 7496 7497 1023 1027 1030 1031 1032 1033 1034 1035 1037 1038 1039 3911 3912 3913 3401 3477 3479 3480 3168 ]
+%3906:	getelementptr	conn XXX XXX 
+%3907:	load	%3906 
+%3908:	getelementptr	%3907 XXX XXX 
+%3909:	getelementptr	%3908 XXX XXX 
+%3910:	load	%3909 
+Function args: s1
+%1020:	phi	s1 %1021 
+%1021:	getelementptr	%1020 XXX 
+Function args: s
+%7494:	load	s 
+%7495:	zext	%7494 
+%7496:	call	%7495 tolower 
+%7497:	ret	%7496 
+%1023:	call	%1020 lowercase 
+%1027:	sub	%1023 %1026 
+%1030:	icmp	%1027 XXX 
+%1031:	br	%1030 land.end land.rhs 
+%1032:	getelementptr	%1021 XXX 
+%1033:	load	%1032 
+%1034:	sext	%1033 
+%1035:	icmp	%1034 XXX 
+%1037:	phi	XXX %1035 
+%1038:	br	%1037 do.end do.body 
+%1039:	ret	%1027 
+%3911:	call	%3910 XXX mg_strcasecmp 
+%3912:	icmp	%3911 XXX 
+%3913:	br	%3912 lor.lhs.false5 if.then 
+%3401:	call	conn should_keep_alive 
+%3477:	icmp	%3401 XXX 
+%3479:	phi	XXX XXX XXX %3477 
+%3480:	br	%3479 do.end do.body 
+%3168:	call	%3085 process_new_connection 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

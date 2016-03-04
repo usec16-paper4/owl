@@ -1,0 +1,4 @@
+worker_thread (worker.c:895)
+apr_pool_cleanup_register (apr_pools.c:2170)
+dummy_worker (thread.c:142)
+apr_brigade_create (apr_brigade.c:67)

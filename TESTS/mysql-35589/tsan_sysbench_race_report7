@@ -1,0 +1,7 @@
+Query_cache_block::is_free (sql_cache.h:124)
+Query_cache::free_memory_block (sql_cache.cc:3081)
+Query_cache::split_block (sql_cache.cc:3109)
+query_cache_end_of_result (sql_cache.cc:880)
+dispatch_command (sql_parse.cc:1587)
+do_command (sql_parse.cc:857)
+handle_one_connection (sql_connect.cc:1115)

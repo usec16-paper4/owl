@@ -1,0 +1,244 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-21287
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-21287
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-21287/apache-21287.bc --ptrderef --danfunc --raceReport tsan_race_report2
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(worker.c : 954)
+(thread.c : 127)
+
+---- Part 1: Dataflow Result ---- 
+[ 72212 72213 72214 status 17677 17679 17678 17686 17687 17705 17706 17707 17708 17709 17710 72215 102782 102783 ]
+%72212:	load	dying  Location: (worker.c:954)
+%72213:	icmp	%72212 XXX  Location: (worker.c:954)
+%72214:	select	%72213 XXX XXX  Location: (worker.c:954)
+Function args: status
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+%17707:	icmp	status XXX  Location: (scoreboard.c:427)
+%17708:	br	%17707 if.end25 if.then20  Location: (scoreboard.c:427)
+%17709:	icmp	status XXX  Location: (scoreboard.c:431)
+%17710:	br	%17709 if.end24 if.then23  Location: (scoreboard.c:431)
+%72215:	call	%72126 %72129 %72214 XXX ap_update_child_status_from_indexes  Location: (worker.c:953)
+%102782:	call	%102776 %102781 %102779  Location: (thread.c:127)
+%102783:	ret	%102782  Location: (thread.c:127)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 12623
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:454)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:451)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:449)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:448)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:445)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:444)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:443)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:442)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:440)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:439)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 17709 17710 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+%17709:	icmp	status XXX  Location: (scoreboard.c:431)
+%17710:	br	%17709 if.end24 if.then23  Location: (scoreboard.c:431)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:436)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 17709 17710 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+%17709:	icmp	status XXX  Location: (scoreboard.c:431)
+%17710:	br	%17709 if.end24 if.then23  Location: (scoreboard.c:431)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:435)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 17709 17710 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+%17709:	icmp	status XXX  Location: (scoreboard.c:431)
+%17710:	br	%17709 if.end24 if.then23  Location: (scoreboard.c:431)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:433)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 17705 17706 17709 17710 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+%17705:	icmp	status XXX  Location: (scoreboard.c:427)
+%17706:	br	%17705 lor.lhs.false if.then20  Location: (scoreboard.c:427)
+%17709:	icmp	status XXX  Location: (scoreboard.c:431)
+%17710:	br	%17709 if.end24 if.then23  Location: (scoreboard.c:431)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:432)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:426)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:422)
+
+---- Part 3: Path Intersection ----
+[ 17677 17679 17678 17686 17687 ]
+%17677:	trunc	status  Location: (scoreboard.c:415)
+%17679:	store	%17677 %17678  Location: (scoreboard.c:415)
+%17678:	getelementptr	%17671 XXX XXX  Location: (scoreboard.c:415)
+%17686:	icmp	status XXX  Location: (scoreboard.c:419)
+%17687:	br	%17686 if.end14 land.lhs.true  Location: (scoreboard.c:419)
+Function: ap_update_child_status_from_indexes(...) Location: (scoreboard.c:421)
+
+   # of detected potential vulnerabilities: 17
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

@@ -1,0 +1,235 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report11
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(memcached.c : 496)
+(memcached.c : 522)
+(memcached.c : 577)
+(memcached.c : 4366)
+(memcached.c : 4400)
+(event.c : 1291)
+ERROR: <event.c 1291> sourcetoIRmap_ look up failed.
+
+---- Part 1: Dataflow Result ---- 
+[ 3833 3834 3835 3836 3837 3838 3839 item 16612 16613 16614 16615 16616 16617 16618 16619 16620 16621 16622 16623 3840 3841 3842 3807 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+%3837:	getelementptr	c XXX XXX  Location: (memcached.c:497)
+%3838:	load	%3837  Location: (memcached.c:497)
+%3839:	bitcast	%3838  Location: (memcached.c:497)
+Function args: item
+%16612:	getelementptr	item XXX XXX  Location: (thread.c:529)
+%16613:	bitcast	%16612  Location: (thread.c:529)
+%16614:	getelementptr	item XXX XXX  Location: (thread.c:529)
+%16615:	load	%16614  Location: (thread.c:529)
+%16616:	zext	%16615  Location: (thread.c:529)
+%16617:	and	%16616 XXX  Location: (thread.c:529)
+%16618:	icmp	%16617 XXX  Location: (thread.c:529)
+%16619:	select	%16618 XXX XXX  Location: (thread.c:529)
+%16620:	getelementptr	%16613 %16619  Location: (thread.c:529)
+%16621:	getelementptr	item XXX XXX  Location: (thread.c:529)
+%16622:	load	%16621  Location: (thread.c:529)
+%16623:	zext	%16622  Location: (thread.c:529)
+%3840:	call	%3839 item_remove  Location: (memcached.c:497)
+%3841:	getelementptr	c XXX XXX  Location: (memcached.c:498)
+%3842:	store	XXX %3841  Location: (memcached.c:498)
+%3807:	call	c conn_release_items  Location: (memcached.c:522)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (items.c:243)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (items.c:251)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (items.c:379)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:302)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:303)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:305)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:307)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (slabs.c:308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (thread.c:122)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (thread.c:138)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 3836 ]
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Dangerous Operation Location: (thread.c:529)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:516)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:515)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:511)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:510)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:509)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:506)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:505)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:502)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+Function: conn_release_items(...) Location: (memcached.c:501)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 3837 3838 3839 3840 3841 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+%3837:	getelementptr	c XXX XXX  Location: (memcached.c:497)
+%3838:	load	%3837  Location: (memcached.c:497)
+%3839:	bitcast	%3838  Location: (memcached.c:497)
+%3840:	call	%3839 item_remove  Location: (memcached.c:497)
+%3841:	getelementptr	c XXX XXX  Location: (memcached.c:498)
+Function: conn_release_items(...) Location: (memcached.c:498)
+
+---- Part 3: Path Intersection ----
+[ 3833 3834 3835 3836 3837 ]
+%3833:	getelementptr	c XXX XXX  Location: (memcached.c:496)
+%3834:	load	%3833  Location: (memcached.c:496)
+%3835:	icmp	%3834 XXX  Location: (memcached.c:496)
+%3836:	br	%3835 if.end if.then  Location: (memcached.c:496)
+%3837:	getelementptr	c XXX XXX  Location: (memcached.c:497)
+Function: conn_release_items(...) Location: (memcached.c:497)
+
+   # of detected potential vulnerabilities: 26
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

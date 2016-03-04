@@ -1,0 +1,56 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report49
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 866)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 6537 6538 6541 6543 6542 6552 6553 6556 6559 6561 6563 6562 6566 6567 6569 6570 6571 6573 6572 3381 ]
+%6537:	getelementptr	val XXX XXX 
+%6538:	load	%6537 
+%6541:	call	%6538 XXX %6540 memchr 
+%6543:	store	%6541 %6542 
+%6542:	getelementptr	eq_val XXX XXX 
+%6552:	getelementptr	val XXX XXX 
+%6553:	load	%6552 
+%6556:	getelementptr	%6553 %6555 
+%6559:	ptrtoint	%6556 
+%6561:	sub	%6559 %6560 
+%6563:	store	%6561 %6562 
+%6562:	getelementptr	eq_val XXX XXX 
+%6566:	getelementptr	val XXX XXX 
+%6567:	load	%6566 
+%6569:	ptrtoint	%6567 
+%6570:	sub	%6568 %6569 
+%6571:	sub	%6570 XXX 
+%6573:	store	%6571 %6572 
+%6572:	getelementptr	val XXX XXX 
+%3381:	call	conn handle_request 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

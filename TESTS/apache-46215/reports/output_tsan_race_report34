@@ -1,0 +1,1172 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report34
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 219)
+-------------------------
+  %max_index5 = getelementptr inbounds %struct.apr_allocator_t* %allocator, i32 0, i32 0, !dbg !45709
+-------------------------
+(apr_pools.c : 407)
+(apr_buckets_alloc.c : 87)
+(apr_buckets_alloc.c : 73)
+(proxy_util.c : 2431)
+(mod_proxy_http.c : 1970)
+(mod_proxy.c : 2367)
+(mod_proxy.c : 991)
+(config.c : 157)
+(config.c : 372)
+(http_request.c : 258)
+(http_core.c : 190)
+(connection.c : 43)
+(connection.c : 178)
+(worker.c : 544)
+(worker.c : 894)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 138683 138684 138685 138686 138687 138696 138697 138709 138710 138712 138713 138728 138729 138730 138732 138736 138742 138744 138745 138746 138747 125361 125362 144822 144824 144825 144827 144828 144829 144831 144832 144833 144834 144835 144836 144837 144838 144839 144840 144841 144842 144844 144845 144812 144814 144815 144816 144817 144818 p data 126240 126241 126242 126243 126244 126245 126246 126247 126249 126250 126251 126252 126258 126259 126260 126261 126262 126263 126264 126265 126266 126267 126268 126269 126270 144819 144820 28065 alloc ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138709:	zext	%138697  Location: (apr_pools.c:238)
+%138710:	icmp	%138705 %138709  Location: (apr_pools.c:238)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+%138728:	zext	%138697  Location: (apr_pools.c:249)
+%138729:	icmp	%138705 %138728  Location: (apr_pools.c:249)
+%138730:	br	%138729 if.end35 if.then26  Location: (apr_pools.c:249)
+%138732:	phi	%138697 %138736 
+%138736:	add	%138732 XXX  Location: (apr_pools.c:252)
+%138742:	icmp	%138736 XXX  Location: (apr_pools.c:254)
+%138744:	phi	XXX %138742 
+%138745:	br	%138744 do.end do.body  Location: (apr_pools.c:253)
+%138746:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:256)
+%138747:	store	%138736 %138746  Location: (apr_pools.c:256)
+%125361:	call	allocator size allocator_alloc  Location: (apr_pools.c:407)
+%125362:	ret	%125361  Location: (apr_pools.c:407)
+%144822:	call	allocator XXX apr_allocator_alloc  Location: (apr_buckets_alloc.c:87)
+%144824:	icmp	%144822 XXX  Location: (apr_buckets_alloc.c:88)
+%144825:	br	%144824 if.then if.end  Location: (apr_buckets_alloc.c:88)
+%144827:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:91)
+%144828:	load	%144827  Location: (apr_buckets_alloc.c:91)
+%144829:	bitcast	%144828  Location: (apr_buckets_alloc.c:91)
+%144831:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:92)
+%144832:	store	XXX %144831  Location: (apr_buckets_alloc.c:92)
+%144833:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:93)
+%144834:	store	allocator %144833  Location: (apr_buckets_alloc.c:93)
+%144835:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:94)
+%144836:	store	XXX %144835  Location: (apr_buckets_alloc.c:94)
+%144837:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:95)
+%144838:	store	%144822 %144837  Location: (apr_buckets_alloc.c:95)
+%144839:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:96)
+%144840:	load	%144839  Location: (apr_buckets_alloc.c:96)
+%144841:	getelementptr	%144840 XXX  Location: (apr_buckets_alloc.c:96)
+%144842:	store	%144841 %144839  Location: (apr_buckets_alloc.c:96)
+%144844:	phi	%144829 XXX 
+%144845:	ret	%144844  Location: (apr_buckets_alloc.c:99)
+%144812:	call	%144810 apr_bucket_alloc_create_ex  Location: (apr_buckets_alloc.c:73)
+%144814:	getelementptr	%144812 XXX XXX  Location: (apr_buckets_alloc.c:74)
+%144815:	store	p %144814  Location: (apr_buckets_alloc.c:74)
+%144816:	getelementptr	%144812 XXX XXX  Location: (apr_buckets_alloc.c:75)
+%144817:	load	%144816  Location: (apr_buckets_alloc.c:75)
+%144818:	bitcast	%144812  Location: (apr_buckets_alloc.c:75)
+Function args: p
+Function args: data
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126246:	getelementptr	p XXX XXX  Location: (apr_pools.c:2169)
+%126247:	load	%126246  Location: (apr_pools.c:2169)
+%126249:	getelementptr	%126247 XXX XXX  Location: (apr_pools.c:2170)
+%126250:	load	%126249  Location: (apr_pools.c:2170)
+%126251:	getelementptr	p XXX XXX  Location: (apr_pools.c:2170)
+%126252:	store	%126250 %126251  Location: (apr_pools.c:2170)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+%126264:	store	child_cleanup_fn %126263  Location: (apr_pools.c:2176)
+%126265:	getelementptr	p XXX XXX  Location: (apr_pools.c:2177)
+%126266:	load	%126265  Location: (apr_pools.c:2177)
+%126267:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2177)
+%126268:	store	%126266 %126267  Location: (apr_pools.c:2177)
+%126269:	getelementptr	p XXX XXX  Location: (apr_pools.c:2178)
+%126270:	store	%126258 %126269  Location: (apr_pools.c:2178)
+%144819:	call	%144817 %144818 alloc_cleanup apr_pool_cleanup_null apr_pool_cleanup_register  Location: (apr_buckets_alloc.c:75)
+%144820:	ret	%144812  Location: (apr_buckets_alloc.c:78)
+%28065:	call	%28064 apr_bucket_alloc_create  Location: (proxy_util.c:2431)
+Function args: alloc
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:219)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:235)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:236)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:239)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:249)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:251)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:256)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:265)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:268)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:269)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:275)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:292)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:293)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:294)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:299)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:305)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:309)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:315)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:316)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:326)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:327)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:328)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:329)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:638)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:641)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:642)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:643)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:648)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:649)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:650)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:653)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:654)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:655)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:661)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:663)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:664)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:666)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:668)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:670)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:673)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:674)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:675)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:679)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:681)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:683)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (apr_pools.c:684)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (thread_mutex.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 138687 126241 126245 ]
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+Dangerous Operation Location: (thread_mutex.c:121)
+
+---- Part 3: Path Intersection ----
+[ 144822 144824 144825 144827 144828 144829 144831 144832 144833 144834 144835 144836 144837 144838 144839 ]
+%144822:	call	allocator XXX apr_allocator_alloc  Location: (apr_buckets_alloc.c:87)
+%144824:	icmp	%144822 XXX  Location: (apr_buckets_alloc.c:88)
+%144825:	br	%144824 if.then if.end  Location: (apr_buckets_alloc.c:88)
+%144827:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:91)
+%144828:	load	%144827  Location: (apr_buckets_alloc.c:91)
+%144829:	bitcast	%144828  Location: (apr_buckets_alloc.c:91)
+%144831:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:92)
+%144832:	store	XXX %144831  Location: (apr_buckets_alloc.c:92)
+%144833:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:93)
+%144834:	store	allocator %144833  Location: (apr_buckets_alloc.c:93)
+%144835:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:94)
+%144836:	store	XXX %144835  Location: (apr_buckets_alloc.c:94)
+%144837:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:95)
+%144838:	store	%144822 %144837  Location: (apr_buckets_alloc.c:95)
+%144839:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:96)
+Function: apr_bucket_alloc_create_ex(...) Location: (apr_buckets_alloc.c:96)
+
+---- Part 3: Path Intersection ----
+[ 144822 144824 144825 144827 144828 144829 144831 144832 144833 144834 144835 144836 144837 ]
+%144822:	call	allocator XXX apr_allocator_alloc  Location: (apr_buckets_alloc.c:87)
+%144824:	icmp	%144822 XXX  Location: (apr_buckets_alloc.c:88)
+%144825:	br	%144824 if.then if.end  Location: (apr_buckets_alloc.c:88)
+%144827:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:91)
+%144828:	load	%144827  Location: (apr_buckets_alloc.c:91)
+%144829:	bitcast	%144828  Location: (apr_buckets_alloc.c:91)
+%144831:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:92)
+%144832:	store	XXX %144831  Location: (apr_buckets_alloc.c:92)
+%144833:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:93)
+%144834:	store	allocator %144833  Location: (apr_buckets_alloc.c:93)
+%144835:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:94)
+%144836:	store	XXX %144835  Location: (apr_buckets_alloc.c:94)
+%144837:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:95)
+Function: apr_bucket_alloc_create_ex(...) Location: (apr_buckets_alloc.c:95)
+
+---- Part 3: Path Intersection ----
+[ 144822 144824 144825 144827 144828 144829 144831 144832 144833 144834 144835 ]
+%144822:	call	allocator XXX apr_allocator_alloc  Location: (apr_buckets_alloc.c:87)
+%144824:	icmp	%144822 XXX  Location: (apr_buckets_alloc.c:88)
+%144825:	br	%144824 if.then if.end  Location: (apr_buckets_alloc.c:88)
+%144827:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:91)
+%144828:	load	%144827  Location: (apr_buckets_alloc.c:91)
+%144829:	bitcast	%144828  Location: (apr_buckets_alloc.c:91)
+%144831:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:92)
+%144832:	store	XXX %144831  Location: (apr_buckets_alloc.c:92)
+%144833:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:93)
+%144834:	store	allocator %144833  Location: (apr_buckets_alloc.c:93)
+%144835:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:94)
+Function: apr_bucket_alloc_create_ex(...) Location: (apr_buckets_alloc.c:94)
+
+---- Part 3: Path Intersection ----
+[ 144822 144824 144825 144827 144828 144829 144831 144832 144833 ]
+%144822:	call	allocator XXX apr_allocator_alloc  Location: (apr_buckets_alloc.c:87)
+%144824:	icmp	%144822 XXX  Location: (apr_buckets_alloc.c:88)
+%144825:	br	%144824 if.then if.end  Location: (apr_buckets_alloc.c:88)
+%144827:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:91)
+%144828:	load	%144827  Location: (apr_buckets_alloc.c:91)
+%144829:	bitcast	%144828  Location: (apr_buckets_alloc.c:91)
+%144831:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:92)
+%144832:	store	XXX %144831  Location: (apr_buckets_alloc.c:92)
+%144833:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:93)
+Function: apr_bucket_alloc_create_ex(...) Location: (apr_buckets_alloc.c:93)
+
+---- Part 3: Path Intersection ----
+[ 144822 144824 144825 144827 144828 144829 144831 ]
+%144822:	call	allocator XXX apr_allocator_alloc  Location: (apr_buckets_alloc.c:87)
+%144824:	icmp	%144822 XXX  Location: (apr_buckets_alloc.c:88)
+%144825:	br	%144824 if.then if.end  Location: (apr_buckets_alloc.c:88)
+%144827:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:91)
+%144828:	load	%144827  Location: (apr_buckets_alloc.c:91)
+%144829:	bitcast	%144828  Location: (apr_buckets_alloc.c:91)
+%144831:	getelementptr	%144829 XXX XXX  Location: (apr_buckets_alloc.c:92)
+Function: apr_bucket_alloc_create_ex(...) Location: (apr_buckets_alloc.c:92)
+
+---- Part 3: Path Intersection ----
+[ 144822 144824 144825 144827 ]
+%144822:	call	allocator XXX apr_allocator_alloc  Location: (apr_buckets_alloc.c:87)
+%144824:	icmp	%144822 XXX  Location: (apr_buckets_alloc.c:88)
+%144825:	br	%144824 if.then if.end  Location: (apr_buckets_alloc.c:88)
+%144827:	getelementptr	%144822 XXX XXX  Location: (apr_buckets_alloc.c:91)
+Function: apr_bucket_alloc_create_ex(...) Location: (apr_buckets_alloc.c:91)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:329)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:328)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:327)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:326)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:316)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:315)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:309)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:308)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:305)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:304)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:301)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:300)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:299)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:297)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:294)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:293)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:292)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:286)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:285)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:283)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:276)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:275)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:269)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:268)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:265)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:264)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:261)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:260)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:259)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 138728 138729 138730 138732 138736 138744 138745 138746 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+%138728:	zext	%138697  Location: (apr_pools.c:249)
+%138729:	icmp	%138705 %138728  Location: (apr_pools.c:249)
+%138730:	br	%138729 if.end35 if.then26  Location: (apr_pools.c:249)
+%138732:	phi	%138697 %138736 
+%138736:	add	%138732 XXX  Location: (apr_pools.c:252)
+%138744:	phi	XXX %138742 
+%138745:	br	%138744 do.end do.body  Location: (apr_pools.c:253)
+%138746:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:256)
+Function: allocator_alloc(...) Location: (apr_pools.c:256)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 138728 138729 138730 138732 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+%138728:	zext	%138697  Location: (apr_pools.c:249)
+%138729:	icmp	%138705 %138728  Location: (apr_pools.c:249)
+%138730:	br	%138729 if.end35 if.then26  Location: (apr_pools.c:249)
+%138732:	phi	%138697 %138736 
+Function: allocator_alloc(...) Location: (apr_pools.c:251)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:249)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 138712 138713 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+%138712:	phi	XXX %138710 
+%138713:	br	%138712 while.end while.body  Location: (apr_pools.c:238)
+Function: allocator_alloc(...) Location: (apr_pools.c:239)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 138697 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+%138697:	load	%138696  Location: (apr_pools.c:235)
+Function: allocator_alloc(...) Location: (apr_pools.c:236)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 138696 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+%138696:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:235)
+Function: allocator_alloc(...) Location: (apr_pools.c:235)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:222)
+
+---- Part 3: Path Intersection ----
+[ 138683 138684 138685 138686 138687 ]
+%138683:	getelementptr	allocator XXX XXX  Location: (apr_pools.c:219)
+%138684:	load	%138683  Location: (apr_pools.c:219)
+%138685:	zext	%138684  Location: (apr_pools.c:219)
+%138686:	icmp	%138678 %138685  Location: (apr_pools.c:219)
+%138687:	br	%138686 if.else if.then8  Location: (apr_pools.c:219)
+Function: allocator_alloc(...) Location: (apr_pools.c:221)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 126243 126244 126245 126258 126259 126260 126261 126262 126263 126264 126265 126266 126267 126268 126269 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+%126264:	store	child_cleanup_fn %126263  Location: (apr_pools.c:2176)
+%126265:	getelementptr	p XXX XXX  Location: (apr_pools.c:2177)
+%126266:	load	%126265  Location: (apr_pools.c:2177)
+%126267:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2177)
+%126268:	store	%126266 %126267  Location: (apr_pools.c:2177)
+%126269:	getelementptr	p XXX XXX  Location: (apr_pools.c:2178)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2178)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 126243 126244 126245 126258 126259 126260 126261 126262 126263 126264 126265 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+%126264:	store	child_cleanup_fn %126263  Location: (apr_pools.c:2176)
+%126265:	getelementptr	p XXX XXX  Location: (apr_pools.c:2177)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2177)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 126243 126244 126245 126258 126259 126260 126261 126262 126263 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+%126262:	store	plain_cleanup_fn %126261  Location: (apr_pools.c:2175)
+%126263:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2176)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2176)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 126243 126244 126245 126258 126259 126260 126261 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+%126260:	store	data %126259  Location: (apr_pools.c:2174)
+%126261:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2175)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2175)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 126243 126244 126245 126258 126259 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126258:	phi	%126247 %126255 
+%126259:	getelementptr	%126258 XXX XXX  Location: (apr_pools.c:2174)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2174)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 126243 126244 126245 126246 126247 126249 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126246:	getelementptr	p XXX XXX  Location: (apr_pools.c:2169)
+%126247:	load	%126246  Location: (apr_pools.c:2169)
+%126249:	getelementptr	%126247 XXX XXX  Location: (apr_pools.c:2170)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2170)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 126243 126244 126245 126246 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+%126243:	load	%126242  Location: (apr_pools.c:2167)
+%126244:	icmp	%126243 XXX  Location: (apr_pools.c:2167)
+%126245:	br	%126244 if.else if.then1  Location: (apr_pools.c:2167)
+%126246:	getelementptr	p XXX XXX  Location: (apr_pools.c:2169)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2169)
+
+---- Part 3: Path Intersection ----
+[ 126240 126241 126242 ]
+%126240:	icmp	p XXX  Location: (apr_pools.c:2166)
+%126241:	br	%126240 if.end9 if.then  Location: (apr_pools.c:2166)
+%126242:	getelementptr	p XXX XXX  Location: (apr_pools.c:2167)
+Function: apr_pool_cleanup_register(...) Location: (apr_pools.c:2167)
+
+   # of detected potential vulnerabilities: 114
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

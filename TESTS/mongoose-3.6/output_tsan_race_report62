@@ -1,0 +1,237 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report62
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 2961)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 4497 4498 4499 4500 4501 4528 list 6491 6492 6493 6494 6495 6496 6500 6499 4529 4531 4532 3381 ]
+%4497:	getelementptr	conn XXX XXX 
+%4498:	load	%4497 
+%4499:	getelementptr	%4498 XXX XXX 
+%4500:	getelementptr	%4499 XXX XXX 
+%4501:	load	%4500 
+%4528:	phi	%4501 %4529 %4529 
+Function args: list
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+%4529:	call	%4528 %4492 XXX next_option 
+%4531:	icmp	%4529 XXX 
+%4532:	br	%4531 while.end19 while.body9 
+%3381:	call	conn handle_request 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:870)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:869)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:868)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:867)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:866)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:865)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:859)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:858)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:855)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:854)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6500 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6500:	store	list %6499 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:852)
+
+---- Part 3: Path Intersection ----
+[ 6491 6492 6493 6494 6495 6496 6499 ]
+%6491:	icmp	list XXX 
+%6492:	br	%6491 lor.lhs.false if.then 
+%6493:	load	list 
+%6494:	sext	%6493 
+%6495:	icmp	%6494 XXX 
+%6496:	br	%6495 if.else if.then 
+%6499:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:851)
+
+---- Part 3: Path Intersection ----
+[ 4497 4498 4499 4500 4501 4528 4529 4531 4532 ]
+%4497:	getelementptr	conn XXX XXX 
+%4498:	load	%4497 
+%4499:	getelementptr	%4498 XXX XXX 
+%4500:	getelementptr	%4499 XXX XXX 
+%4501:	load	%4500 
+%4528:	phi	%4501 %4529 %4529 
+%4529:	call	%4528 %4492 XXX next_option 
+%4531:	icmp	%4529 XXX 
+%4532:	br	%4531 while.end19 while.body9 
+Function: substitute_index_file(...) Location: (mongoose.c:2997)
+
+---- Part 3: Path Intersection ----
+[ 4497 4498 4499 4500 4501 4528 4529 4531 4532 ]
+%4497:	getelementptr	conn XXX XXX 
+%4498:	load	%4497 
+%4499:	getelementptr	%4498 XXX XXX 
+%4500:	getelementptr	%4499 XXX XXX 
+%4501:	load	%4500 
+%4528:	phi	%4501 %4529 %4529 
+%4529:	call	%4528 %4492 XXX next_option 
+%4531:	icmp	%4529 XXX 
+%4532:	br	%4531 while.end19 while.body9 
+Function: substitute_index_file(...) Location: (mongoose.c:2984)
+
+---- Part 3: Path Intersection ----
+[ 4497 4498 4499 4500 4501 4528 4529 4531 4532 ]
+%4497:	getelementptr	conn XXX XXX 
+%4498:	load	%4497 
+%4499:	getelementptr	%4498 XXX XXX 
+%4500:	getelementptr	%4499 XXX XXX 
+%4501:	load	%4500 
+%4528:	phi	%4501 %4529 %4529 
+%4529:	call	%4528 %4492 XXX next_option 
+%4531:	icmp	%4529 XXX 
+%4532:	br	%4531 while.end19 while.body9 
+Function: substitute_index_file(...) Location: (mongoose.c:2980)
+
+   # of detected potential vulnerabilities: 15
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

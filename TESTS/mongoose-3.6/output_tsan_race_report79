@@ -1,0 +1,123 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report79
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 5031)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 3022 ]
+%3022:	br	for.cond14 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 3022 ]
+%3022:	br	for.cond14 
+Function: master_thread(...) Location: (mongoose.c:5033)
+
+---- Part 3: Path Intersection ----
+[ 3022 ]
+%3022:	br	for.cond14 
+Function: master_thread(...) Location: (mongoose.c:5032)
+
+---- Part 3: Path Intersection ----
+[ 3022 ]
+%3022:	br	for.cond14 
+Function: master_thread(...) Location: (mongoose.c:5031)
+
+   # of detected potential vulnerabilities: 3
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 3024 3025 3026 3027 7744 7745 7746 7747 3053 ]
+%3024:	getelementptr	%2977 XXX XXX 
+%3025:	load	%3024 
+%3026:	icmp	%3023 %3025 
+%3027:	br	%3026 for.end33 for.body18 
+%7744:	getelementptr	ctx XXX XXX 
+%7745:	load	%7744 
+%7746:	icmp	%7743 %7745 
+%7747:	br	%7746 for.end for.body 
+%3053:	call	%2977 close_all_listening_sockets 
+
+**************************************************
+                Busy Loop Detected!               
+%3026 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 7744 7745 7746 7747 ]
+%7744:	getelementptr	ctx XXX XXX 
+%7745:	load	%7744 
+%7746:	icmp	%7743 %7745 
+%7747:	br	%7746 for.end for.body 
+Function: close_all_listening_sockets(...) Location: (mongoose.c:4315)
+
+---- Part 3: Path Intersection ----
+[ 7744 7745 7746 7747 ]
+%7744:	getelementptr	ctx XXX XXX 
+%7745:	load	%7744 
+%7746:	icmp	%7743 %7745 
+%7747:	br	%7746 for.end for.body 
+Function: close_all_listening_sockets(...) Location: (mongoose.c:4313)
+
+---- Part 3: Path Intersection ----
+[ 3024 3025 3026 3027 ]
+%3024:	getelementptr	%2977 XXX XXX 
+%3025:	load	%3024 
+%3026:	icmp	%3023 %3025 
+%3027:	br	%3026 for.end33 for.body18 
+Function: master_thread(...) Location: (mongoose.c:5033)
+
+---- Part 3: Path Intersection ----
+[ 3024 3025 3026 3027 ]
+%3024:	getelementptr	%2977 XXX XXX 
+%3025:	load	%3024 
+%3026:	icmp	%3023 %3025 
+%3027:	br	%3026 for.end33 for.body18 
+Function: master_thread(...) Location: (mongoose.c:5032)
+
+   # of detected potential vulnerabilities: 4
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 3: Path Intersection ----
+[ 7744 7745 7746 7747 ]
+%7744:	getelementptr	ctx XXX XXX 
+%7745:	load	%7744 
+%7746:	icmp	%7743 %7745 
+%7747:	br	%7746 for.end for.body 
+Function: close_all_listening_sockets(...) Location: (mongoose.c:4315)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+

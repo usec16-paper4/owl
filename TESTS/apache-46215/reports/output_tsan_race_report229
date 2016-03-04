@@ -1,0 +1,40 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report229
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(main.c : 740)
+
+opt: /home/ruigu/Workspace/ConAnalysis/lib/ConAnal/ConAnalysis.cpp:412: virtual bool ConAnal::ConAnalysis::getCorruptedIRs(llvm::Module&, ConAnal::DOL&, bool, llvm::ControlDependenceGraphs&): Assertion `callStackHead_.size() != 0 && "Error: callStackHead_ is empty!"' failed.
+#0 0x1dcf8f0 llvm::sys::PrintStackTrace(_IO_FILE*) (/usr/local/bin/opt+0x1dcf8f0)
+#1 0x1dcfb8b PrintStackTraceSignalHandler(void*) (/usr/local/bin/opt+0x1dcfb8b)
+#2 0x1dce7ad SignalHandler(int) (/usr/local/bin/opt+0x1dce7ad)
+#3 0x7fc3dfb18340 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x10340)
+#4 0x7fc3def59cc9 gsignal (/lib/x86_64-linux-gnu/libc.so.6+0x36cc9)
+#5 0x7fc3def5d0d8 abort (/lib/x86_64-linux-gnu/libc.so.6+0x3a0d8)
+#6 0x7fc3def52b86 (/lib/x86_64-linux-gnu/libc.so.6+0x2fb86)
+#7 0x7fc3def52c32 (/lib/x86_64-linux-gnu/libc.so.6+0x2fc32)
+#8 0x7fc3de84a2dd ConAnal::ConAnalysis::getCorruptedIRs(llvm::Module&, ConAnal::DOL&, bool, llvm::ControlDependenceGraphs&) /home/ruigu/Workspace/ConAnalysis/lib/ConAnal/ConAnalysis.cpp:413:0
+#9 0x7fc3de849595 ConAnal::ConAnalysis::runOnModule(llvm::Module&) /home/ruigu/Workspace/ConAnalysis/lib/ConAnal/ConAnalysis.cpp:323:0
+#10 0x1a0cf9c (anonymous namespace)::MPPassManager::runOnModule(llvm::Module&) (/usr/local/bin/opt+0x1a0cf9c)
+#11 0x1a0d642 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/usr/local/bin/opt+0x1a0d642)
+#12 0x1a0d861 llvm::legacy::PassManager::run(llvm::Module&) (/usr/local/bin/opt+0x1a0d861)
+#13 0xc860b6 main (/usr/local/bin/opt+0xc860b6)
+#14 0x7fc3def44ec5 __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21ec5)
+#15 0xc4d149 _start (/usr/local/bin/opt+0xc4d149)
+Stack dump:
+0.	Program arguments: opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report229 
+1.	Running pass 'concurrency bug analysis code' on module '../../../TESTS/apache-46215/apache-46215.bc'.
+./autotest.sh: line 18: 19623 Aborted                 (core dumped) opt -load ../../$DOL_DIR/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../$CDG_DIR/libCDG.so -load ../../$CONANAL_DIR/libConAnalysis.so -ConAnalysis ../../../TESTS/${1}/${1}.bc --ptrderef --danfunc --raceReport ${2} > /dev/null

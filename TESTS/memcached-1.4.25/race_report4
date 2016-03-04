@@ -1,0 +1,4 @@
+reset_cmd_handler (memcached.c:2274)
+drive_machine (memcached.c:4168)
+event_handler (memcached.c:4400)
+event_persist_closure (event.c:1291)

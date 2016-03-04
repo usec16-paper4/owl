@@ -1,0 +1,121 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport tsan_race_report5
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(sql_class.cc : 272)
+-------------------------
+  %rand23 = getelementptr inbounds %class.THD.293* %this, i32 0, i32 11, !dbg !172730
+-------------------------
+-------------------------
+  %rand24 = getelementptr inbounds %class.THD.293* %this, i32 0, i32 11, !dbg !172731
+-------------------------
+-------------------------
+  %24 = load i64* @query_id, align 8, !dbg !172734
+-------------------------
+(mysqld.cc : 4116)
+(mysqld.cc : 3525)
+
+---- Part 1: Dataflow Result ---- 
+[ 119301 119302 119303 119304 rand_st seed1 138599 138600 138601 138602 138603 138604 138605 138606 138607 138608 138609 138610 138611 138612 138613 138614 138615 119307 ]
+%119301:	getelementptr	this XXX XXX  Location: (sql_class.cc:272)
+%119302:	getelementptr	this XXX XXX  Location: (sql_class.cc:272)
+%119303:	ptrtoint	%119302  Location: (sql_class.cc:272)
+%119304:	add	%119299 %119303  Location: (sql_class.cc:272)
+Function args: rand_st
+Function args: seed1
+%138599:	getelementptr	rand_st XXX XXX  Location: (password.c:84)
+%138600:	store	XXX %138599  Location: (password.c:84)
+%138601:	getelementptr	rand_st XXX XXX  Location: (password.c:85)
+%138602:	load	%138601  Location: (password.c:85)
+%138603:	uitofp	%138602  Location: (password.c:85)
+%138604:	getelementptr	rand_st XXX XXX  Location: (password.c:85)
+%138605:	store	%138603 %138604  Location: (password.c:85)
+%138606:	getelementptr	rand_st XXX XXX  Location: (password.c:86)
+%138607:	load	%138606  Location: (password.c:86)
+%138608:	urem	seed1 %138607  Location: (password.c:86)
+%138609:	getelementptr	rand_st XXX XXX  Location: (password.c:86)
+%138610:	store	%138608 %138609  Location: (password.c:86)
+%138611:	getelementptr	rand_st XXX XXX  Location: (password.c:87)
+%138612:	load	%138611  Location: (password.c:87)
+%138613:	urem	seed2 %138612  Location: (password.c:87)
+%138614:	getelementptr	rand_st XXX XXX  Location: (password.c:87)
+%138615:	store	%138613 %138614  Location: (password.c:87)
+%119307:	call	%119301 %119304 %119306 randominit  Location: (sql_class.cc:272)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 119302 119303 119304 seed1 138608 138610 138609 119307 ]
+%119302:	getelementptr	this XXX XXX  Location: (sql_class.cc:272)
+%119303:	ptrtoint	%119302  Location: (sql_class.cc:272)
+%119304:	add	%119299 %119303  Location: (sql_class.cc:272)
+Function args: seed1
+%138608:	urem	seed1 %138607  Location: (password.c:86)
+%138610:	store	%138608 %138609  Location: (password.c:86)
+%138609:	getelementptr	rand_st XXX XXX  Location: (password.c:86)
+%119307:	call	%119301 %119304 %119306 randominit  Location: (sql_class.cc:272)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 119305 119306 seed2 138613 138615 138614 119307 ]
+%119305:	load	query_id  Location: (sql_class.cc:272)
+%119306:	add	%119299 %119305  Location: (sql_class.cc:272)
+Function args: seed2
+%138613:	urem	seed2 %138612  Location: (password.c:87)
+%138615:	store	%138613 %138614  Location: (password.c:87)
+%138614:	getelementptr	rand_st XXX XXX  Location: (password.c:87)
+%119307:	call	%119301 %119304 %119306 randominit  Location: (sql_class.cc:272)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

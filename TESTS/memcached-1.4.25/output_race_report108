@@ -1,0 +1,101 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/memcached-1.4.25
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/memcached-1.4.25
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report108
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(items.c : 768)
+(items.c : 920)
+(items.c : 1020)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 14603 15908 15909 15911 15912 15062 15063 ]
+%14603:	load	hash  Location: (items.c:768)
+%15908:	call	slabs_clsid XXX %15907 XXX XXX lru_pull_tail  Location: (items.c:920)
+%15909:	add	%15906 %15908  Location: (items.c:920)
+%15911:	icmp	%15909 XXX  Location: (items.c:921)
+%15912:	br	%15911 if.end20 if.then19  Location: (items.c:921)
+%15062:	call	%15058 lru_maintainer_juggle  Location: (items.c:1020)
+%15063:	add	%15059 %15062  Location: (items.c:1020)
+
+**************************************************
+                Busy Loop Detected!               
+%15911 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 1657
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 14604 14605 14612 13306 13307 13314 key 14655 12863 12864 12865 12866 12869 12885 12886 12887 12888 14668 14669 14670 15908 15909 15911 15912 15062 15063 ]
+%14604:	getelementptr	%14574 XXX XXX  Location: (items.c:768)
+%14605:	bitcast	%14604  Location: (items.c:768)
+%14612:	getelementptr	%14605 %14611  Location: (items.c:768)
+%13306:	getelementptr	it XXX XXX  Location: (items.c:368)
+%13307:	bitcast	%13306  Location: (items.c:368)
+%13314:	getelementptr	%13307 %13313  Location: (items.c:368)
+Function args: key
+%14655:	call	%14574 %14616 do_item_unlink_nolock  Location: (items.c:785)
+%12863:	getelementptr	it XXX XXX  Location: (items.c:103)
+%12864:	getelementptr	%12863 XXX XXX  Location: (items.c:103)
+%12865:	bitcast	%12864  Location: (items.c:103)
+%12866:	load	%12865  Location: (items.c:103)
+%12869:	phi	%12866 XXX  Location: (items.c:103)
+%12885:	icmp	%12869 XXX  Location: (items.c:108)
+%12886:	br	%12885 if.end16 land.lhs.true12  Location: (items.c:107)
+%12887:	icmp	%12869 %12871  Location: (items.c:108)
+%12888:	br	%12887 if.end16 if.then15  Location: (items.c:107)
+%14668:	call	%14574 item_is_flushed  Location: (items.c:793)
+%14669:	icmp	%14668 XXX  Location: (items.c:792)
+%14670:	br	%14669 if.end69 if.then54  Location: (items.c:792)
+%15908:	call	slabs_clsid XXX %15907 XXX XXX lru_pull_tail  Location: (items.c:920)
+%15909:	add	%15906 %15908  Location: (items.c:920)
+%15911:	icmp	%15909 XXX  Location: (items.c:921)
+%15912:	br	%15911 if.end20 if.then19  Location: (items.c:921)
+%15062:	call	%15058 lru_maintainer_juggle  Location: (items.c:1020)
+%15063:	add	%15059 %15062  Location: (items.c:1020)
+
+#0 0x1dcf8f0 llvm::sys::PrintStackTrace(_IO_FILE*) (/usr/local/bin/opt+0x1dcf8f0)
+#1 0x1dcfb8b PrintStackTraceSignalHandler(void*) (/usr/local/bin/opt+0x1dcfb8b)
+#2 0x1dce7ad SignalHandler(int) (/usr/local/bin/opt+0x1dce7ad)
+#3 0x7f4d7aef0340 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x10340)
+#4 0xc520f0 llvm::SmallPtrSetImplBase::isSmall() const (/usr/local/bin/opt+0xc520f0)
+#5 0xc5206e llvm::SmallPtrSetImplBase::count_imp(void const*) const (/usr/local/bin/opt+0xc5206e)
+#6 0x14d2a70 llvm::SmallPtrSetImpl<llvm::BasicBlock const*>::count(llvm::BasicBlock const*) const (/usr/local/bin/opt+0x14d2a70)
+#7 0x156d17d llvm::LoopBase<llvm::BasicBlock, llvm::Loop>::contains(llvm::BasicBlock const*) const (/usr/local/bin/opt+0x156d17d)
+#8 0x156d2c8 llvm::LoopBase<llvm::BasicBlock, llvm::Loop>::isLoopExiting(llvm::BasicBlock const*) const (/usr/local/bin/opt+0x156d2c8)
+#9 0x7f4d79c2368f ConAnal::ConAnalysis::getCorruptedIRs(llvm::Module&, ConAnal::DOL&, bool, llvm::ControlDependenceGraphs&) /home/ruigu/Workspace/ConAnalysis/lib/ConAnal/ConAnalysis.cpp:463:0
+#10 0x7f4d79c223c9 ConAnal::ConAnalysis::runOnModule(llvm::Module&) /home/ruigu/Workspace/ConAnalysis/lib/ConAnal/ConAnalysis.cpp:310:0
+#11 0x1a0cf9c (anonymous namespace)::MPPassManager::runOnModule(llvm::Module&) (/usr/local/bin/opt+0x1a0cf9c)
+#12 0x1a0d642 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/usr/local/bin/opt+0x1a0d642)
+#13 0x1a0d861 llvm::legacy::PassManager::run(llvm::Module&) (/usr/local/bin/opt+0x1a0d861)
+#14 0xc860b6 main (/usr/local/bin/opt+0xc860b6)
+#15 0x7f4d7a31cec5 __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21ec5)
+#16 0xc4d149 _start (/usr/local/bin/opt+0xc4d149)
+Stack dump:
+0.	Program arguments: opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc --ptrderef --danfunc --raceReport race_report108 
+1.	Running pass 'concurrency bug analysis code' on module '../../../TESTS/memcached-1.4.25/memcached-1.4.25.bc'.
+./autotest.sh: line 18: 13701 Segmentation fault      (core dumped) opt -load ../../$DOL_DIR/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../$CDG_DIR/libCDG.so -load ../../$CONANAL_DIR/libConAnalysis.so -ConAnalysis ../../../TESTS/${1}/${1}.bc --ptrderef --danfunc --raceReport ${2} > /dev/null

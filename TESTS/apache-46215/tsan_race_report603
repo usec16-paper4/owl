@@ -1,0 +1,7 @@
+apr_pool_cleanup_kill (apr_pools.c:2239)
+apr_pool_cleanup_run (apr_pools.c:2296)
+apr_socket_close (sockets.c:149)
+ap_lingering_close (connection.c:163)
+process_socket (worker.c:545)
+worker_thread (worker.c:894)
+dummy_worker (thread.c:142)

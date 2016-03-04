@@ -1,0 +1,8 @@
+do_item_link (items.c:328)
+do_store_item (memcached.c:2401)
+store_item (thread.c:594)
+complete_nread_ascii (memcached.c:905)
+complete_nread (memcached.c:2292)
+drive_machine (memcached.c:4193)
+event_handler (memcached.c:4400)
+event_persist_closure (event.c:1291)

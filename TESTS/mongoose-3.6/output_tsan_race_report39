@@ -1,0 +1,227 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mongoose-3.6
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mongoose-3.6
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mongoose-3.6/mongoose-3.6.bc --ptrderef --danfunc --raceReport tsan_race_report39
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mongoose.c : 852)
+(mongoose.c : 4852)
+
+---- Part 1: Dataflow Result ---- 
+[ 6501 6502 6503 6505 6506 6507 6508 6509 6510 6511 6513 6512 6514 6517 6518 6519 6520 6521 6522 6524 6525 6526 6527 6528 6530 6529 6532 6537 6538 6541 6543 6542 6552 6553 6556 6559 6561 6563 6562 6566 6567 6569 6570 6571 6573 6572 6577 6578 3381 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6507:	getelementptr	val XXX XXX 
+%6508:	load	%6507 
+%6509:	ptrtoint	%6503 
+%6510:	ptrtoint	%6508 
+%6511:	sub	%6509 %6510 
+%6513:	store	%6511 %6512 
+%6512:	getelementptr	val XXX XXX 
+%6514:	getelementptr	%6503 XXX 
+%6517:	getelementptr	val XXX XXX 
+%6518:	load	%6517 
+%6519:	getelementptr	val XXX XXX 
+%6520:	load	%6519 
+%6521:	call	%6520 strlen 
+%6522:	getelementptr	%6518 %6521 
+%6524:	getelementptr	val XXX XXX 
+%6525:	load	%6524 
+%6526:	ptrtoint	%6522 
+%6527:	ptrtoint	%6525 
+%6528:	sub	%6526 %6527 
+%6530:	store	%6528 %6529 
+%6529:	getelementptr	val XXX XXX 
+%6532:	phi	%6514 %6522 
+%6537:	getelementptr	val XXX XXX 
+%6538:	load	%6537 
+%6541:	call	%6538 XXX %6540 memchr 
+%6543:	store	%6541 %6542 
+%6542:	getelementptr	eq_val XXX XXX 
+%6552:	getelementptr	val XXX XXX 
+%6553:	load	%6552 
+%6556:	getelementptr	%6553 %6555 
+%6559:	ptrtoint	%6556 
+%6561:	sub	%6559 %6560 
+%6563:	store	%6561 %6562 
+%6562:	getelementptr	eq_val XXX XXX 
+%6566:	getelementptr	val XXX XXX 
+%6567:	load	%6566 
+%6569:	ptrtoint	%6567 
+%6570:	sub	%6568 %6569 
+%6571:	sub	%6570 XXX 
+%6573:	store	%6571 %6572 
+%6572:	getelementptr	val XXX XXX 
+%6577:	phi	XXX %6532 
+%6578:	ret	%6577 
+%3381:	call	conn handle_request 
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 951
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6532 6537 6538 6541 6543 6542 6552 6553 6556 6559 6561 6563 6562 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6532:	phi	%6514 %6522 
+%6537:	getelementptr	val XXX XXX 
+%6538:	load	%6537 
+%6541:	call	%6538 XXX %6540 memchr 
+%6543:	store	%6541 %6542 
+%6542:	getelementptr	eq_val XXX XXX 
+%6552:	getelementptr	val XXX XXX 
+%6553:	load	%6552 
+%6556:	getelementptr	%6553 %6555 
+%6559:	ptrtoint	%6556 
+%6561:	sub	%6559 %6560 
+%6563:	store	%6561 %6562 
+%6562:	getelementptr	eq_val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:870)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6532 6537 6538 6541 6543 6542 6552 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6532:	phi	%6514 %6522 
+%6537:	getelementptr	val XXX XXX 
+%6538:	load	%6537 
+%6541:	call	%6538 XXX %6540 memchr 
+%6543:	store	%6541 %6542 
+%6542:	getelementptr	eq_val XXX XXX 
+%6552:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:869)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6532 6537 6538 6541 6543 6542 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6532:	phi	%6514 %6522 
+%6537:	getelementptr	val XXX XXX 
+%6538:	load	%6537 
+%6541:	call	%6538 XXX %6540 memchr 
+%6543:	store	%6541 %6542 
+%6542:	getelementptr	eq_val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:868)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6532 6537 6538 6541 6543 6542 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6532:	phi	%6514 %6522 
+%6537:	getelementptr	val XXX XXX 
+%6538:	load	%6537 
+%6541:	call	%6538 XXX %6540 memchr 
+%6543:	store	%6541 %6542 
+%6542:	getelementptr	eq_val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:867)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6532 6537 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6532:	phi	%6514 %6522 
+%6537:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:866)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6532 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6532:	phi	%6514 %6522 
+Function: next_option(...) Location: (mongoose.c:865)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6517 6518 6519 6520 6521 6522 6524 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6517:	getelementptr	val XXX XXX 
+%6518:	load	%6517 
+%6519:	getelementptr	val XXX XXX 
+%6520:	load	%6519 
+%6521:	call	%6520 strlen 
+%6522:	getelementptr	%6518 %6521 
+%6524:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:859)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6517 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6517:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:858)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6507 6508 6509 6510 6511 6513 6512 6514 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6507:	getelementptr	val XXX XXX 
+%6508:	load	%6507 
+%6509:	ptrtoint	%6503 
+%6510:	ptrtoint	%6508 
+%6511:	sub	%6509 %6510 
+%6513:	store	%6511 %6512 
+%6512:	getelementptr	val XXX XXX 
+%6514:	getelementptr	%6503 XXX 
+Function: next_option(...) Location: (mongoose.c:855)
+
+---- Part 3: Path Intersection ----
+[ 6501 6502 6503 6505 6506 6507 ]
+%6501:	getelementptr	val XXX XXX 
+%6502:	load	%6501 
+%6503:	call	%6502 XXX strchr 
+%6505:	icmp	%6503 XXX 
+%6506:	br	%6505 if.else8 if.then6 
+%6507:	getelementptr	val XXX XXX 
+Function: next_option(...) Location: (mongoose.c:854)
+
+   # of detected potential vulnerabilities: 10
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

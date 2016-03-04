@@ -1,0 +1,114 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report98
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(fdqueue.c : 204)
+-------------------------
+  %recycled_pools28 = getelementptr inbounds %struct.fd_queue_info_t* %queue_info, i32 0, i32 5, !dbg !45753
+-------------------------
+-------------------------
+  %next = getelementptr inbounds %struct.recycled_pool* %7, i32 0, i32 1, !dbg !45756
+-------------------------
+(worker.c : 642)
+(thread.c : 142)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 34823 34824 mem 136235 136238 136239 136240 136241 34829 34831 34832 ]
+%34823:	getelementptr	queue_info XXX XXX  Location: (fdqueue.c:204)
+%34824:	bitcast	%34823  Location: (fdqueue.c:204)
+Function args: mem
+%136235:	bitcast	mem  Location: (builtins.c:71)
+%136238:	cmpxchg	%136235 %136236 %136237  Location: (builtins.c:71)
+%136239:	extractvalue	%136238  Location: (builtins.c:71)
+%136240:	inttoptr	%136239  Location: (builtins.c:71)
+%136241:	ret	%136240  Location: (builtins.c:71)
+%34829:	call	%34824 %34827 %34828 apr_atomic_casptr  Location: (fdqueue.c:204)
+%34831:	icmp	%34829 %34830  Location: (fdqueue.c:204)
+%34832:	br	%34831 if.end32 if.then31  Location: (fdqueue.c:204)
+
+**************************************************
+                Busy Loop Detected!               
+%34831 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 34823 34824 34829 34831 34832 ]
+%34823:	getelementptr	queue_info XXX XXX  Location: (fdqueue.c:204)
+%34824:	bitcast	%34823  Location: (fdqueue.c:204)
+%34829:	call	%34824 %34827 %34828 apr_atomic_casptr  Location: (fdqueue.c:204)
+%34831:	icmp	%34829 %34830  Location: (fdqueue.c:204)
+%34832:	br	%34831 if.end32 if.then31  Location: (fdqueue.c:204)
+Function: ap_queue_info_wait_for_idler(...) Location: (fdqueue.c:206)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 34825 34826 34827 with 136237 136238 136239 136240 136241 34829 34831 34832 ]
+%34825:	getelementptr	%34818 XXX XXX  Location: (fdqueue.c:204)
+%34826:	load	%34825  Location: (fdqueue.c:204)
+%34827:	bitcast	%34826  Location: (fdqueue.c:204)
+Function args: with
+%136237:	ptrtoint	with  Location: (builtins.c:71)
+%136238:	cmpxchg	%136235 %136236 %136237  Location: (builtins.c:71)
+%136239:	extractvalue	%136238  Location: (builtins.c:71)
+%136240:	inttoptr	%136239  Location: (builtins.c:71)
+%136241:	ret	%136240  Location: (builtins.c:71)
+%34829:	call	%34824 %34827 %34828 apr_atomic_casptr  Location: (fdqueue.c:204)
+%34831:	icmp	%34829 %34830  Location: (fdqueue.c:204)
+%34832:	br	%34831 if.end32 if.then31  Location: (fdqueue.c:204)
+
+**************************************************
+                Busy Loop Detected!               
+%34831 may have the control of breaking out a loop
+**************************************************
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 34825 34826 34827 34829 34831 34832 ]
+%34825:	getelementptr	%34818 XXX XXX  Location: (fdqueue.c:204)
+%34826:	load	%34825  Location: (fdqueue.c:204)
+%34827:	bitcast	%34826  Location: (fdqueue.c:204)
+%34829:	call	%34824 %34827 %34828 apr_atomic_casptr  Location: (fdqueue.c:204)
+%34831:	icmp	%34829 %34830  Location: (fdqueue.c:204)
+%34832:	br	%34831 if.end32 if.then31  Location: (fdqueue.c:204)
+Function: ap_queue_info_wait_for_idler(...) Location: (fdqueue.c:206)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

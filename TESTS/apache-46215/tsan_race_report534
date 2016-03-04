@@ -1,0 +1,4 @@
+start_threads (worker.c:1019)
+apr_pool_cleanup_kill (apr_pools.c:2230)
+dummy_worker (thread.c:142)
+apr_pool_cleanup_run (apr_pools.c:2296)

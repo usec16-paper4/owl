@@ -1,0 +1,1233 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report53
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_buckets_alloc.c : 127)
+-------------------------
+  %next = getelementptr inbounds %struct.node_header_t* %2, i32 0, i32 3, !dbg !45710
+-------------------------
+-------------------------
+  %freelist3 = getelementptr inbounds %struct.apr_bucket_alloc_t* %list, i32 0, i32 2, !dbg !45711
+-------------------------
+(apr_buckets_simple.c : 22)
+(apr_buckets_refcount.c : 38)
+(core_filters.c : 294)
+(util_filter.c : 489)
+(protocol.c : 348)
+(protocol.c : 472)
+(mod_proxy_http.c : 1208)
+(mod_proxy_http.c : 1487)
+(mod_proxy_http.c : 1981)
+(mod_proxy.c : 2367)
+(mod_proxy.c : 991)
+(config.c : 157)
+(config.c : 372)
+(http_request.c : 258)
+(http_core.c : 190)
+(connection.c : 43)
+(connection.c : 178)
+(worker.c : 544)
+(worker.c : 894)
+(thread.c : 142)
+
+---- Part 1: Dataflow Result ---- 
+[ 144878 144879 144881 144880 145349 145350 145351 b 145352 145353 145311 ]
+%144878:	getelementptr	%144876 XXX XXX  Location: (apr_buckets_alloc.c:127)
+%144879:	load	%144878  Location: (apr_buckets_alloc.c:127)
+%144881:	store	%144879 %144880  Location: (apr_buckets_alloc.c:127)
+%144880:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:127)
+%145349:	call	XXX %145348 apr_bucket_alloc  Location: (apr_buckets_simple.c:22)
+%145350:	bitcast	%145349  Location: (apr_buckets_simple.c:22)
+%145351:	store	%145350 b  Location: (apr_buckets_simple.c:22)
+Function args: b
+%145352:	load	b  Location: (apr_buckets_simple.c:23)
+%145353:	bitcast	%145352  Location: (apr_buckets_simple.c:23)
+%145311:	call	a b XXX  Location: (apr_buckets_refcount.c:38)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
+---- Part 1: Dataflow Result ---- 
+[ 144880 144881 145349 145350 145351 b 145352 145353 145311 144871 144872 144873 144874 144875 144876 144878 144879 144928 144948 144949 144950 144952 144953 145140 145141 145144 145145 145146 145147 145148 145149 145151 145152 145153 145154 b 145092 145093 list 144864 144865 144883 144884 144885 144887 144888 144889 144890 144891 144892 allocator 144894 144895 144896 144897 144898 144899 144901 144902 144903 144904 144905 144906 144908 144909 144910 144913 144914 144915 144916 144917 144919 144920 144921 144922 144923 144924 144925 144926 144930 144931 144942 144941 145094 145095 145099 145100 145101 145102 145103 145104 size 144867 144869 144870 size 144946 144945 145105 145106 145107 145108 145109 145110 145111 145112 mem 144955 144956 144958 144959 144961 144962 144963 144964 144965 144966 144967 144968 144969 144970 144972 144973 144974 144975 allocator node 145113 145115 145116 145117 145118 145121 145122 145123 145124 145125 145126 145128 145155 145156 144138 144148 144149 144150 144159 144160 144161 144172 144171 144180 144179 144024 144026 144027 144031 144032 21870 21875 8319 ]
+%144880:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:127)
+%144881:	store	%144879 %144880  Location: (apr_buckets_alloc.c:127)
+%145349:	call	XXX %145348 apr_bucket_alloc  Location: (apr_buckets_simple.c:22)
+%145350:	bitcast	%145349  Location: (apr_buckets_simple.c:22)
+%145351:	store	%145350 b  Location: (apr_buckets_simple.c:22)
+Function args: b
+%145352:	load	b  Location: (apr_buckets_simple.c:23)
+%145353:	bitcast	%145352  Location: (apr_buckets_simple.c:23)
+%145311:	call	a b XXX  Location: (apr_buckets_refcount.c:38)
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144875:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:126)
+%144876:	load	%144875  Location: (apr_buckets_alloc.c:126)
+%144878:	getelementptr	%144876 XXX XXX  Location: (apr_buckets_alloc.c:127)
+%144879:	load	%144878  Location: (apr_buckets_alloc.c:127)
+%144928:	phi	%144876 %144917 
+%144948:	phi	%144928 %144939 
+%144949:	bitcast	%144948  Location: (apr_buckets_alloc.c:157)
+%144950:	getelementptr	%144949 XXX  Location: (apr_buckets_alloc.c:157)
+%144952:	phi	%144950 XXX XXX 
+%144953:	ret	%144952  Location: (apr_buckets_alloc.c:158)
+%145140:	call	XXX list apr_bucket_alloc  Location: (apr_buckets_heap.c:81)
+%145141:	bitcast	%145140  Location: (apr_buckets_heap.c:81)
+%145144:	getelementptr	%145141 XXX XXX  Location: (apr_buckets_heap.c:83)
+%145145:	getelementptr	%145144 XXX XXX  Location: (apr_buckets_heap.c:83)
+%145146:	store	%145141 %145145  Location: (apr_buckets_heap.c:83)
+%145147:	getelementptr	%145141 XXX XXX  Location: (apr_buckets_heap.c:83)
+%145148:	getelementptr	%145147 XXX XXX  Location: (apr_buckets_heap.c:83)
+%145149:	store	%145141 %145148  Location: (apr_buckets_heap.c:83)
+%145151:	getelementptr	%145141 XXX XXX  Location: (apr_buckets_heap.c:84)
+%145152:	store	apr_bucket_free %145151  Location: (apr_buckets_heap.c:84)
+%145153:	getelementptr	%145141 XXX XXX  Location: (apr_buckets_heap.c:85)
+%145154:	store	list %145153  Location: (apr_buckets_heap.c:85)
+Function args: b
+%145092:	getelementptr	b XXX XXX  Location: (apr_buckets_heap.c:49)
+%145093:	load	%145092  Location: (apr_buckets_heap.c:49)
+Function args: list
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144891:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144892:	load	%144891  Location: (apr_buckets_alloc.c:132)
+Function args: allocator
+%144894:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144895:	store	%144893 %144894  Location: (apr_buckets_alloc.c:132)
+%144896:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:133)
+%144897:	load	%144896  Location: (apr_buckets_alloc.c:133)
+%144898:	icmp	%144897 XXX  Location: (apr_buckets_alloc.c:133)
+%144899:	br	%144898 if.then10 if.end  Location: (apr_buckets_alloc.c:133)
+%144901:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:136)
+%144902:	load	%144901  Location: (apr_buckets_alloc.c:136)
+%144903:	getelementptr	%144902 XXX XXX  Location: (apr_buckets_alloc.c:136)
+%144904:	store	%144865 %144903  Location: (apr_buckets_alloc.c:136)
+%144905:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:137)
+%144906:	load	%144905  Location: (apr_buckets_alloc.c:137)
+%144908:	getelementptr	%144906 XXX XXX  Location: (apr_buckets_alloc.c:138)
+%144909:	load	%144908  Location: (apr_buckets_alloc.c:138)
+%144910:	getelementptr	%144909 XXX  Location: (apr_buckets_alloc.c:138)
+%144913:	phi	%144906 %144865 
+%144914:	phi	%144910 %144885 
+%144915:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:140)
+%144916:	load	%144915  Location: (apr_buckets_alloc.c:140)
+%144917:	bitcast	%144916  Location: (apr_buckets_alloc.c:140)
+%144919:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:141)
+%144920:	store	list %144919  Location: (apr_buckets_alloc.c:141)
+%144921:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:142)
+%144922:	store	%144913 %144921  Location: (apr_buckets_alloc.c:142)
+%144923:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:143)
+%144924:	store	XXX %144923  Location: (apr_buckets_alloc.c:143)
+%144925:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:144)
+%144926:	store	%144914 %144925  Location: (apr_buckets_alloc.c:144)
+%144930:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:148)
+%144931:	load	%144930  Location: (apr_buckets_alloc.c:148)
+%144942:	store	list %144941  Location: (apr_buckets_alloc.c:153)
+%144941:	getelementptr	%144939 XXX XXX  Location: (apr_buckets_alloc.c:153)
+%145094:	call	XXX %145093 apr_bucket_alloc  Location: (apr_buckets_heap.c:49)
+%145095:	bitcast	%145094  Location: (apr_buckets_heap.c:49)
+%145099:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:52)
+%145100:	store	length %145099  Location: (apr_buckets_heap.c:52)
+%145101:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:53)
+%145102:	load	%145101  Location: (apr_buckets_heap.c:53)
+%145103:	getelementptr	b XXX XXX  Location: (apr_buckets_heap.c:53)
+%145104:	load	%145103  Location: (apr_buckets_heap.c:53)
+Function args: size
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function args: size
+%144946:	store	%144867 %144945  Location: (apr_buckets_alloc.c:155)
+%144945:	getelementptr	%144939 XXX XXX  Location: (apr_buckets_alloc.c:155)
+%145105:	call	%145102 %145104 apr_bucket_alloc  Location: (apr_buckets_heap.c:53)
+%145106:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:53)
+%145107:	store	%145105 %145106  Location: (apr_buckets_heap.c:53)
+%145108:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:54)
+%145109:	load	%145108  Location: (apr_buckets_heap.c:54)
+%145110:	icmp	%145109 XXX  Location: (apr_buckets_heap.c:54)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%145112:	bitcast	%145095  Location: (apr_buckets_heap.c:55)
+Function args: mem
+%144955:	getelementptr	mem XXX  Location: (apr_buckets_alloc.c:182)
+%144956:	bitcast	%144955  Location: (apr_buckets_alloc.c:182)
+%144958:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:183)
+%144959:	load	%144958  Location: (apr_buckets_alloc.c:183)
+%144961:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:185)
+%144962:	load	%144961  Location: (apr_buckets_alloc.c:185)
+%144963:	icmp	%144962 XXX  Location: (apr_buckets_alloc.c:185)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+%144965:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:187)
+%144966:	load	%144965  Location: (apr_buckets_alloc.c:187)
+%144967:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:187)
+%144968:	store	%144966 %144967  Location: (apr_buckets_alloc.c:187)
+%144969:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:188)
+%144970:	store	%144956 %144969  Location: (apr_buckets_alloc.c:188)
+%144972:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:191)
+%144973:	load	%144972  Location: (apr_buckets_alloc.c:191)
+%144974:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:191)
+%144975:	load	%144974  Location: (apr_buckets_alloc.c:191)
+Function args: allocator
+Function args: node
+%145113:	call	%145112 apr_bucket_free  Location: (apr_buckets_heap.c:55)
+%145115:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:58)
+%145116:	store	apr_bucket_free %145115  Location: (apr_buckets_heap.c:58)
+%145117:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:59)
+%145118:	load	%145117  Location: (apr_buckets_heap.c:59)
+%145121:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:65)
+%145122:	store	buf %145121  Location: (apr_buckets_heap.c:65)
+%145123:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:66)
+%145124:	store	length %145123  Location: (apr_buckets_heap.c:66)
+%145125:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:67)
+%145126:	store	free_func %145125  Location: (apr_buckets_heap.c:67)
+%145128:	bitcast	%145095  Location: (apr_buckets_heap.c:70)
+%145155:	call	%145141 buf length free_func apr_bucket_heap_make  Location: (apr_buckets_heap.c:86)
+%145156:	ret	%145155  Location: (apr_buckets_heap.c:86)
+%144138:	call	str nbyte XXX %144137 apr_bucket_heap_create  Location: (apr_brigade.c:432)
+%144148:	getelementptr	%144138 XXX XXX  Location: (apr_brigade.c:433)
+%144149:	getelementptr	%144148 XXX XXX  Location: (apr_brigade.c:433)
+%144150:	store	%144147 %144149  Location: (apr_brigade.c:433)
+%144159:	getelementptr	%144138 XXX XXX  Location: (apr_brigade.c:433)
+%144160:	getelementptr	%144159 XXX XXX  Location: (apr_brigade.c:433)
+%144161:	store	%144158 %144160  Location: (apr_brigade.c:433)
+%144172:	store	%144138 %144171  Location: (apr_brigade.c:433)
+%144171:	getelementptr	%144170 XXX XXX  Location: (apr_brigade.c:433)
+%144180:	store	%144138 %144179  Location: (apr_brigade.c:433)
+%144179:	getelementptr	%144178 XXX XXX  Location: (apr_brigade.c:433)
+%144024:	call	b flush ctx %144018 %144023 apr_brigade_write  Location: (apr_brigade.c:390)
+%144026:	icmp	%144024 XXX  Location: (apr_brigade.c:391)
+%144027:	br	%144026 if.end4 if.then3  Location: (apr_brigade.c:391)
+%144031:	phi	XXX %144024 
+%144032:	ret	%144031  Location: (apr_brigade.c:396)
+%21870:	call	bb ap_filter_flush %21868 %21869 apr_brigade_vputstrs  Location: (util_filter.c:601)
+%21875:	ret	%21870  Location: (util_filter.c:603)
+%8319:	call	%8314 %8316 XXX XXX %8318 XXX XXX ap_fputstrs  Location: (protocol.c:1659)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+Dangerous Operation Location: (apr_buckets_alloc.c:182)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+Dangerous Operation Location: (apr_buckets_alloc.c:183)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+Dangerous Operation Location: (apr_buckets_alloc.c:185)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:219)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:221)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:222)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:235)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:236)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:239)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:249)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:251)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:256)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:259)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:260)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:261)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:264)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:265)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:268)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:269)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:275)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:276)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:283)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:285)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:286)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:292)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:293)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:294)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:297)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:299)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:300)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:301)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:304)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:305)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:308)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:309)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:315)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:316)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:326)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:327)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:328)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Dangerous Operation Location: (apr_pools.c:329)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:342)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:343)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:346)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:347)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:348)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:354)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:355)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:359)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:366)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:370)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:380)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:381)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:389)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:390)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:393)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:394)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:399)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (thread_mutex.c:92)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (thread_mutex.c:121)
+
+---- Part 3: Path Intersection ----
+[ 145092 145093 145094 145095 145099 145100 145101 145102 145103 145104 145105 145106 145107 145108 145109 145110 145111 145115 145116 145117 ]
+%145092:	getelementptr	b XXX XXX  Location: (apr_buckets_heap.c:49)
+%145093:	load	%145092  Location: (apr_buckets_heap.c:49)
+%145094:	call	XXX %145093 apr_bucket_alloc  Location: (apr_buckets_heap.c:49)
+%145095:	bitcast	%145094  Location: (apr_buckets_heap.c:49)
+%145099:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:52)
+%145100:	store	length %145099  Location: (apr_buckets_heap.c:52)
+%145101:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:53)
+%145102:	load	%145101  Location: (apr_buckets_heap.c:53)
+%145103:	getelementptr	b XXX XXX  Location: (apr_buckets_heap.c:53)
+%145104:	load	%145103  Location: (apr_buckets_heap.c:53)
+%145105:	call	%145102 %145104 apr_bucket_alloc  Location: (apr_buckets_heap.c:53)
+%145106:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:53)
+%145107:	store	%145105 %145106  Location: (apr_buckets_heap.c:53)
+%145108:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:54)
+%145109:	load	%145108  Location: (apr_buckets_heap.c:54)
+%145110:	icmp	%145109 XXX  Location: (apr_buckets_heap.c:54)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%145115:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:58)
+%145116:	store	apr_bucket_free %145115  Location: (apr_buckets_heap.c:58)
+%145117:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:59)
+Function: apr_bucket_heap_make(...) Location: (apr_buckets_heap.c:59)
+
+---- Part 3: Path Intersection ----
+[ 145092 145093 145094 145095 145099 145100 145101 145102 145103 145104 145105 145106 145107 145108 145109 145110 145111 145115 ]
+%145092:	getelementptr	b XXX XXX  Location: (apr_buckets_heap.c:49)
+%145093:	load	%145092  Location: (apr_buckets_heap.c:49)
+%145094:	call	XXX %145093 apr_bucket_alloc  Location: (apr_buckets_heap.c:49)
+%145095:	bitcast	%145094  Location: (apr_buckets_heap.c:49)
+%145099:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:52)
+%145100:	store	length %145099  Location: (apr_buckets_heap.c:52)
+%145101:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:53)
+%145102:	load	%145101  Location: (apr_buckets_heap.c:53)
+%145103:	getelementptr	b XXX XXX  Location: (apr_buckets_heap.c:53)
+%145104:	load	%145103  Location: (apr_buckets_heap.c:53)
+%145105:	call	%145102 %145104 apr_bucket_alloc  Location: (apr_buckets_heap.c:53)
+%145106:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:53)
+%145107:	store	%145105 %145106  Location: (apr_buckets_heap.c:53)
+%145108:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:54)
+%145109:	load	%145108  Location: (apr_buckets_heap.c:54)
+%145110:	icmp	%145109 XXX  Location: (apr_buckets_heap.c:54)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%145115:	getelementptr	%145095 XXX XXX  Location: (apr_buckets_heap.c:58)
+Function: apr_bucket_heap_make(...) Location: (apr_buckets_heap.c:58)
+
+---- Part 3: Path Intersection ----
+[ 144955 144956 144958 144959 144961 144962 144963 144964 144972 ]
+%144955:	getelementptr	mem XXX  Location: (apr_buckets_alloc.c:182)
+%144956:	bitcast	%144955  Location: (apr_buckets_alloc.c:182)
+%144958:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:183)
+%144959:	load	%144958  Location: (apr_buckets_alloc.c:183)
+%144961:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:185)
+%144962:	load	%144961  Location: (apr_buckets_alloc.c:185)
+%144963:	icmp	%144962 XXX  Location: (apr_buckets_alloc.c:185)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+%144972:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:191)
+Function: apr_bucket_free(...) Location: (apr_buckets_alloc.c:191)
+
+---- Part 3: Path Intersection ----
+[ 144955 144956 144958 144959 144961 144962 144963 144964 144965 144966 144967 144968 144969 ]
+%144955:	getelementptr	mem XXX  Location: (apr_buckets_alloc.c:182)
+%144956:	bitcast	%144955  Location: (apr_buckets_alloc.c:182)
+%144958:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:183)
+%144959:	load	%144958  Location: (apr_buckets_alloc.c:183)
+%144961:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:185)
+%144962:	load	%144961  Location: (apr_buckets_alloc.c:185)
+%144963:	icmp	%144962 XXX  Location: (apr_buckets_alloc.c:185)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+%144965:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:187)
+%144966:	load	%144965  Location: (apr_buckets_alloc.c:187)
+%144967:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:187)
+%144968:	store	%144966 %144967  Location: (apr_buckets_alloc.c:187)
+%144969:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:188)
+Function: apr_bucket_free(...) Location: (apr_buckets_alloc.c:188)
+
+---- Part 3: Path Intersection ----
+[ 144955 144956 144958 144959 144961 144962 144963 144964 144965 ]
+%144955:	getelementptr	mem XXX  Location: (apr_buckets_alloc.c:182)
+%144956:	bitcast	%144955  Location: (apr_buckets_alloc.c:182)
+%144958:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:183)
+%144959:	load	%144958  Location: (apr_buckets_alloc.c:183)
+%144961:	getelementptr	%144956 XXX XXX  Location: (apr_buckets_alloc.c:185)
+%144962:	load	%144961  Location: (apr_buckets_alloc.c:185)
+%144963:	icmp	%144962 XXX  Location: (apr_buckets_alloc.c:185)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+%144965:	getelementptr	%144959 XXX XXX  Location: (apr_buckets_alloc.c:187)
+Function: apr_bucket_free(...) Location: (apr_buckets_alloc.c:187)
+
+---- Part 3: Path Intersection ----
+[ 144948 144949 144864 144865 144867 144869 144870 ]
+%144948:	phi	%144928 %144939 
+%144949:	bitcast	%144948  Location: (apr_buckets_alloc.c:157)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:157)
+
+---- Part 3: Path Intersection ----
+[ 144864 144865 144930 144931 144942 144941 144867 144869 144870 144945 ]
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144930:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:148)
+%144931:	load	%144930  Location: (apr_buckets_alloc.c:148)
+%144942:	store	list %144941  Location: (apr_buckets_alloc.c:153)
+%144941:	getelementptr	%144939 XXX XXX  Location: (apr_buckets_alloc.c:153)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%144945:	getelementptr	%144939 XXX XXX  Location: (apr_buckets_alloc.c:155)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:155)
+
+---- Part 3: Path Intersection ----
+[ 144864 144865 144930 144931 144942 144941 144867 144869 144870 ]
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144930:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:148)
+%144931:	load	%144930  Location: (apr_buckets_alloc.c:148)
+%144942:	store	list %144941  Location: (apr_buckets_alloc.c:153)
+%144941:	getelementptr	%144939 XXX XXX  Location: (apr_buckets_alloc.c:153)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:154)
+
+---- Part 3: Path Intersection ----
+[ 144864 144865 144930 144931 144941 144867 144869 144870 ]
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144930:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:148)
+%144931:	load	%144930  Location: (apr_buckets_alloc.c:148)
+%144941:	getelementptr	%144939 XXX XXX  Location: (apr_buckets_alloc.c:153)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:153)
+
+---- Part 3: Path Intersection ----
+[ 144864 144865 144930 144931 144867 144869 144870 ]
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144930:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:148)
+%144931:	load	%144930  Location: (apr_buckets_alloc.c:148)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:152)
+
+---- Part 3: Path Intersection ----
+[ 144864 144865 144930 144867 144869 144870 ]
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144930:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:148)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:148)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144913 144914 144915 144916 144917 144919 144920 144921 144922 144923 144924 144925 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144913:	phi	%144906 %144865 
+%144914:	phi	%144910 %144885 
+%144915:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:140)
+%144916:	load	%144915  Location: (apr_buckets_alloc.c:140)
+%144917:	bitcast	%144916  Location: (apr_buckets_alloc.c:140)
+%144919:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:141)
+%144920:	store	list %144919  Location: (apr_buckets_alloc.c:141)
+%144921:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:142)
+%144922:	store	%144913 %144921  Location: (apr_buckets_alloc.c:142)
+%144923:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:143)
+%144924:	store	XXX %144923  Location: (apr_buckets_alloc.c:143)
+%144925:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:144)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:144)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144913 144914 144915 144916 144917 144919 144920 144921 144922 144923 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144913:	phi	%144906 %144865 
+%144914:	phi	%144910 %144885 
+%144915:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:140)
+%144916:	load	%144915  Location: (apr_buckets_alloc.c:140)
+%144917:	bitcast	%144916  Location: (apr_buckets_alloc.c:140)
+%144919:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:141)
+%144920:	store	list %144919  Location: (apr_buckets_alloc.c:141)
+%144921:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:142)
+%144922:	store	%144913 %144921  Location: (apr_buckets_alloc.c:142)
+%144923:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:143)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:143)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144913 144914 144915 144916 144917 144919 144920 144921 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144913:	phi	%144906 %144865 
+%144914:	phi	%144910 %144885 
+%144915:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:140)
+%144916:	load	%144915  Location: (apr_buckets_alloc.c:140)
+%144917:	bitcast	%144916  Location: (apr_buckets_alloc.c:140)
+%144919:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:141)
+%144920:	store	list %144919  Location: (apr_buckets_alloc.c:141)
+%144921:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:142)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:142)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144913 144914 144915 144916 144917 144919 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144913:	phi	%144906 %144865 
+%144914:	phi	%144910 %144885 
+%144915:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:140)
+%144916:	load	%144915  Location: (apr_buckets_alloc.c:140)
+%144917:	bitcast	%144916  Location: (apr_buckets_alloc.c:140)
+%144919:	getelementptr	%144917 XXX XXX  Location: (apr_buckets_alloc.c:141)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:141)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144913 144914 144915 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144913:	phi	%144906 %144865 
+%144914:	phi	%144910 %144885 
+%144915:	getelementptr	%144913 XXX XXX  Location: (apr_buckets_alloc.c:140)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:140)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144891 144892 144894 144895 144896 144897 144898 144899 144901 144902 144903 144904 144905 144906 144908 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144891:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144892:	load	%144891  Location: (apr_buckets_alloc.c:132)
+%144894:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144895:	store	%144893 %144894  Location: (apr_buckets_alloc.c:132)
+%144896:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:133)
+%144897:	load	%144896  Location: (apr_buckets_alloc.c:133)
+%144898:	icmp	%144897 XXX  Location: (apr_buckets_alloc.c:133)
+%144899:	br	%144898 if.then10 if.end  Location: (apr_buckets_alloc.c:133)
+%144901:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:136)
+%144902:	load	%144901  Location: (apr_buckets_alloc.c:136)
+%144903:	getelementptr	%144902 XXX XXX  Location: (apr_buckets_alloc.c:136)
+%144904:	store	%144865 %144903  Location: (apr_buckets_alloc.c:136)
+%144905:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:137)
+%144906:	load	%144905  Location: (apr_buckets_alloc.c:137)
+%144908:	getelementptr	%144906 XXX XXX  Location: (apr_buckets_alloc.c:138)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:138)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144891 144892 144894 144895 144896 144897 144898 144899 144901 144902 144903 144904 144905 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144891:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144892:	load	%144891  Location: (apr_buckets_alloc.c:132)
+%144894:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144895:	store	%144893 %144894  Location: (apr_buckets_alloc.c:132)
+%144896:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:133)
+%144897:	load	%144896  Location: (apr_buckets_alloc.c:133)
+%144898:	icmp	%144897 XXX  Location: (apr_buckets_alloc.c:133)
+%144899:	br	%144898 if.then10 if.end  Location: (apr_buckets_alloc.c:133)
+%144901:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:136)
+%144902:	load	%144901  Location: (apr_buckets_alloc.c:136)
+%144903:	getelementptr	%144902 XXX XXX  Location: (apr_buckets_alloc.c:136)
+%144904:	store	%144865 %144903  Location: (apr_buckets_alloc.c:136)
+%144905:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:137)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:137)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144891 144892 144894 144895 144896 144897 144898 144899 144901 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144891:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144892:	load	%144891  Location: (apr_buckets_alloc.c:132)
+%144894:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144895:	store	%144893 %144894  Location: (apr_buckets_alloc.c:132)
+%144896:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:133)
+%144897:	load	%144896  Location: (apr_buckets_alloc.c:133)
+%144898:	icmp	%144897 XXX  Location: (apr_buckets_alloc.c:133)
+%144899:	br	%144898 if.then10 if.end  Location: (apr_buckets_alloc.c:133)
+%144901:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:136)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:136)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144891 144892 144894 144895 144896 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144891:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144892:	load	%144891  Location: (apr_buckets_alloc.c:132)
+%144894:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144895:	store	%144893 %144894  Location: (apr_buckets_alloc.c:132)
+%144896:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:133)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:133)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144888 144889 144890 144891 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144888:	load	%144887  Location: (apr_buckets_alloc.c:131)
+%144889:	icmp	%144885 %144888  Location: (apr_buckets_alloc.c:131)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144891:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:132)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:132)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144884 144885 144887 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144884:	load	%144883  Location: (apr_buckets_alloc.c:130)
+%144885:	getelementptr	%144884 XXX  Location: (apr_buckets_alloc.c:130)
+%144887:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:131)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:131)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144864 144865 144883 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144883:	getelementptr	%144865 XXX XXX  Location: (apr_buckets_alloc.c:130)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:130)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144875 144876 144878 144864 144865 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144875:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:126)
+%144876:	load	%144875  Location: (apr_buckets_alloc.c:126)
+%144878:	getelementptr	%144876 XXX XXX  Location: (apr_buckets_alloc.c:127)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:127)
+
+---- Part 3: Path Intersection ----
+[ 144871 144872 144873 144874 144875 144864 144865 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144872:	load	%144871  Location: (apr_buckets_alloc.c:125)
+%144873:	icmp	%144872 XXX  Location: (apr_buckets_alloc.c:125)
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144875:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:126)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:126)
+
+---- Part 3: Path Intersection ----
+[ 144871 144864 144865 144867 144869 144870 ]
+%144871:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:125)
+%144864:	getelementptr	list XXX XXX  Location: (apr_buckets_alloc.c:120)
+%144865:	load	%144864  Location: (apr_buckets_alloc.c:120)
+%144867:	add	size XXX  Location: (apr_buckets_alloc.c:123)
+%144869:	icmp	%144867 XXX  Location: (apr_buckets_alloc.c:124)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+Function: apr_bucket_alloc(...) Location: (apr_buckets_alloc.c:125)
+
+   # of detected potential vulnerabilities: 86
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 144874 144890 144870 145111 144964 ]
+%144874:	br	%144873 if.else if.then1  Location: (apr_buckets_alloc.c:125)
+%144890:	br	%144889 if.end16 if.then6  Location: (apr_buckets_alloc.c:131)
+%144870:	br	%144869 if.else21 if.then  Location: (apr_buckets_alloc.c:124)
+%145111:	br	%145110 if.end if.then5  Location: (apr_buckets_heap.c:54)
+%144964:	br	%144963 if.else if.then  Location: (apr_buckets_alloc.c:185)
+Dangerous Operation Location: (apr_pools.c:400)
+
+   # of detected potential vulnerabilities: 1
+*********************************************************
+

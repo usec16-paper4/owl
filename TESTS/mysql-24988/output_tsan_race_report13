@@ -1,0 +1,57 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/mysql-24988
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/mysql-24988
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/mysql-24988/mysql-24988.bc --ptrderef --danfunc --raceReport tsan_race_report13
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(mysqld.cc : 1200)
+-------------------------
+  %0 = load volatile i8* @_ZL20signal_thread_in_use, align 1, !dbg !172630
+-------------------------
+(mysqld.cc : 3562)
+
+==== First Instruction Is In A Loop ! ====
+---- Part 1: Dataflow Result ---- 
+[ 135090 135091 135093 135094 134323 ]
+%135090:	load	_ZL20signal_thread_in_use  Location: (mysqld.cc:1200)
+%135091:	trunc	%135090  Location: (mysqld.cc:1200)
+%135093:	phi	XXX %135091 
+%135094:	br	%135093 for.end for.body  Location: (mysqld.cc:1200)
+%134323:	call	_ZL29wait_for_signal_thread_to_endv  Location: (mysqld.cc:3562)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 70527
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 135094 ]
+%135094:	br	%135093 for.end for.body  Location: (mysqld.cc:1200)
+Dangerous Operation Location: (my_sleep.c:32)
+
+---- Part 2: Cross Function Ctrl Dependent ----
+[ 135094 ]
+%135094:	br	%135093 for.end for.body  Location: (mysqld.cc:1200)
+Dangerous Operation Location: (my_sleep.c:33)
+
+   # of detected potential vulnerabilities: 2
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+
++ echo 'ConAnalysis Done!'

@@ -1,0 +1,186 @@
++ '[' '!' 2 -eq 2 ']'
++ TEST_DIR=TESTS/apache-46215
++ CONANAL_DIR=lib/ConAnal
++ DOL_DIR=lib/DOL
++ CDG_DIR=lib/CDG
++ BITCODE_DIR=/home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ cd /home/ruigu/Workspace/ConAnalysis/build/TESTS/apache-46215
++ opt -load ../../lib/DOL/libDOL.so --danFuncFile danMemFuncLists.txt -load ../../lib/CDG/libCDG.so -load ../../lib/ConAnal/libConAnalysis.so -ConAnalysis ../../../TESTS/apache-46215/apache-46215.bc --ptrderef --danfunc --raceReport tsan_race_report606
+---------------------------------------
+           Start DOL Pass              
+---------------------------------------
+Read 18 dangerous functions from danMemFuncLists.txt
+
+---------------------------------------
+       Start ConAnalysis Pass          
+---------------------------------------
+---- Replaying call stack input ----
+(apr_pools.c : 2243)
+-------------------------
+  %pre_cleanups = getelementptr inbounds %struct.apr_pool_t* %p, i32 0, i32 14, !dbg !45724
+-------------------------
+(apr_pools.c : 2296)
+(sockets.c : 149)
+(worker.c : 238)
+(worker.c : 294)
+(worker.c : 1275)
+(worker.c : 1341)
+(worker.c : 1375)
+(worker.c : 1725)
+(main.c : 740)
+
+---- Part 1: Dataflow Result ---- 
+[ 126382 126383 126385 126388 126389 126390 126391 126392 126393 126394 126395 126396 126397 126398 126399 126400 126401 126402 126405 126406 126408 126407 126410 126412 126413 126450 ]
+%126382:	getelementptr	p XXX XXX  Location: (apr_pools.c:2243)
+%126383:	load	%126382  Location: (apr_pools.c:2243)
+%126385:	getelementptr	p XXX XXX  Location: (apr_pools.c:2244)
+%126388:	phi	%126383 %126413 
+%126389:	phi	%126385 %126410 
+%126390:	icmp	%126388 XXX  Location: (apr_pools.c:2245)
+%126391:	br	%126390 while.end27 while.body14  Location: (apr_pools.c:2245)
+%126392:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126393:	load	%126392  Location: (apr_pools.c:2255)
+%126394:	icmp	%126393 data  Location: (apr_pools.c:2255)
+%126395:	br	%126394 if.end24 land.lhs.true17  Location: (apr_pools.c:2255)
+%126396:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126397:	load	%126396  Location: (apr_pools.c:2255)
+%126398:	icmp	%126397 cleanup_fn  Location: (apr_pools.c:2255)
+%126399:	br	%126398 if.end24 if.then20  Location: (apr_pools.c:2255)
+%126400:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2256)
+%126401:	load	%126400  Location: (apr_pools.c:2256)
+%126402:	store	%126401 %126389  Location: (apr_pools.c:2256)
+%126405:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2258)
+%126406:	store	%126404 %126405  Location: (apr_pools.c:2258)
+%126408:	store	%126388 %126407  Location: (apr_pools.c:2259)
+%126407:	getelementptr	p XXX XXX  Location: (apr_pools.c:2259)
+%126410:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2263)
+%126412:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2264)
+%126413:	load	%126412  Location: (apr_pools.c:2264)
+%126450:	call	p data cleanup_fn apr_pool_cleanup_kill  Location: (apr_pools.c:2296)
+
+*********************************************************
+     Pointer Dereference Analysis Result                 
+   # of static pointer deference statements: 17123
+
+---- Part 3: Path Intersection ----
+[ 126382 126383 126385 126388 126389 126390 126391 126392 126393 126394 126395 126410 126412 ]
+%126382:	getelementptr	p XXX XXX  Location: (apr_pools.c:2243)
+%126383:	load	%126382  Location: (apr_pools.c:2243)
+%126385:	getelementptr	p XXX XXX  Location: (apr_pools.c:2244)
+%126388:	phi	%126383 %126413 
+%126389:	phi	%126385 %126410 
+%126390:	icmp	%126388 XXX  Location: (apr_pools.c:2245)
+%126391:	br	%126390 while.end27 while.body14  Location: (apr_pools.c:2245)
+%126392:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126393:	load	%126392  Location: (apr_pools.c:2255)
+%126394:	icmp	%126393 data  Location: (apr_pools.c:2255)
+%126395:	br	%126394 if.end24 land.lhs.true17  Location: (apr_pools.c:2255)
+%126410:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2263)
+%126412:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2264)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2264)
+
+---- Part 3: Path Intersection ----
+[ 126382 126383 126385 126388 126389 126390 126391 126392 126393 126394 126395 126410 ]
+%126382:	getelementptr	p XXX XXX  Location: (apr_pools.c:2243)
+%126383:	load	%126382  Location: (apr_pools.c:2243)
+%126385:	getelementptr	p XXX XXX  Location: (apr_pools.c:2244)
+%126388:	phi	%126383 %126413 
+%126389:	phi	%126385 %126410 
+%126390:	icmp	%126388 XXX  Location: (apr_pools.c:2245)
+%126391:	br	%126390 while.end27 while.body14  Location: (apr_pools.c:2245)
+%126392:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126393:	load	%126392  Location: (apr_pools.c:2255)
+%126394:	icmp	%126393 data  Location: (apr_pools.c:2255)
+%126395:	br	%126394 if.end24 land.lhs.true17  Location: (apr_pools.c:2255)
+%126410:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2263)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2263)
+
+---- Part 3: Path Intersection ----
+[ 126382 126383 126385 126388 126389 126390 126391 126392 126393 126394 126395 126396 126397 126398 126399 126400 126401 126402 126405 126406 126407 ]
+%126382:	getelementptr	p XXX XXX  Location: (apr_pools.c:2243)
+%126383:	load	%126382  Location: (apr_pools.c:2243)
+%126385:	getelementptr	p XXX XXX  Location: (apr_pools.c:2244)
+%126388:	phi	%126383 %126413 
+%126389:	phi	%126385 %126410 
+%126390:	icmp	%126388 XXX  Location: (apr_pools.c:2245)
+%126391:	br	%126390 while.end27 while.body14  Location: (apr_pools.c:2245)
+%126392:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126393:	load	%126392  Location: (apr_pools.c:2255)
+%126394:	icmp	%126393 data  Location: (apr_pools.c:2255)
+%126395:	br	%126394 if.end24 land.lhs.true17  Location: (apr_pools.c:2255)
+%126396:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126397:	load	%126396  Location: (apr_pools.c:2255)
+%126398:	icmp	%126397 cleanup_fn  Location: (apr_pools.c:2255)
+%126399:	br	%126398 if.end24 if.then20  Location: (apr_pools.c:2255)
+%126400:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2256)
+%126401:	load	%126400  Location: (apr_pools.c:2256)
+%126402:	store	%126401 %126389  Location: (apr_pools.c:2256)
+%126405:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2258)
+%126406:	store	%126404 %126405  Location: (apr_pools.c:2258)
+%126407:	getelementptr	p XXX XXX  Location: (apr_pools.c:2259)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2259)
+
+---- Part 3: Path Intersection ----
+[ 126382 126383 126385 126388 126389 126390 126391 126392 126393 126394 126395 126396 126397 126398 126399 126400 126401 126402 ]
+%126382:	getelementptr	p XXX XXX  Location: (apr_pools.c:2243)
+%126383:	load	%126382  Location: (apr_pools.c:2243)
+%126385:	getelementptr	p XXX XXX  Location: (apr_pools.c:2244)
+%126388:	phi	%126383 %126413 
+%126389:	phi	%126385 %126410 
+%126390:	icmp	%126388 XXX  Location: (apr_pools.c:2245)
+%126391:	br	%126390 while.end27 while.body14  Location: (apr_pools.c:2245)
+%126392:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126393:	load	%126392  Location: (apr_pools.c:2255)
+%126394:	icmp	%126393 data  Location: (apr_pools.c:2255)
+%126395:	br	%126394 if.end24 land.lhs.true17  Location: (apr_pools.c:2255)
+%126396:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126397:	load	%126396  Location: (apr_pools.c:2255)
+%126398:	icmp	%126397 cleanup_fn  Location: (apr_pools.c:2255)
+%126399:	br	%126398 if.end24 if.then20  Location: (apr_pools.c:2255)
+%126400:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2256)
+%126401:	load	%126400  Location: (apr_pools.c:2256)
+%126402:	store	%126401 %126389  Location: (apr_pools.c:2256)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2258)
+
+---- Part 3: Path Intersection ----
+[ 126382 126383 126385 126388 126389 126390 126391 126392 126393 126394 126395 126396 126397 126398 126399 126400 ]
+%126382:	getelementptr	p XXX XXX  Location: (apr_pools.c:2243)
+%126383:	load	%126382  Location: (apr_pools.c:2243)
+%126385:	getelementptr	p XXX XXX  Location: (apr_pools.c:2244)
+%126388:	phi	%126383 %126413 
+%126389:	phi	%126385 %126410 
+%126390:	icmp	%126388 XXX  Location: (apr_pools.c:2245)
+%126391:	br	%126390 while.end27 while.body14  Location: (apr_pools.c:2245)
+%126392:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126393:	load	%126392  Location: (apr_pools.c:2255)
+%126394:	icmp	%126393 data  Location: (apr_pools.c:2255)
+%126395:	br	%126394 if.end24 land.lhs.true17  Location: (apr_pools.c:2255)
+%126396:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+%126397:	load	%126396  Location: (apr_pools.c:2255)
+%126398:	icmp	%126397 cleanup_fn  Location: (apr_pools.c:2255)
+%126399:	br	%126398 if.end24 if.then20  Location: (apr_pools.c:2255)
+%126400:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2256)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2256)
+
+---- Part 3: Path Intersection ----
+[ 126382 126383 126385 126388 126389 126390 126391 126392 ]
+%126382:	getelementptr	p XXX XXX  Location: (apr_pools.c:2243)
+%126383:	load	%126382  Location: (apr_pools.c:2243)
+%126385:	getelementptr	p XXX XXX  Location: (apr_pools.c:2244)
+%126388:	phi	%126383 %126413 
+%126389:	phi	%126385 %126410 
+%126390:	icmp	%126388 XXX  Location: (apr_pools.c:2245)
+%126391:	br	%126390 while.end27 while.body14  Location: (apr_pools.c:2245)
+%126392:	getelementptr	%126388 XXX XXX  Location: (apr_pools.c:2255)
+Function: apr_pool_cleanup_kill(...) Location: (apr_pools.c:2255)
+
+   # of detected potential vulnerabilities: 6
+*********************************************************
+
+*********************************************************
+     Dangerous Function Analysis Result                  
+   # of static dangerous function statements: 18
+
+   # of detected potential vulnerabilities: 0
+*********************************************************
+

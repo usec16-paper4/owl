@@ -1,0 +1,8 @@
+do_item_update (items.c:402)
+item_update (thread.c:564)
+process_touch_command (memcached.c:3170)
+process_command (memcached.c:3493)
+try_read_command (memcached.c:3802)
+drive_machine (memcached.c:4155)
+event_handler (memcached.c:4400)
+event_persist_closure (event.c:1291)

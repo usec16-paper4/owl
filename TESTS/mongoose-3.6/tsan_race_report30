@@ -1,0 +1,3 @@
+fopen (sanitizer_common_interceptors.inc:4654)
+mg_fopen (mongoose.c:571)
+process_new_connection (mongoose.c:4852)
